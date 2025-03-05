@@ -1,12 +1,12 @@
 import { useState } from "react";
-import plusIcon from "../assets/plusIcon.png"
+import {CirclePlus} from 'lucide-react'
 
 
 export default function AddNewWorkout(){
     return(
         <>
             <div id="addNewWorkout">
-                <button id="addNewWorkoutBtn"><img src={plusIcon} alt="Add new workout" /></button>
+                <button id="addNewWorkoutBtn"><CirclePlus size='86'></CirclePlus></button>
             </div>
         </>
     )

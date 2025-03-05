@@ -132,19 +132,12 @@ body{
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    color: var(--aqua);
+    transition: all 0.3s ease-in-out;
 }
 
-#addNewWorkoutBtn > img{
-    width: 60px;
-    height: 60px;
-    padding: 5px;
-    border: 3px black solid;
-    border-radius: 50%;
-    transition: all 0.2s;
-}
-
-#addNewWorkoutBtn:hover#addNewWorkoutBtn > img{
-    transform: translateY(-3px);
+#addNewWorkoutBtn:hover#addNewWorkoutBtn{
+    transform: translateY(-3px)  skew(-5deg, -5deg);
 }
 
 .workoutContainer{
