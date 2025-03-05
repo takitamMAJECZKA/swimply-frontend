@@ -117,8 +117,8 @@ body{
 
 #addNewWorkout{
     margin-top: 20px;
-    min-width: 250px;
-    height: 20vh;
+    width: auto;
+    min-height: 200px;
     background-color: #000;
     border-radius: 20px;
     background: radial-gradient(var(--light-dominant), var(--dominant));

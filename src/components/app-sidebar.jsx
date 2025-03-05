@@ -1,15 +1,11 @@
 import * as React from "react"
 import {
   BookOpen,
-  Bot,
-  Command,
-  Frame,
-  LifeBuoy,
-  Map,
-  PieChart,
   Send,
   Settings2,
-  SquareTerminal,
+  Activity,
+  ChartColumn,
+  Waves
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -28,103 +24,85 @@ import {
 
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "Macius",
+    email: "macius@example.com",
+    avatar: "#",
   },
   navMain: [
     {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
+      title: "Treningi",
+      url: "/workouts",
+      icon: Activity,
+      isActive: window.location.pathname === "/workouts" ||  window.location.pathname === "/workouts/" ? true : false,
       items: [
         {
-          title: "History",
-          url: "#",
+          title: "Dodaj",
+          url: "/workouts/#add",
         },
         {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
+          title: "Historia",
+          url: "/workouts/#history",
         },
       ],
     },
     {
-      title: "Models",
-      url: "#",
-      icon: Bot,
+      title: "Statystyki",
+      url: "/stats",
+      icon: ChartColumn,
+      isActive: window.location.pathname === "/stats" ||  window.location.pathname === "/stats/" ? true : false,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: "Tygodniowe",
+          url: "/stats/#weekly",
         },
         {
-          title: "Explorer",
-          url: "#",
+          title: "Miesięczne",
+          url: "/stats/#monthly",
         },
         {
-          title: "Quantum",
-          url: "#",
+          title: "Ogólne",
+          url: "/stats/#general",
         },
       ],
     },
     {
-      title: "Documentation",
-      url: "#",
+      title: "Szablony",
+      url: "/patterns",
       icon: BookOpen,
+      isActive: window.location.pathname === "/patterns" ||  window.location.pathname === "/patterns/" ? true : false,
       items: [
         {
-          title: "Introduction",
-          url: "#",
+          title: "Nowy szablon",
+          url: "/patterns/#add",
         },
         {
-          title: "Get Started",
-          url: "#",
+          title: "Pierwszy szablon",
+          url: "/patterns/#last",
         },
         {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
+          title: "Drugi szablon",
+          url: "/patterns/#almost-last",
         },
       ],
     },
     {
-      title: "Settings",
-      url: "#",
+      title: "Ustawienia",
+      url: "/settings",
       icon: Settings2,
+      isActive: window.location.pathname === "/settings" ||  window.location.pathname === "/settings/" ? true : false,
       items: [
         {
-          title: "General",
-          url: "#",
+          title: "Ogólne",
+          url: "/settings/#general",
         },
         {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
+          title: "Konta",
+          url: "/settings/#account",
         },
       ],
     },
   ],
   navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
     {
       title: "Feedback",
       url: "#",
@@ -133,19 +111,19 @@ const data = {
   ],
   projects: [
     {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
+      name: "Ostatni trening",
+      url: "/workouts/#last",
+      icon: Activity,
     },
     {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
+      name: "Przedostatni trening",
+      url: "/workouts/#almost-last",
+      icon: Activity,
     },
     {
-      name: "Travel",
-      url: "#",
-      icon: Map,
+      name: "I tak dalej",
+      url: "/workouts/#and-so-on",
+      icon: Activity,
     },
   ],
 }
@@ -159,14 +137,14 @@ export function AppSidebar({
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <a href="/">
                 <div
                   className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <Command className="size-4" />
+                  <Waves className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Acme Inc</span>
-                  <span className="truncate text-xs">Enterprise</span>
+                  <span className="truncate font-medium">Swimply</span>
+                  <span className="truncate text-xs">Swimming tracker</span>
                 </div>
               </a>
             </SidebarMenuButton>

@@ -28,7 +28,7 @@ export default function Stats(){
                     <Breadcrumb>
                     <BreadcrumbList>
                         <BreadcrumbItem className="hidden md:block">
-                        <BreadcrumbLink href="#">
+                        <BreadcrumbLink href="/">
                             Swimply
                         </BreadcrumbLink>
                         </BreadcrumbItem>

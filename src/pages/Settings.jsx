@@ -15,16 +15,9 @@ import {
 } from "@/components/ui/sidebar"
 
 
-
-
-import { Link } from "react-router-dom"
-import AddNewWorkout from "../components/AddNewWorkout"
-import Workout from "../components/Workout"
-
-
-export default function Home(){
-    return(
-    <div id="homePage">
+export default function Settings(){
+    return (
+        <div className="statsPage">
             <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
@@ -41,26 +34,22 @@ export default function Home(){
                         </BreadcrumbItem>
                         <BreadcrumbSeparator className="hidden md:block" />
                         <BreadcrumbItem>
-                        <BreadcrumbPage>Strona główna</BreadcrumbPage>
+                        <BreadcrumbPage>Ustawienia</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                     </Breadcrumb>
                 </div>
                 </header>
                 <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                    <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                        <AddNewWorkout/>
-                        <Workout />
-                        <div className="aspect-video rounded-xl bg-muted/50 text-center">Stats</div>
-                    </div>
-                    <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                    <div className="aspect-video rounded-xl bg-muted/50" />
+                    <div className="aspect-video rounded-xl bg-muted/50" />
+                    <div className="aspect-video rounded-xl bg-muted/50" />
+                </div>
+                <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
                 </div>
             </SidebarInset>
             </SidebarProvider>
-        <h1>Home</h1>
-        <Link to="/login">Login</Link><br />
-        <Link to="/stats">Stats</Link><br />
-        <Link to="/account">Account</Link>
-    </div>
-    )
+        </div>
+      )
 }
