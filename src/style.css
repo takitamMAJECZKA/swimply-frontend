@@ -1,0 +1,299 @@
+:root{
+    --dominant: #031927;
+    --light-dominant: #093b5a;
+    --dark-aqua: #508aa8;
+    --aqua: #9dd1f1;
+    --light-aqua: #c8e0f4;
+    --almost-white: #bee6ff;
+    --red: #ba1200;
+}
+
+#root{
+    height: 100%;
+    width: 100%;
+}
+*{
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body{
+    background: linear-gradient(45deg, var(--dominant), 75%,  var(--light-dominant));
+    background-repeat: no-repeat;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--light-aqua);
+    height: auto;
+    min-height: 100vh;
+}
+
+
+#loginPage{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#homePage{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#loginFormContainer, #registerFormContainer{
+    font-size: 150%;
+    width: 35vw;
+    height: auto;
+    min-height: 600px;
+    min-width: 400px;
+    background: radial-gradient(var(--light-dominant), 7% ,var(--dominant) 90%);
+    box-shadow: 1px 1px 70px black;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+#loginFormContainer > form, #registerFormContainer > form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+#loginHeader, #registerHeader{
+    font-size: 200%;
+    margin-bottom: 70px;
+}
+
+#loginFormContainer form label, #registerFormContainer form label{
+    margin-bottom: 40px;
+}
+
+#loginFormContainer label input, #registerFormContainer label input{
+    font-size: 75%;
+    border-radius: 5px;
+    border: 3px solid var(--light-dominant);
+}
+
+#loginBtn, #registerBtn{
+    cursor: pointer;
+    background-color: var(--aqua);
+    color: var(--dominant);
+    padding: 10px 12.5vw;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+#loginBtn:hover, #registerBtn:hover{
+    background-color: var(--almost-white);
+}
+
+#changeToRegister, #changeToLogin{
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#loginError, #registerError{
+    display: block;
+    font-size: 80%;
+    margin: 0;
+    margin-top: 20px;
+    padding: 0;
+    color: var(--red);
+}
+
+#email:valid{
+    color: green;
+}
+
+#addNewWorkout{
+    margin-top: 20px;
+    min-width: 250px;
+    height: 20vh;
+    background-color: #000;
+    border-radius: 20px;
+    background: radial-gradient(var(--light-dominant), var(--dominant));
+    box-shadow: 1px 1px 70px black;
+}
+
+#addNewWorkoutBtn{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#addNewWorkoutBtn > img{
+    width: 60px;
+    height: 60px;
+    padding: 5px;
+    border: 3px black solid;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+#addNewWorkoutBtn:hover#addNewWorkoutBtn > img{
+    transform: translateY(-3px);
+}
+
+.workoutContainer{
+    margin-top: 20px;
+    padding: 15px;
+    min-width: 360px;
+    height: auto;
+    background-color: #000;
+    border-radius: 20px;
+    background: radial-gradient(var(--light-dominant), var(--dominant));
+    box-shadow: 1px 1px 70px black;
+}
+
+.workoutInfo{
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 10px;
+    grid-template-areas: 
+    '   date   date   '
+    '   .   .  ';
+    font-size: 120%;
+    margin-bottom: 20px;
+}
+.workoutDate{
+    text-align: center;
+    grid-area: date;
+}
+.workoutDistance, .workoutTime{
+    text-align: center;
+}
+
+.workoutHeader > label{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dataInput{
+    margin: 10px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--aqua);
+}
+
+.dataInput:focus{
+    border-color: var(--aqua);
+}
+
+.workoutName{
+    font-size: 120%;
+    font-weight: bolder;
+}
+
+.editIcon{
+    height: 25px;
+    cursor: pointer;
+}
+
+.exercise, .break{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--dominant);
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.breakName{
+    margin: 0;
+    margin-top: 10px;
+    color: var(--aqua);
+    font-size: 130%;
+    font-weight: bold;
+}
+
+.exercise > label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.exercisePoolsInput, .exerciseTimeInput, .breakTimeInput{
+    border: 1px solid var(--aqua);
+    text-align: center;
+    border-radius: 5px;
+    width: 30%;
+
+}
+
+.exerciseCalculations{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+    font-weight: bolder;
+}
+
+.exerciseDistance, .exercisePace{
+    padding: 3px;
+}
+
+.exerciseName{
+    font-size: 120%;
+    font-weight: bolder;
+}
+
+.exerciseButtons, .breakButtons{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.moveUpButton, .moveDownButton, .deleteButton{
+    border: 1px solid var(--aqua);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.dataInputsWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 5px;
+}
+
+.addElements{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.addExercise, .addBreak{
+    border: 1px solid var(--aqua);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+@media (width <= 500px) {
+    #loginFormContainer, #registerFormContainer{
+        min-width: calc(100vw - 60px);
+    }
+    .workoutContainer{
+        max-width: calc(100vw - 30px);
+    }
+}
