@@ -8,7 +8,7 @@ export default function LoginForm(){
     
     if (returnLogin){
         return(
-            <div id="loginFormContainer">
+            <div id="loginFormContainer fancy-shadow">
                 <form>
                     <h2 id="loginHeader">ZALOGUJ</h2>
                     <label>Nazwa użytkownika: <input type="text" id="username"/></label>
@@ -21,7 +21,7 @@ export default function LoginForm(){
         )
     }else{
         return(
-            <div id="registerFormContainer">
+            <div id="registerFormContainer fancy-shadow">
                 <form>
                     <h2 id="registerHeader">ZAREJESTRUJ</h2>
                     <label>Nazwa użytkownika: <input type="text" id="username"/></label>

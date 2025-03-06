@@ -50,7 +50,6 @@ body{
     min-height: 600px;
     min-width: 400px;
     background: radial-gradient(var(--light-dominant), 7% ,var(--dominant) 90%);
-    box-shadow: 1px 1px 70px black;
     border-radius: 20px;
     display: flex;
     justify-content: center;
@@ -120,9 +119,8 @@ body{
     width: auto;
     min-height: 200px;
     background-color: #000;
-    border-radius: 20px;
-    background: radial-gradient(var(--light-dominant), var(--dominant));
-    box-shadow: 1px 1px 70px black;
+    border-radius: 1rem;
+    background-color: var(--dominant);
 }
 
 #addNewWorkoutBtn{
@@ -147,8 +145,11 @@ body{
     max-width: 600px;
     height: auto;
     background-color: #000;
-    border-radius: 20px;
-    background: radial-gradient(var(--light-dominant), var(--dominant));
+    border-radius: 1rem;
+    background-color: var(--dominant);
+}
+
+.fancy-shadow{
     box-shadow: 1px 1px 70px black;
 }
 

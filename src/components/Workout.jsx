@@ -100,7 +100,7 @@ export default function Workout(){
     }
 
     return(
-        <div className="workoutContainer">
+        <div className="workoutContainer fancy-shadow">
             <div className="workoutHeader">
                 <label><input type="text" onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Workout name" value={workoutData.name}/><img className="editIcon" src={editIcon} alt="edit" /></label>
                 <div className="workoutInfo">

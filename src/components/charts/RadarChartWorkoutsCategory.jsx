@@ -34,7 +34,7 @@ const chartConfig = {
 
 export default function RadarChartWorkoutsCategory() {
   return (
-    <Card>
+    <Card className='fancy-shadow'>
       <CardHeader className="items-center pb-4">
         <CardTitle>Treningi</CardTitle>
         <CardDescription>
