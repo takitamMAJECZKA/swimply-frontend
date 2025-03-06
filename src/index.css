@@ -45,8 +45,8 @@
     --input: var(--aqua);
     --ring: var(--dominant);
     --radius: 1rem;
-    --chart-1: oklch(0.7 0.26 60);
-    --chart-2: oklch(0.55 0.22 170);
+    --chart-1: var(--aqua);
+    --chart-2: var(--dark-aqua);
     --chart-3: oklch(0.42 0.15 220);
     --chart-4: oklch(0.78 0.28 90);
     --chart-5: oklch(0.81 0.3 80);

@@ -135,7 +135,7 @@ body{
 }
 
 #addNewWorkoutBtn:hover#addNewWorkoutBtn{
-    transform: translateY(-3px)  skew(-5deg, -5deg);
+    transform: translateY(-20px)  skew(-20deg, -5deg) rotate(3turn);
 }
 
 .workoutContainer{

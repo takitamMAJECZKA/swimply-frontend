@@ -22,6 +22,7 @@ import AddNewWorkout from "../components/AddNewWorkout"
 import Workout from "../components/Workout"
 import RadarChartWorkoutsCategory from "../components/charts/RadarChartWorkoutsCategory"
 import RadialProgressChart from "../components/charts/RadialProgressChart"
+import LongAreaChartWeekStats from "../components/charts/LongAreaChartWeekStats"
 
 
 export default function Home(){
@@ -55,16 +56,12 @@ export default function Home(){
                         <RadarChartWorkoutsCategory />
                         <RadialProgressChart />
                     </div>
-                    <div className="w-full flex justify-center"> 
-                        <Workout />
+                    <div className="w-full"> 
+                        <LongAreaChartWeekStats />
                     </div>
                 </div>
             </SidebarInset>
             </SidebarProvider>
-        <h1>Home</h1>
-        <Link to="/login">Login</Link><br />
-        <Link to="/stats">Stats</Link><br />
-        <Link to="/account">Account</Link>
     </div>
     )
 }
