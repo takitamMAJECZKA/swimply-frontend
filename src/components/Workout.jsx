@@ -5,6 +5,18 @@ import Break from "./Break";
 import {convertMinsToSecs, convertSecsToHours} from '../TimeCalculate.js'
 import {v4 as uuidv4} from 'uuid'
 
+
+import {CalendarSync} from 'lucide-react'
+
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+  } from "@/components/ui/dropdown-menu"
+
 export default function Workout(){
     let date = new Date();
 
@@ -104,7 +116,11 @@ export default function Workout(){
             <div className="workoutHeader">
                 <label><input type="text" onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Workout name" value={workoutData.name}/><img className="editIcon" src={editIcon} alt="edit" /></label>
                 <div className="workoutInfo">
-                    <div className="workoutDate">{date.getDate()} {getMonthString()} {date.getFullYear()}</div>
+                    <div className="workoutDate">{date.getDate()} {getMonthString()} {date.getFullYear()} 
+                        
+                        <CalendarSync/>
+                        
+                        </div>
                     <div className="workoutDistance">{workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}</div>
                     <div className="workoutTime">{workoutData.timeLong=="NaN:NaN:NaN" ? '00:00:00': workoutData.timeLong}(hh:mm:ss)</div>
                 </div>
@@ -123,7 +139,16 @@ export default function Workout(){
                 })}
             </div>
             <div className="addElements">
-                <button className="addExercise" onClick={() => {handleAddExercise()}}>Dodaj ćwiczenie</button>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger className="rounded-[10px]">
+                            <div className="addExercise cursor-pointer">Dodaj ćwiczenie</div>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuItem className="cursor-pointer" onClick={() => {handleAddExercise()}}>Dodaj puste ćwiczenie</DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem className="cursor-pointer">Dodaj gotowe ćwiczenie</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 <button className="addBreak" onClick={() => {handleAddBreak()}}>Dodaj przerwę</button>
             </div>
         </div>
