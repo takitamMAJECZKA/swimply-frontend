@@ -16,7 +16,7 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 
-export default function Workout(props){
+export default function EditableWorkout(props){
     let date = new Date();
 
     let [content, setContent] = useState([])
@@ -90,7 +90,7 @@ export default function Workout(props){
     return(
         <div className="workoutContainer fancy-shadow">
             <div className="workoutHeader">
-                <label><input type="text" onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Workout name" value={workoutData.name}/><img className="editIcon" src={editIcon} alt="edit" /></label>
+                <label><input type="text" onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Nazwa treningu" value={workoutData.name}/><img className="editIcon" src={editIcon} alt="edit" /></label>
                 <div className="workoutInfo">
                     <div className="workoutDate">{date.getDate()} {date.toLocaleDateString('pl-PL', {month:'long'})} {date.getFullYear()}</div>
                     <div className="workoutDistance">{workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}</div>

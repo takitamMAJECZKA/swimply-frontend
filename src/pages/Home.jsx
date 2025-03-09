@@ -19,7 +19,6 @@ import {
 
 import { Link } from "react-router-dom"
 import AddNewWorkout from "../components/AddNewWorkout"
-import Workout from "../components/Workout"
 import RadarChartWorkoutsCategory from "../components/charts/RadarChartWorkoutsCategory"
 import RadialProgressChart from "../components/charts/RadialProgressChart"
 import LongAreaChartWeekStats from "../components/charts/LongAreaChartWeekStats"

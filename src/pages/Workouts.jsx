@@ -18,7 +18,8 @@ import {
 import { useState } from "react";
 
 import { v4 as uuidv4 } from "uuid";
-import Workout from "../components/Workout"
+import FinishedWorkout from "../components/FinishedWorkout"
+import EditableWorkout from "../components/EditableWorkout"
 
 export default function Workouts(){
     
@@ -53,13 +54,12 @@ export default function Workouts(){
                 </header>
                 <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
                     <div className="w-full flex justify-center">
-                        <Workout addWorkoutToList={addWorkoutToList}/>
+                        <EditableWorkout addWorkoutToList={addWorkoutToList}/>
                     </div>
                     <div className="grid auto-rows-min gap-4 md:grid-cols-3">
                         {workoutsList.toReversed().map((workout) => {
-                            console.log(workout)
                             return(
-                                <div key={uuidv4()} className="aspect-video rounded-xl bg-muted/50 text-center" >{workout.name} <br/>{workout.workoutDate.toString()}</div>
+                                <FinishedWorkout key={uuidv4()} data={workout}/>
                             )
                         })}
                     </div>
