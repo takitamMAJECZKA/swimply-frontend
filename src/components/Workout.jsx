@@ -6,7 +6,6 @@ import {convertMinsToSecs, convertSecsToHours} from '../TimeCalculate.js'
 import {v4 as uuidv4} from 'uuid'
 
 
-import {CalendarSync} from 'lucide-react'
 
 import {
     DropdownMenu,
@@ -17,7 +16,7 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 
-export default function Workout(){
+export default function Workout(props){
     let date = new Date();
 
     let [content, setContent] = useState([])
@@ -82,33 +81,10 @@ export default function Workout(){
         }
     }
 
-    function getMonthString(){
-        switch(date.getMonth()){
-            case 0:
-                return 'Styczeń'
-            case 1:
-                return'Luty'
-            case 2:
-                return'Marzec'
-            case 3:
-                return'Kwiecień'
-            case 4:
-                return'Maj'
-            case 5:
-                return'Czerwiec'
-            case 6:
-                return'Lipiec'
-            case 7:
-                return'Sierpień'
-            case 8:
-                return'Wrzesień'
-            case 9:
-                return'Październik'
-            case 10:
-                return'Listopad'
-            case 11:
-                return'Grudzień'
-        }
+    function handleFinishWorkout(){
+        props.addWorkoutToList(workoutData)
+        setContent([])
+        setWorkoutData({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date ,elementsIn: [...content]})
     }
 
     return(
@@ -116,11 +92,7 @@ export default function Workout(){
             <div className="workoutHeader">
                 <label><input type="text" onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Workout name" value={workoutData.name}/><img className="editIcon" src={editIcon} alt="edit" /></label>
                 <div className="workoutInfo">
-                    <div className="workoutDate">{date.getDate()} {getMonthString()} {date.getFullYear()} 
-                        
-                        <CalendarSync/>
-                        
-                        </div>
+                    <div className="workoutDate">{date.getDate()} {date.toLocaleDateString('pl-PL', {month:'long'})} {date.getFullYear()}</div>
                     <div className="workoutDistance">{workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}</div>
                     <div className="workoutTime">{workoutData.timeLong=="NaN:NaN:NaN" ? '00:00:00': workoutData.timeLong}(hh:mm:ss)</div>
                 </div>
@@ -150,6 +122,7 @@ export default function Workout(){
                         </DropdownMenuContent>
                     </DropdownMenu>
                 <button className="addBreak" onClick={() => {handleAddBreak()}}>Dodaj przerwę</button>
+                <button className="finishWorkout" onClick={() => {handleFinishWorkout()}}>Zakończ</button>
             </div>
         </div>
     )

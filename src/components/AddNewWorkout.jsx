@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {CirclePlus} from 'lucide-react'
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 
 import {
@@ -18,7 +18,7 @@ export default function AddNewWorkout(){
             <div id="addNewWorkout" className="fancy-shadow">
                 <DropdownMenu>
                     <DropdownMenuTrigger className="">
-                        <button id="addNewWorkoutBtn"><CirclePlus size='86'></CirclePlus></button>
+                        <div id="addNewWorkoutBtn"><CirclePlus size='86'></CirclePlus></div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <Link to="/workouts"><DropdownMenuItem className="cursor-pointer">Dodaj nowy trening</DropdownMenuItem></Link>

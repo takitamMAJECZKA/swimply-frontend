@@ -15,9 +15,18 @@ import {
 } from "@/components/ui/sidebar"
 
 
+import { useState } from "react";
+
+import { v4 as uuidv4 } from "uuid";
 import Workout from "../components/Workout"
 
 export default function Workouts(){
+    
+    let [workoutsList, setWorkoutsList] = useState([]);
+
+    function addWorkoutToList(passedWorkoutData){
+        setWorkoutsList([...workoutsList, passedWorkoutData])
+    }
     return (
         <div className="workoutsPage">
             <SidebarProvider>
@@ -43,10 +52,17 @@ export default function Workouts(){
                 </div>
                 </header>
                 <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                <div className="w-full flex justify-center">
-                    <Workout />
-                </div>
-                <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+                    <div className="w-full flex justify-center">
+                        <Workout addWorkoutToList={addWorkoutToList}/>
+                    </div>
+                    <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                        {workoutsList.toReversed().map((workout) => {
+                            console.log(workout)
+                            return(
+                                <div key={uuidv4()} className="aspect-video rounded-xl bg-muted/50 text-center" >{workout.name} <br/>{workout.workoutDate.toString()}</div>
+                            )
+                        })}
+                    </div>
                 </div>
             </SidebarInset>
             </SidebarProvider>

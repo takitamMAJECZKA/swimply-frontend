@@ -92,6 +92,10 @@ body{
     transition: all 0.3s;
 }
 
+#registerBtn{
+    padding: 10px 10vw;
+}
+
 #loginBtn:hover, #registerBtn:hover{
     background-color: var(--almost-white);
 }
@@ -219,6 +223,7 @@ body{
     background-color: var(--dominant);
     border-radius: 20px;
     margin-bottom: 20px;
+    border: 2px solid var(--aqua);
 }
 
 .breakName{
@@ -289,7 +294,7 @@ body{
     align-items: center;
 }
 
-.addExercise, .addBreak{
+.addExercise, .addBreak, .finishWorkout{
     border: 1px solid var(--aqua);
     cursor: pointer;
     padding: 5px;
