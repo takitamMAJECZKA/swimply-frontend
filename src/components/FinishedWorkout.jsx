@@ -8,13 +8,19 @@ import {v4 as uuidv4} from 'uuid'
 
 
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogClose
+  } from "@/components/ui/dialog"
+    import { Input } from "@/components/ui/input"
+    import { Label } from "@/components/ui/label"
+    import { Button } from "@/components/ui/button"
+
 
 export default function EditableWorkout(props){
     let [content, setContent] = useState([])
@@ -27,7 +33,29 @@ export default function EditableWorkout(props){
     return(
         <div className="workoutContainer fancy-shadow">
             <div className="workoutHeader">
-                <label><input type="text" onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Nazwa treningu" value={workoutData.name}/><img className="editIcon" src={editIcon} alt="edit" /></label>
+                <Dialog>
+                <DialogTrigger asChild>
+                <label><input type="text" readOnly onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Nazwa treningu" value={workoutData.name}/>
+                    </label>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                    <DialogTitle>Zmień nazwę</DialogTitle>
+                    <DialogDescription>
+                        Zmień nazwę treningu a następnie kliknij przycisk "Zapisz zmiany"
+                    </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="name" className="text-right">
+                        Nazwa
+                        </Label>
+                        <Input id="name" value={workoutData.name} onChange={(e) => setWorkoutData({...workoutData, name: e.target.value})} className="col-span-3" />
+                    </div>
+                    <DialogFooter>
+                    <DialogClose><div className="saveChangesBtn">Zapisz zmiany</div></DialogClose>
+                    </DialogFooter>
+                </DialogContent>
+                </Dialog>
                 <div className="workoutInfo">
                     <div className="workoutDate">{workoutData.workoutDate.getDate()} {workoutData.workoutDate.toLocaleDateString('pl-PL', {month:'long'})} {workoutData.workoutDate.getFullYear()}</div>
                     <div className="workoutDistance">{workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}</div>

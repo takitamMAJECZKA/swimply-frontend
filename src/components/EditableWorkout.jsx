@@ -82,9 +82,11 @@ export default function EditableWorkout(props){
     }
 
     function handleFinishWorkout(){
-        props.addWorkoutToList(workoutData)
-        setContent([])
-        setWorkoutData({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date ,elementsIn: [...content]})
+        if(workoutData.timeLong!=0 && workoutData.distance!=0){
+            props.addWorkoutToList(workoutData)
+            setContent([])
+            setWorkoutData({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date ,elementsIn: [...content]})
+        }
     }
 
     return(

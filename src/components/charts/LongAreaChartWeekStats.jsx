@@ -133,7 +133,7 @@ const chartConfig = {
 }
 
 export default function LongAreaChartWeekStats() {
-  const [timeRange, setTimeRange] = React.useState("90d")
+  const [timeRange, setTimeRange] = React.useState("30d")
 
   const filteredData = chartData.filter((item) => {
     const date = new Date(item.date)
@@ -163,7 +163,7 @@ export default function LongAreaChartWeekStats() {
             className="w-[160px] rounded-lg sm:ml-auto"
             aria-label="Select a value"
           >
-            <SelectValue placeholder="Last 3 months" />
+            <SelectValue placeholder="Ostatni miesiąc" />
           </SelectTrigger>
           <SelectContent className="rounded-xl">
             <SelectItem value="90d" className="rounded-lg">

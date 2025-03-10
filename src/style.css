@@ -294,7 +294,7 @@ body{
     align-items: center;
 }
 
-.addExercise, .addBreak, .finishWorkout{
+.addExercise, .addBreak, .finishWorkout, .saveChangesBtn{
     border: 1px solid var(--aqua);
     cursor: pointer;
     padding: 5px;
