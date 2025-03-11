@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
-import editIcon from "../assets/editIcon.png"
-import Exercise from "./Exercise";
-import Break from "./Break";
-import {convertMinsToSecs, convertSecsToHours} from '../TimeCalculate.js'
-import {v4 as uuidv4} from 'uuid'
+
+import { X } from "lucide-react"
 
 
 
@@ -23,26 +20,22 @@ import {
 
     import RadarChartWorkoutsCategory from "../components/charts/RadarChartWorkoutsCategory"
     import RadialProgressChart from "../components/charts/RadialProgressChart"
-    import LongAreaChartWeekStats from "../components/charts/LongAreaChartWeekStats"
+    import SmallAreaChartWorkout from "../components/charts/SmallAreaChartWorkout"
 
 
 export default function EditableWorkout(props){
-    let [content, setContent] = useState([])
     let [workoutData, setWorkoutData] = useState(props.data)
     
     function handleWorkoutNameChange(e){
         setWorkoutData({...workoutData, name: e.target.value})
     }
 
-    return(
-        <Dialog>
-            <DialogTrigger asChild>
+    return(           
             <div className="workoutContainer fancy-shadow">
                 <div className="workoutHeader">
                     <Dialog>
                     <DialogTrigger asChild>
-                    <label><input type="text" readOnly onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Nazwa treningu" value={workoutData.name}/>
-                        </label>
+                    <label><input type="text" readOnly onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Nazwa treningu" value={workoutData.name}/> <X className="cursor-pointer"/> </label>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
@@ -57,33 +50,21 @@ export default function EditableWorkout(props){
                             </Label>
                             <Input id="name" value={workoutData.name} onChange={(e) => setWorkoutData({...workoutData, name: e.target.value})} className="col-span-3" />
                         </div>
-                        <DialogFooter>
-                        <DialogClose><div className="saveChangesBtn">Zapisz zmiany</div></DialogClose>
+                        <DialogFooter className="flex justify-between!">
+                            <DialogClose><div className="saveChangesBtn" onClick={() => {props.deleteWorkout(workoutData.id)}}>Usuń trening</div></DialogClose>
+                            <DialogClose><div className="saveChangesBtn">Zapisz zmiany</div></DialogClose>
                         </DialogFooter>
                     </DialogContent>
                     </Dialog>
+                    <Dialog>
+                    <DialogTrigger asChild>
                     <div className="workoutInfo">
                         <div className="workoutDate">{workoutData.workoutDate.getDate()} {workoutData.workoutDate.toLocaleDateString('pl-PL', {month:'long'})} {workoutData.workoutDate.getFullYear()}</div>
                         <div className="workoutDistance">{workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}</div>
                         <div className="workoutTime">{workoutData.timeLong=="NaN:NaN:NaN" ? '00:00:00': workoutData.timeLong}(hh:mm:ss)</div>
                     </div>
-                </div>
-                <div className="exercisesAndBreaksWrapper">
-                    {content.map((element, i)=>{
-                        if (element.type == 'exercise'){
-                            return(
-                            <Exercise key={element.id} id={element.id} index={i} updateData={updateData} deleteFunc={handleElementDelete} />
-                            )
-                        }else{
-                            return(
-                                <Break key={element.id} id={element.id} index={i} updateData={updateData} deleteFunc={handleElementDelete}/>
-                                )
-                        }
-                    })}
-                </div>
-            </div>
-            </DialogTrigger>
-            <DialogContent className="min-w-[90%]">
+                    </DialogTrigger>
+                <DialogContent className="min-w-[90%]">
                         <DialogHeader>
                         <DialogTitle>Informacje o {workoutData.name}</DialogTitle>
                         <DialogDescription>
@@ -91,6 +72,7 @@ export default function EditableWorkout(props){
                         </DialogDescription>
                         </DialogHeader>
                         <div className="grid sm:grid-cols-1 md:grid-cols-2 items-center gap-4">
+                            <SmallAreaChartWorkout workoutContent={workoutData.content}/>
                             <RadarChartWorkoutsCategory />
                             <RadialProgressChart />
                         </div>
@@ -98,6 +80,8 @@ export default function EditableWorkout(props){
                         <DialogClose><div className="saveChangesBtn">Wyjdz</div></DialogClose>
                         </DialogFooter>
             </DialogContent>
-        </Dialog>
+            </Dialog>
+                </div>
+            </div>
     )
 }

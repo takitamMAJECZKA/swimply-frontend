@@ -118,9 +118,9 @@ export default function EditableWorkout(props){
                             <div className="addExercise cursor-pointer">Dodaj ćwiczenie</div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            <DropdownMenuItem className="cursor-pointer" onClick={() => {handleAddExercise()}}>Dodaj puste ćwiczenie</DropdownMenuItem>
-                            <DropdownMenuSeparator />
                             <DropdownMenuItem className="cursor-pointer">Dodaj gotowe ćwiczenie</DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem className="cursor-pointer" onClick={() => {handleAddExercise()}}>Dodaj własne ćwiczenie</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 <button className="addBreak" onClick={() => {handleAddBreak()}}>Dodaj przerwę</button>

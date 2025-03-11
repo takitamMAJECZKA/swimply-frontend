@@ -26,7 +26,15 @@ export default function Workouts(){
     let [workoutsList, setWorkoutsList] = useState([]);
 
     function addWorkoutToList(passedWorkoutData){
+        passedWorkoutData.id = uuidv4();
         setWorkoutsList([...workoutsList, passedWorkoutData])
+    }
+
+    function deleteWorkout(workoutId){
+        let newWorkoutsList = workoutsList.filter((workout) => {
+            return workout.id !== workoutId
+        })
+        setWorkoutsList(newWorkoutsList)
     }
     return (
         <div className="workoutsPage">
@@ -57,9 +65,9 @@ export default function Workouts(){
                         <EditableWorkout addWorkoutToList={addWorkoutToList}/>
                     </div>
                     <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                        {workoutsList.toReversed().map((workout) => {
+                        {workoutsList.toReversed().map((workout, index) => {
                             return(
-                                <FinishedWorkout key={uuidv4()} data={workout}/>
+                                <FinishedWorkout key={workout.id} data={workout} deleteWorkout={deleteWorkout}/>
                             )
                         })}
                     </div>
