@@ -21,7 +21,7 @@ export default function EditableWorkout(props){
 
     let [content, setContent] = useState([])
     let [workoutData, setWorkoutData] = useState({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date ,elementsIn: [...content]})
-    
+
     function handleWorkoutNameChange(e){
         setWorkoutData({...workoutData, name: e.target.value})
     }
@@ -43,7 +43,7 @@ export default function EditableWorkout(props){
                 calculateDistance += element.distance;
             }
         })
-        setWorkoutData({...workoutData, timeLong: convertSecsToHours(calculateTime), distance: calculateDistance})
+        setWorkoutData({...workoutData, timeLong: convertSecsToHours(calculateTime), distance: calculateDistance, elementsIn: [...content]})
     }
 
     function handleAddExercise(){

@@ -5,6 +5,7 @@
 :root{
   --dominant: oklch(20.35% 0.0402 238.95);
   --light-dominant: oklch(33.79% 0.0739 242.18);
+  --aqua-dominant: oklch(42.06% 0.0926 242.11);
   --dark-aqua: oklch(60.58% 0.076 232.48);
   --aqua: oklch(83.55% 0.0702 235.73);
   --light-aqua: oklch(89.52% 0.0376 243.27);

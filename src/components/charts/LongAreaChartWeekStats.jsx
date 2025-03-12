@@ -124,7 +124,7 @@ const chartConfig = {
   },
   desktop: {
     label: "Godziny w wodzie",
-    color: "var(--light-dominant)",
+    color: "var(--aqua-dominant)",
   },
   mobile: {
     label: "KM przepłynięte",

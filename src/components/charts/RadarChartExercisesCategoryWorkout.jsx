@@ -17,14 +17,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-const chartData = [
-  { category: "Wydolność", amount: 3 },
-  { category: "Siła", amount: 8 },
-  { category: "Technika", amount: 2 },
-  { category: "Wstrzymywanie oddechu", amount: 3 },
-  { category: "Różne", amount: 4 },
-]
-
 const chartConfig = {
   amount: {
     label: "Ilość",
@@ -32,13 +24,14 @@ const chartConfig = {
   },
 }
 
-export default function RadarChartWorkoutsCategory() {
+export default function RadarChartExercisesCategoryWorkout(props) {
+  const chartData = [...props.exercisesTypeAmount];
   return (
     <Card className='fancy-shadow'>
       <CardHeader className="items-center pb-4">
-        <CardTitle>Treningi</CardTitle>
+        <CardTitle>Charakter ćwiczeń</CardTitle>
         <CardDescription>
-          Pokazuje co targetowales na ostatnich treningach
+          Pokazuje co głównie wzmocniłeś w wykonanych ćwiczeniach
         </CardDescription>
       </CardHeader>
       <CardContent className="pb-0">
@@ -60,7 +53,7 @@ export default function RadarChartWorkoutsCategory() {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-        W tym miesiącu<TrendingUp className="h-4 w-4" />
+          Popraw swoje słabe strony i szlifuj mocne strony <TrendingUp className="h-4 w-4" />
         </div>
       </CardFooter>
     </Card>

@@ -16,27 +16,34 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-]
+import { convertMinsToSecs } from "@/TimeCalculate"
+// const chartData = [
+//   { month: "January", desktop: 186, mobile: 80 },
+//   { month: "February", desktop: 305, mobile: 200 },
+//   { month: "March", desktop: 237, mobile: 120 },
+//   { month: "April", desktop: 73, mobile: 190 },
+//   { month: "May", desktop: 209, mobile: 130 },
+//   { month: "June", desktop: 214, mobile: 140 },
+// ]
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  time: {
+    label: "Czas trwania",
     color: "var(--dark-aqua)",
   },
-  mobile: {
-    label: "Mobile",
-    color: "var(--light-dominant)",
+  distance: {
+    label: "Dystans",
+    color: "var(--aqua-dominant)",
   },
 }
 
 export default function SmallAreaChartWorkout({workoutContent}) {
+    let chartData = workoutContent.map((exercise) => {
+      if(exercise.type === 'exercise'){
+        return { name: exercise.name, time: convertMinsToSecs(exercise.time), distance: exercise.distance }
+      }
+    })
+    chartData = chartData.filter((exercise) => exercise !== undefined);
   return (
     <Card>
       <CardHeader>
@@ -57,30 +64,30 @@ export default function SmallAreaChartWorkout({workoutContent}) {
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey="name"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value) => value.slice(0, 5)}
             />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dot" />}
             />
             <Area
-              dataKey="mobile"
+              dataKey="time"
               type="natural"
-              fill="var(--color-mobile)"
+              fill="var(--color-distance)"
               fillOpacity={0.4}
-              stroke="var(--color-mobile)"
+              stroke="var(--color-distance)"
               stackId="a"
             />
             <Area
-              dataKey="desktop"
+              dataKey="distance"
               type="natural"
-              fill="var(--color-desktop)"
+              fill="var(--color-time)"
               fillOpacity={0.4}
-              stroke="var(--color-desktop)"
+              stroke="var(--color-time)"
               stackId="a"
             />
           </AreaChart>

@@ -18,9 +18,10 @@ import {
     import { Label } from "@/components/ui/label"
 
 
-    import RadarChartWorkoutsCategory from "../components/charts/RadarChartWorkoutsCategory"
-    import RadialProgressChart from "../components/charts/RadialProgressChart"
+    import RadarChartExercisesCategoryWorkout from "../components/charts/RadarChartExercisesCategoryWorkout"
+    import RadialProgressChartWorkout from "../components/charts/RadialProgressChartWorkout"
     import SmallAreaChartWorkout from "../components/charts/SmallAreaChartWorkout"
+    import { convertSecsToMins, convertMinsToSecs } from "@/TimeCalculate";
 
 
 export default function EditableWorkout(props){
@@ -68,13 +69,42 @@ export default function EditableWorkout(props){
                         <DialogHeader>
                         <DialogTitle>Informacje o {workoutData.name}</DialogTitle>
                         <DialogDescription>
-                            {workoutData.name} to trening z dnia {workoutData.workoutDate.getDate()} {workoutData.workoutDate.toLocaleDateString('pl-PL', {month:'long'})} {workoutData.workoutDate.getFullYear()} o łącznym czasie {workoutData.timeLong} i pokonanej odległości {workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}.
+                            <span>
+                                {workoutData.name} to trening z dnia {workoutData.workoutDate.getDate()} {workoutData.workoutDate.toLocaleDateString('pl-PL', {month:'long'})} {workoutData.workoutDate.getFullYear()} o łącznym czasie {workoutData.timeLong} i pokonanej odległości {workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}.
+                            </span>
+                            <br/>
+                            <span>
+                                Poniżej znajdziesz wykresy z informacjami o poszczególnych ćwiczeniach oraz ich kategoriach.
+                            </span>
                         </DialogDescription>
                         </DialogHeader>
                         <div className="grid sm:grid-cols-1 md:grid-cols-2 items-center gap-4">
-                            <SmallAreaChartWorkout workoutContent={workoutData.content}/>
-                            <RadarChartWorkoutsCategory />
-                            <RadialProgressChart />
+                            <div className="flex justify-center items-center flex-col gap-2">
+                                {
+                                workoutData.elementsIn.map((element) => {
+                                    if(element.type == 'exercise'){
+                                        return(
+                                            <div key={element.id} className="flex items-center gap-4 p-3 rounded-md bg-[var(--dominant)]">
+                                                <span>{element.name}</span>
+                                                <span>{element.time} (minut:sekund)</span>
+                                                <span>{element.distance} metrów</span>
+                                                <span>{convertSecsToMins(convertMinsToSecs(element.time)/(element.distance/100))} - tempo na 100m</span>
+                                            </div>
+                                        )
+                                    }else{
+                                        return(
+                                            <div key={element.id} className="flex items-center gap-4 p-3 rounded-md bg-[var(--aqua-dominant)]">
+                                                <span>{element.name}</span>
+                                                <span>{element.time} (minut:sekund)</span>
+                                            </div>
+                                        )
+                                    }
+                                })
+                                }
+                            </div>
+                            <SmallAreaChartWorkout workoutContent={workoutData.elementsIn}/>
+                            <RadarChartExercisesCategoryWorkout exercisesTypeAmount = {[  { category: "Wydolność", amount: 1 },{ category: "Siła", amount: 2 },{ category: "Technika", amount: 4 },{ category: "Wstrzymywanie oddechu", amount: 3 },{ category: "Różne", amount: 1 }]}/>
+                            <RadialProgressChartWorkout caloriesBurnt ={[{caloriesBurnt: 1000}]}  />
                         </div>
                         <DialogFooter>
                         <DialogClose><div className="saveChangesBtn">Wyjdz</div></DialogClose>
