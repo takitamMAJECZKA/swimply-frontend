@@ -46,26 +46,6 @@ const data = {
       ],
     },
     {
-      title: "Statystyki",
-      url: "/stats",
-      icon: ChartColumn,
-      isActive: window.location.pathname === "/stats" ||  window.location.pathname === "/stats/" ? true : false,
-      items: [
-        {
-          title: "Tygodniowe",
-          url: "/stats/#weekly",
-        },
-        {
-          title: "Miesięczne",
-          url: "/stats/#monthly",
-        },
-        {
-          title: "Ogólne",
-          url: "/stats/#general",
-        },
-      ],
-    },
-    {
       title: "Szablony",
       url: "/patterns",
       icon: BookOpen,

@@ -1,6 +1,5 @@
 import Home from './pages/Home'
 import Login from './pages/Login'
-import Stats from './pages/Stats'
 import Account from './pages/Account'
 import Workouts from './pages/Workouts'
 import Patterns from './pages/Patterns'
@@ -18,7 +17,6 @@ function App() {
           <Route path="/" element={<Home />}/>
           <Route path="/home" element={<Home />}/>
           <Route path="/login" element={<Login />}/>
-          <Route path="/stats" element={<Stats />}/>
           <Route path="/account" element={<Account />}/>
           <Route path="/workouts" element={<Workouts />}/>
           <Route path="/patterns" element={<Patterns />}/>
