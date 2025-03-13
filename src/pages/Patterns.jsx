@@ -21,7 +21,6 @@ import {
     SheetTitle,
     SheetTrigger,
   } from "@/components/ui/sheet"
-  
 
 import ExercisePattern from "@/components/ExercisePattern"
 import EditableWorkout from "../components/EditableWorkout"
