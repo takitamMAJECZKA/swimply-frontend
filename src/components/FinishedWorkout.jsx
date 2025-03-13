@@ -79,12 +79,12 @@ export default function EditableWorkout(props){
                         </DialogDescription>
                         </DialogHeader>
                         <div className="grid sm:grid-cols-1 md:grid-cols-2 items-center gap-4">
-                            <div className="flex justify-center items-center flex-col gap-2">
+                            <div className="flex justify-center items-center flex-col gap-2 ">
                                 {
                                 workoutData.elementsIn.map((element) => {
                                     if(element.type == 'exercise'){
                                         return(
-                                            <div key={element.id} className="flex items-center gap-4 p-3 rounded-md bg-[var(--dominant)]">
+                                            <div key={element.id} className="grid grid-cols-2 sm:flex sm:items-center gap-4 p-3 rounded-md bg-[var(--dominant)]">
                                                 <span>{element.name}</span>
                                                 <span>{element.time} (minut:sekund)</span>
                                                 <span>{element.distance} metrów</span>

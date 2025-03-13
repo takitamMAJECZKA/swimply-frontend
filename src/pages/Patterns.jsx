@@ -65,13 +65,13 @@ export default function Patterns(){
                     ))}
                     <Sheet>
                         <SheetTrigger>Open</SheetTrigger>
-                        <SheetContent>
-                            <SheetHeader>
+                        <SheetContent className="w-auto max-h-screen overflow-x-auto rounded-tl-sm rounded-bl-sm">
+                            <SheetHeader className="p-2">
                             <SheetTitle>Trening</SheetTitle>
                             <SheetDescription>
                                 Tworzysz sobie trening
-                                <EditableWorkout/>
                             </SheetDescription>
+                                <EditableWorkout/>
                             </SheetHeader>
                         </SheetContent>
                         </Sheet>
