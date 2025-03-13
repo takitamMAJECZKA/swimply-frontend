@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import editIcon from "../assets/editIcon.png"
+import { Pencil } from 'lucide-react';
 import {convertMinsToSecs, convertSecsToMins} from '../TimeCalculate.js'
 
 
@@ -24,7 +24,7 @@ export default function Exercise(props){
 
     return(
         <div className="exercise">
-            <label><input type="text" onChange={(e) => {handleExerciseNameChange(e)}} className="exerciseName dataInput" placeholder="Exercise name" value={exerciseInfo.name}/><img className="editIcon" src={editIcon} alt="edit" /></label>
+            <label><input type="text" onChange={(e) => {handleExerciseNameChange(e)}} className="exerciseName dataInput" placeholder="Exercise name" value={exerciseInfo.name}/><Pencil/></label>
             <div className="dataInputsWrapper">
                 <label>Liczba basenów(25m): <input type="number" min={0} onChange={(e)=>{handleAmountOfPoolsChange(e)}} className="dataInput exercisePoolsInput"/></label>
                 <label>Czas(mm:ss): <input type="text" placeholder="mm:ss"onChange={(e)=>{handleTimeChange(e)}} className="dataInput exerciseTimeInput"/></label>

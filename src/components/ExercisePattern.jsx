@@ -1,20 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import {CirclePlus} from 'lucide-react'
-import { Link } from 'react-router'
 
 export default function ExercisePattern(props) {
-
-
     return(
-        <div className="exercise">
-            <h1 className='exerciseName p-2 text-2xl!'>{props.name}</h1>
-
-            <div className="w-full flex justify-end gap-4">
-                <button>
-                    <Link to='/workouts#add'>
-                        <CirclePlus className='m-2' size='42'/>
-                    </Link>
-                    </button>
+        <div className="exercise relative fancy-shadow">
+            <h1 className='exerciseName p-6 text-2xl!'>{props.name}</h1>
+            <div className="w-full flex justify-end gap-4 absolute top-0 right-0">
+                <button className='cursor-pointer'>
+                    <CirclePlus className='m-1' size='42'/>
+                </button>
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import editIcon from "../assets/editIcon.png"
+import { Pencil } from 'lucide-react';
 import Exercise from "./Exercise";
 import Break from "./Break";
 import {convertMinsToSecs, convertSecsToHours} from '../TimeCalculate.js'
@@ -16,11 +16,19 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 
+import { Link } from "react-router-dom";
+
 export default function EditableWorkout(props){
     let date = new Date();
 
-    let [content, setContent] = useState([])
-    let [workoutData, setWorkoutData] = useState({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date ,elementsIn: [...content]})
+    let [content, setContent] = useState(() => {
+        const savedData = localStorage.getItem('currentWorkout');
+        return savedData ? JSON.parse(savedData).elementsIn : [];
+    });
+    let [workoutData, setWorkoutData] = useState(() => {
+        const savedData = localStorage.getItem('currentWorkout');
+        return savedData ? JSON.parse(savedData) : {name: 'Trening', timeLong: 0, distance: 0, workoutDate: date ,elementsIn: [...content]};
+    });
 
     function handleWorkoutNameChange(e){
         setWorkoutData({...workoutData, name: e.target.value})
@@ -29,6 +37,10 @@ export default function EditableWorkout(props){
     useEffect(() => {
         onContentChange()
     }, [content])
+
+    useEffect(() => {
+        localStorage.setItem('currentWorkout', JSON.stringify(workoutData));
+    }, [workoutData])
 
     function onContentChange(){
         let calculateTime = 0;
@@ -83,16 +95,17 @@ export default function EditableWorkout(props){
 
     function handleFinishWorkout(){
         if(workoutData.timeLong!=0 && workoutData.distance!=0){
-            props.addWorkoutToList(workoutData)
-            setContent([])
-            setWorkoutData({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date ,elementsIn: [...content]})
+            if(props.addWorkoutToList){
+                props.addWorkoutToList(workoutData)
+                setContent([])
+                setWorkoutData({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date ,elementsIn: [...content]})
+            }
         }
     }
-
     return(
         <div className="workoutContainer fancy-shadow">
             <div className="workoutHeader">
-                <label><input type="text" onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Nazwa treningu" value={workoutData.name}/><img className="editIcon" src={editIcon} alt="edit" /></label>
+                <label><input type="text" onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Nazwa treningu" value={workoutData.name}/><Pencil/></label>
                 <div className="workoutInfo">
                     <div className="workoutDate">{date.getDate()} {date.toLocaleDateString('pl-PL', {month:'long'})} {date.getFullYear()}</div>
                     <div className="workoutDistance">{workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}</div>
@@ -124,7 +137,7 @@ export default function EditableWorkout(props){
                         </DropdownMenuContent>
                     </DropdownMenu>
                 <button className="addBreak" onClick={() => {handleAddBreak()}}>Dodaj przerwę</button>
-                <button className="finishWorkout" onClick={() => {handleFinishWorkout()}}>Zakończ</button>
+                <Link to="../workouts"><button className="finishWorkout" onClick={() => {handleFinishWorkout()}}>Zakończ</button></Link>
             </div>
         </div>
     )

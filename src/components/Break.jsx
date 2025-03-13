@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import editIcon from "../assets/editIcon.png"
 
 export default function Break(props){
         let [breakInfo, setBreakInfo] = useState({id: props.id, name:'Przerwa', type:'break', time:'NaN:NaN'})

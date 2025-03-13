@@ -21,9 +21,9 @@ export default function AddNewWorkout(){
                         <div id="addNewWorkoutBtn"><CirclePlus size='86'></CirclePlus></div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                        <Link to="/workouts"><DropdownMenuItem className="cursor-pointer">Dodaj nowy trening</DropdownMenuItem></Link>
+                        <Link to="/workouts"><DropdownMenuItem className="cursor-pointer">Stwórz pusty trening</DropdownMenuItem></Link>
                         <DropdownMenuSeparator />
-                        <Link to="/patterns"><DropdownMenuItem className="cursor-pointer">Dodaj nowy szablon</DropdownMenuItem></Link>
+                        <Link to="/patterns"><DropdownMenuItem className="cursor-pointer">Stwórz trening z szablonu</DropdownMenuItem></Link>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>

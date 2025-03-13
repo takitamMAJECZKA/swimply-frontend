@@ -59,12 +59,9 @@ export default function Patterns(){
                 </div>
                 </header>
                 <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                    {exercisePatterns.map((exercisePattern, index) => (
-                    <ExercisePattern key={index} name={exercisePattern.name} />
-                    ))}
+                    <div className="w-full flex justify-center items-center md:min-h-min">
                     <Sheet>
-                        <SheetTrigger>Open</SheetTrigger>
+                        <SheetTrigger><div className="p-4 bg-[var(--dominant)] rounded-md text-2xl font-bold border border-[2px] border-(--aqua) fancy-shadow m-3">Current Workout</div></SheetTrigger>
                         <SheetContent className="w-auto max-h-screen overflow-x-auto rounded-tl-sm rounded-bl-sm">
                             <SheetHeader className="p-2">
                             <SheetTitle>Trening</SheetTitle>
@@ -75,9 +72,12 @@ export default function Patterns(){
                             </SheetHeader>
                         </SheetContent>
                         </Sheet>
-
+                    </div>
+                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                    {exercisePatterns.map((exercisePattern, index) => (
+                    <ExercisePattern key={index} name={exercisePattern.name} />
+                    ))}
                 </div>
-                <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
                 </div>
             </SidebarInset>
             </SidebarProvider>

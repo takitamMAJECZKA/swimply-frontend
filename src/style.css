@@ -211,11 +211,6 @@ body{
     font-weight: bolder;
 }
 
-.editIcon{
-    height: 25px;
-    cursor: pointer;
-}
-
 .exercise, .break{
     display: flex;
     justify-content: center;
