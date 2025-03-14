@@ -1,4 +1,3 @@
-import React, {useState, useEffect} from 'react'
 import {CirclePlus} from 'lucide-react'
 import { toast} from "sonner"
 import {v4 as uuidv4} from 'uuid'

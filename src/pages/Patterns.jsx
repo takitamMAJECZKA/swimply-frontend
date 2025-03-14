@@ -24,6 +24,9 @@ import {
 
 import ExercisePattern from "@/components/ExercisePattern"
 import EditableWorkout from "../components/EditableWorkout"
+import WorkoutPattern from "../components/WorkoutPattern"
+
+import { v4 as uuidv4 } from 'uuid'
 
 export default function Patterns(){
     let exercisePatterns = [
@@ -33,6 +36,10 @@ export default function Patterns(){
         {name: 'Grzbiet'},
         {name: 'Żabka ratownicza'},
         {name: 'Kraul ratowniczy'},]
+
+    let workoutPatterns = [
+        {name: 'Każdy styl', content: [{id: uuidv4(), name: 'Żabka', time: '00:00', type:"exercise", distance: 0},{id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Kraul',type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Motylek', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Grzbiet', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Żabka ratownicza', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Kraul ratowniczy', type:"exercise", time: '00:00', distance: 0}]},
+    ]
     return (
         <div className="statsPage">
             <SidebarProvider>
@@ -76,6 +83,9 @@ export default function Patterns(){
                     {exercisePatterns.map((exercisePattern, index) => (
                     <ExercisePattern key={index} name={exercisePattern.name} />
                     ))}
+                </div>
+                <div className="w-full flex justify-center items-center md:min-h-min">
+                    <WorkoutPattern name={workoutPatterns[0].name} content={workoutPatterns[0].content}/>
                 </div>
                 </div>
             </SidebarInset>

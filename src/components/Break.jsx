@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react"
 
 export default function Break(props){
-        let [breakInfo, setBreakInfo] = useState({id: props.id, name:'Przerwa', type:'break', time:'NaN:NaN'})
+        let [breakInfo, setBreakInfo] = useState(() => {
+            let savedData = JSON.parse(localStorage.getItem('currentWorkout'));
+            savedData = savedData ? savedData.elementsIn.find((element) => element.id === props.id) : null;
+            return savedData ? savedData : {id: props.id, name:'Przerwa', type:'break', time:'00:00'};
+        });
         
         useEffect(()=>{
             props.updateData(breakInfo)
@@ -15,7 +19,7 @@ export default function Break(props){
             <div className="break">
                 <p className="breakName">Przerwa</p>
                 <div className="dataInputsWrapper">
-                    <label>Czas(mm:ss): <input type="text" placeholder="mm:ss"onChange={(e)=>{handleTimeChange(e)}} className="dataInput breakTimeInput"/></label>
+                    <label>Czas(mm:ss): <input type="text" value={breakInfo.time} placeholder="mm:ss"onChange={(e)=>{handleTimeChange(e)}} className="dataInput breakTimeInput"/></label>
                 </div>
                 <div className="breakButtons">
                     <button className="deleteButton" onClick={()=>{props.deleteFunc(breakInfo.id)}}>X</button>
