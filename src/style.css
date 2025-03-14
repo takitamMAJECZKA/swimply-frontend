@@ -284,13 +284,8 @@ body{
     padding: 5px;
 }
 
-.addElements{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
 
-.addExercise, .addBreak, .finishWorkout, .saveChangesBtn{
+.addExercise, .addBreak, .finishWorkout, .saveChangesBtn, .clearWorkout{
     border: 1px solid var(--aqua);
     cursor: pointer;
     padding: 5px;

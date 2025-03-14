@@ -125,19 +125,20 @@ export default function EditableWorkout(props){
                     }
                 })}
             </div>
-            <div className="addElements">
+            <div className="grid grid-cols-2 items-center justif-center gap-4">
                     <DropdownMenu>
                         <DropdownMenuTrigger className="rounded-[10px]">
                             <div className="addExercise cursor-pointer">Dodaj ćwiczenie</div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            <DropdownMenuItem className="cursor-pointer">Dodaj gotowe ćwiczenie</DropdownMenuItem>
+                            <Link to="../patterns"><DropdownMenuItem className="cursor-pointer">Dodaj gotowe ćwiczenie</DropdownMenuItem></Link>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem className="cursor-pointer" onClick={() => {handleAddExercise()}}>Dodaj własne ćwiczenie</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
+                <button className="clearWorkout" onClick={()=> {setWorkoutData({workoutData, name:"Trening"}) ;setContent([])}}>Wyczyść trening</button>
                 <button className="addBreak" onClick={() => {handleAddBreak()}}>Dodaj przerwę</button>
-                <Link to="../workouts"><button className="finishWorkout" onClick={() => {handleFinishWorkout()}}>Zakończ</button></Link>
+                <Link to="../workouts" className="flex justify-center"><button className="finishWorkout" onClick={() => {handleFinishWorkout()}}>Zakończ</button></Link>
             </div>
         </div>
     )

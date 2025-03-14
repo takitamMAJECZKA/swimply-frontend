@@ -25,12 +25,11 @@ import {
 
 
 export default function EditableWorkout(props){
-    let [workoutData, setWorkoutData] = useState(props.data)
-    
+    let [workoutData, setWorkoutData] = useState(props.data);
+    let date = new Date(props.data.workoutDate);
     function handleWorkoutNameChange(e){
         setWorkoutData({...workoutData, name: e.target.value})
     }
-
     return(           
             <div className="workoutContainer fancy-shadow">
                 <div className="workoutHeader">
@@ -60,7 +59,7 @@ export default function EditableWorkout(props){
                     <Dialog>
                     <DialogTrigger asChild>
                     <div className="workoutInfo">
-                        <div className="workoutDate">{workoutData.workoutDate.getDate()} {workoutData.workoutDate.toLocaleDateString('pl-PL', {month:'long'})} {workoutData.workoutDate.getFullYear()}</div>
+                        <div className="workoutDate">{date.getDate()} {date.toLocaleDateString('pl-PL', {month:'long'})} {date.getFullYear()}</div>
                         <div className="workoutDistance">{workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}</div>
                         <div className="workoutTime">{workoutData.timeLong=="NaN:NaN:NaN" ? '00:00:00': workoutData.timeLong}(hh:mm:ss)</div>
                     </div>
@@ -70,7 +69,7 @@ export default function EditableWorkout(props){
                         <DialogTitle>Informacje o {workoutData.name}</DialogTitle>
                         <DialogDescription>
                             <span>
-                                {workoutData.name} to trening z dnia {workoutData.workoutDate.getDate()} {workoutData.workoutDate.toLocaleDateString('pl-PL', {month:'long'})} {workoutData.workoutDate.getFullYear()} o łącznym czasie {workoutData.timeLong} i pokonanej odległości {workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}.
+                                {workoutData.name} to trening z dnia {date.getDate()} {date.toLocaleDateString('pl-PL', {month:'long'})} o łącznym czasie {workoutData.timeLong} i pokonanej odległości {workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}.
                             </span>
                             <br/>
                             <span>
@@ -78,13 +77,13 @@ export default function EditableWorkout(props){
                             </span>
                         </DialogDescription>
                         </DialogHeader>
-                        <div className="grid sm:grid-cols-1 md:grid-cols-2 items-center gap-4">
+                        <div className="grid md:grid-cols-1 lg:grid-cols-2 items-center gap-4">
                             <div className="flex justify-center items-center flex-col gap-2 ">
                                 {
                                 workoutData.elementsIn.map((element) => {
                                     if(element.type == 'exercise'){
                                         return(
-                                            <div key={element.id} className="grid grid-cols-2 sm:flex sm:items-center gap-4 p-3 rounded-md bg-[var(--dominant)]">
+                                            <div key={element.id} className="grid grid-cols-2 md:flex md:items-center gap-4 p-3 rounded-md bg-[var(--dominant)]">
                                                 <span>{element.name}</span>
                                                 <span>{element.time} (minut:sekund)</span>
                                                 <span>{element.distance} metrów</span>

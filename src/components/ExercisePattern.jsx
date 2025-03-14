@@ -1,20 +1,37 @@
 import React, {useState, useEffect} from 'react'
 import {CirclePlus} from 'lucide-react'
 import { toast} from "sonner"
-import {X} from 'lucide-react'
+import {v4 as uuidv4} from 'uuid'
 
 export default function ExercisePattern(props) {
-    return(
-        <div className="exercise relative fancy-shadow">
-            <h1 className='exerciseName p-6 text-2xl!'>{props.name}</h1>
-            <div className="w-full flex justify-end gap-4 absolute top-0 right-0">
-                <button className='cursor-pointer' onClick={() =>
+    function handleAddToWorkout(){
+        let savedData = JSON.parse(localStorage.getItem('currentWorkout'));
+        let newElement = {id: uuidv4(), name: props.name, type: 'exercise', distance: 0, time: '00:00'};
+        if(savedData){
+                savedData.elementsIn.push(newElement);
+                localStorage.setItem('currentWorkout', JSON.stringify(savedData));
                 toast("Ćwiczenie dodane", {
+                    description: `Ćwiczenie ${props.name.toLowerCase()} zostało dodane do planu`,
+                    action: {
+                        label: "X",
+                        onClick: () => console.log("X clicked"),
+                    }})
+        }else{
+            let newWorkout = {name: 'Trening', timeLong: 0, distance: 0, workoutDate: new Date(), elementsIn: [newElement]}
+            localStorage.setItem('currentWorkout', JSON.stringify(newWorkout));
+            toast("Ćwiczenie dodane", {
                 description: `Ćwiczenie ${props.name.toLowerCase()} zostało dodane do planu`,
                 action: {
                     label: "X",
                     onClick: () => console.log("X clicked"),
-                }})}>
+                }})
+        }
+    }
+    return(
+        <div className="exercise relative fancy-shadow">
+            <h1 className='exerciseName p-6 text-2xl!'>{props.name}</h1>
+            <div className="w-full flex justify-end gap-4 absolute top-0 right-0">
+                <button className='cursor-pointer' onClick={() => {handleAddToWorkout()}}>
                     <CirclePlus className='m-1' size='42'/>
                 </button>
             </div>
