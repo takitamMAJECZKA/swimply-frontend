@@ -26,22 +26,19 @@ export default function AccountInfo() {
                 </div>
                 <div className="mt-4">
                     <div className="flex items-center justify-between">
-                        <p className="text-sm text-(--aqua)">Login</p>
+                        <p className="text-sm text-(--aqua)">Nazwa użytkownika</p>
                         <p className="text-sm font-semibold text-(--light-aqua)">Loginasd</p>
                     </div>
                     <div className="flex items-center justify-between mt-4">
                         <p className="text-sm text-(--aqua)">Hasło</p>
                         <p className="text-sm font-semibold text-(--light-aqua)">********</p>
                     </div>
-                </div>
-            </div>
-            <div className="bg-(--dominant) p-4 rounded-xl fancy-shadow">
-                <h2 className="text-lg font-semibold text-(--light-aqua)">Dane kontaktowe</h2>
                 <div className="mt-4">
                     <div className="flex items-center justify-between">
                         <p className="text-sm text-(--aqua)">Adres email</p>
                         <p className="text-sm font-semibold text-(--light-aqua)">macius@example.com</p>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

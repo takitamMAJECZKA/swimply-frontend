@@ -9,8 +9,7 @@ export default function ExercisePattern(props) {
         if(savedData){
                 savedData.elementsIn.push(newElement);
                 localStorage.setItem('currentWorkout', JSON.stringify(savedData));
-                toast("Ćwiczenie dodane", {
-                    description: `Ćwiczenie ${props.name.toLowerCase()} zostało dodane do planu`,
+                toast.success(`Ćwiczenie ${props.name} zostało dodane`, {
                     action: {
                         label: "X",
                         onClick: () => console.log("X clicked"),
@@ -18,12 +17,11 @@ export default function ExercisePattern(props) {
         }else{
             let newWorkout = {name: 'Trening', timeLong: 0, distance: 0, workoutDate: new Date(), elementsIn: [newElement]}
             localStorage.setItem('currentWorkout', JSON.stringify(newWorkout));
-            toast("Ćwiczenie dodane", {
-                description: `Ćwiczenie ${props.name.toLowerCase()} zostało dodane do planu`,
+            toast.success(`Ćwiczenie ${props.name} zostało dodane`, {
                 action: {
                     label: "X",
                     onClick: () => console.log("X clicked"),
-                }})
+            }})
         }
     }
     return(

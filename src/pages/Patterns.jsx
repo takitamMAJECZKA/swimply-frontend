@@ -22,6 +22,15 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
 
+  import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+  } from "@/components/ui/carousel"
+  
+
 import ExercisePattern from "@/components/ExercisePattern"
 import EditableWorkout from "../components/EditableWorkout"
 import WorkoutPattern from "../components/WorkoutPattern"
@@ -39,6 +48,8 @@ export default function Patterns(){
 
     let workoutPatterns = [
         {name: 'Każdy styl', content: [{id: uuidv4(), name: 'Żabka', time: '00:00', type:"exercise", distance: 0},{id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Kraul',type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Motylek', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Grzbiet', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Żabka ratownicza', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Kraul ratowniczy', type:"exercise", time: '00:00', distance: 0}]},
+
+        {name: 'Otyliada', content: [{id: uuidv4(), name: 'Kraul', time: '60:00', type:"exercise", distance: 0}, {id: uuidv4(), name: 'Kraul',type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0},{id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}]},
     ]
     return (
         <div className="statsPage">
@@ -64,7 +75,7 @@ export default function Patterns(){
                     </Breadcrumb>
                 </div>
                 </header>
-                <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+                <div className="flex flex-1 flex-col gap-6 p-4 pt-0">
                     <div className="w-full flex justify-center items-center md:min-h-min">
                     <Sheet>
                         <SheetTrigger><div className="p-4 bg-[var(--dominant)] rounded-md text-2xl font-bold border border-[2px] border-(--aqua) fancy-shadow m-3 cursor-pointer">Aktualny trening</div></SheetTrigger>
@@ -84,8 +95,21 @@ export default function Patterns(){
                     <ExercisePattern key={index} name={exercisePattern.name} />
                     ))}
                 </div>
-                <div className="w-full flex justify-center items-center md:min-h-min">
-                    <WorkoutPattern name={workoutPatterns[0].name} content={workoutPatterns[0].content}/>
+                <div className="flex justify-center items-center md:min-h-min">
+                        <Carousel className='w-[90%] fancy-shadow rounded-md'   opts={{
+    align: "start",
+    loop: true,
+  }}
+>
+                        <CarouselContent>
+                            {workoutPatterns.map((workoutPattern, index) => {
+                                return(
+                                        <CarouselItem key={index}><WorkoutPattern name={workoutPattern.name} content={workoutPattern.content}/></CarouselItem>)
+                            })}
+                        </CarouselContent>
+                        <CarouselPrevious className='cursor-pointer' />
+                        <CarouselNext className='cursor-pointer' />
+                        </Carousel>
                 </div>
                 </div>
             </SidebarInset>
