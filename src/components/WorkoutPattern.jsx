@@ -13,7 +13,7 @@ export default function ExercisePattern(props) {
                     }})
     }
     return(
-        <div className="rounded-md relative lg:flex lg:flex-row display-block">
+        <div className="rounded-md relative lg:flex lg:flex-row display-block bg-(--dominant)">
             <div className='flex justify-center items-center'>
             <h1 className='workoutName p-6 text-2xl!'>{props.name}</h1>
             <div className="w-full flex justify-end gap-4 absolute top-0 right-0">
@@ -25,7 +25,7 @@ export default function ExercisePattern(props) {
             <div className='grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 p-3'>
                 {props.content.map(element =>{
                     return(
-                    <div key={element.id} className="grid grid-cols-2 md:flex md:items-center gap-4 p-3 rounded-md bg-[var(--dominant)]">
+                    <div key={element.id} className="grid grid-cols-2 md:flex md:items-center gap-4 p-3 rounded-md bg-(--light-dominant)">
                         <span>{element.name ? element.name : 'Przerwa'}</span>
                         <span>{element.time} (minut:sekund)</span>
                     </div>

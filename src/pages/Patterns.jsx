@@ -101,7 +101,7 @@ export default function Patterns(){
                     ))}
                 </div>
                 <div className="flex justify-center items-center md:min-h-min">
-                        <Carousel className='w-[90%] fancy-shadow rounded-md'   
+                        <Carousel className='w-[90%] fancy-shadow rounded-md bg-(--dominant)'   
                         opts={{
                             align: "start",
                             loop: true,
@@ -116,8 +116,8 @@ export default function Patterns(){
                                         </CarouselItem>)
                             })}
                         </CarouselContent>
-                        <CarouselPrevious className='cursor-pointer hidden sm:flex' />
-                        <CarouselNext className='cursor-pointer hidden sm:flex' />
+                        <CarouselPrevious className='cursor-pointer hidden sm:flex bg-(--dominant) border-(--dominant)' />
+                        <CarouselNext className='cursor-pointer hidden sm:flex bg-(--dominant) border-(--dominant)' />
                         </Carousel>
                 </div>
                 </div>

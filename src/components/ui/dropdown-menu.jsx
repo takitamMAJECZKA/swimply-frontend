@@ -21,7 +21,7 @@ function DropdownMenuPortal({
 function DropdownMenuTrigger({
   ...props
 }) {
-  return (<DropdownMenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />);
+  return (<DropdownMenuPrimitive.Trigger data-slot="dropdown-menu-trigger" className="cursor-pointer" {...props} />);
 }
 
 function DropdownMenuContent({
