@@ -1,4 +1,5 @@
-import AccountDataForm from "@/components/AccountDataForm"
+import AccountInfo from "@/components/AccountInfo"
+import AccountData from "@/components/AccountData"
 
 
 import { AppSidebar } from "@/components/app-sidebar"
@@ -43,7 +44,8 @@ export default function Settings(){
                 </div>
                 </header>
                 <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                <AccountDataForm />
+                <AccountInfo />
+                <AccountData />
                 </div>
             </SidebarInset>
             </SidebarProvider>

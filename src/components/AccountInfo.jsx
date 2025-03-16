@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 
 
-export default function AccountDataForm() {
+export default function AccountInfo() {
     return (
         <div className="grid grid-cols-1 gap-7 p
         -4">
@@ -22,7 +22,7 @@ export default function AccountDataForm() {
                             <p className="text-xs text-(--aqua)"></p>
                         </div>
                     </div>
-                    <button className="text-sm text-(--aqua)">Zmień zdjęcie</button>
+                    <div className="text-sm text-(--aqua)">Zmień zdjęcie</div>
                 </div>
                 <div className="mt-4">
                     <div className="flex items-center justify-between">
@@ -40,13 +40,7 @@ export default function AccountDataForm() {
                 <div className="mt-4">
                     <div className="flex items-center justify-between">
                         <p className="text-sm text-(--aqua)">Adres email</p>
-                        <p className="text-sm font-semibold text-(--light-aqua)">
-                            </p>
-                    </div>
-                    <div className="flex items-center justify-between mt-4">
-                        <p className="text-sm text-(--aqua)">Numer telefonu</p>
-                        <p className="text-sm font-semibold text-(--light-aqua)">
-                            </p>
+                        <p className="text-sm font-semibold text-(--light-aqua)">macius@example.com</p>
                     </div>
                 </div>
             </div>
