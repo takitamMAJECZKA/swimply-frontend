@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Pencil } from 'lucide-react';
+import { Pencil, Eraser, EllipsisVertical } from 'lucide-react';
 import Exercise from "./Exercise";
 import Break from "./Break";
 import {convertMinsToSecs, convertSecsToHours} from '../TimeCalculate.js'
@@ -11,7 +11,6 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
@@ -106,7 +105,18 @@ export default function EditableWorkout(props){
     return(
         <div className="workoutContainer fancy-shadow">
             <div className="workoutHeader">
-                <label><input type="text" onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Nazwa treningu" value={workoutData.name}/><Pencil/></label>
+                <div className="flex justify-between"><label className="w-full flex justify-between items-center"><input type="text" id="name" onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Nazwa treningu" value={workoutData.name}/><Pencil className="mr-2"/> </label>
+                <DropdownMenu>
+                    <DropdownMenuTrigger>
+                        <EllipsisVertical/>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuItem>
+                            <div className="w-full cursor-pointer flex items-center justify-around" onClick={()=> {setWorkoutData({workoutData, name:"Trening"}) ;setContent([])}}><Eraser/>Wyczyść</div>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+                </div>
                 <div className="workoutInfo">
                     <div className="workoutDate">{date.getDate()} {date.toLocaleDateString('pl-PL', {month:'long'})} {date.getFullYear()}</div>
                     <div className="workoutDistance">{workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}</div>
@@ -137,7 +147,6 @@ export default function EditableWorkout(props){
                             <DropdownMenuItem className="cursor-pointer" onClick={() => {handleAddExercise()}}>Dodaj własne ćwiczenie</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
-                <button className="clearWorkout" onClick={()=> {setWorkoutData({workoutData, name:"Trening"}) ;setContent([])}}>Wyczyść trening</button>
                 <button className="addBreak" onClick={() => {handleAddBreak()}}>Dodaj przerwę</button>
                 <Link to="../workouts" className="flex justify-center"><button className="finishWorkout" onClick={() => {handleFinishWorkout()}}>Zakończ</button></Link>
             </div>

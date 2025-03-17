@@ -1,7 +1,5 @@
 import {CirclePlus} from 'lucide-react'
 import { toast} from "sonner"
-import {v4 as uuidv4} from 'uuid'
-import {convertMinsToSecs, convertSecsToMins} from '../TimeCalculate.js'
 
 export default function ExercisePattern(props) {
     function handleAddToWorkout(){
@@ -27,7 +25,7 @@ export default function ExercisePattern(props) {
                     return(
                     <div key={element.id} className="grid grid-cols-2 md:flex md:items-center gap-4 p-3 rounded-md bg-(--light-dominant)">
                         <span>{element.name ? element.name : 'Przerwa'}</span>
-                        <span>{element.time} (minut:sekund)</span>
+                        <span className={element.time == "00:00" ? 'hidden' : 'block'}>{element.time} (minut:sekund)</span>
                     </div>
                     )
                 })}
