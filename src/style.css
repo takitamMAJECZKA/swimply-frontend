@@ -292,6 +292,36 @@ body{
     border-radius: 10px;
 }
 
+.AccordionContent {
+	overflow: hidden;
+}
+.AccordionContent[data-state="open"] {
+	animation: slideDown 300ms ease-out;
+}
+.AccordionContent[data-state="closed"] {
+	animation: slideUp 300ms ease-out;
+}
+
+@keyframes slideDown {
+	from {
+		height: 0;
+	}
+	to {
+		height: 100px;
+	}
+}
+
+@keyframes slideUp {
+	from {
+		height: 100px;
+	}
+	to {
+		height: 0;
+	}
+}
+
+
+
 @media (width <= 500px) {
     #loginFormContainer, #registerFormContainer{
         min-width: calc(100vw - 60px);

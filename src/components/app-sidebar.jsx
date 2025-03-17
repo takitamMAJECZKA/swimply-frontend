@@ -1,7 +1,7 @@
 import * as React from "react"
 import {
   BookOpen,
-  Send,
+  CircleHelp,
   Settings2,
   Activity,
   ChartColumn,
@@ -84,9 +84,9 @@ const data = {
   ],
   navSecondary: [
     {
-      title: "Feedback",
+      title: "Częste pytania",
       url: "#",
-      icon: Send,
+      icon: CircleHelp,
     },
   ],
   projects: [
