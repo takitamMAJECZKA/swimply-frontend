@@ -64,7 +64,7 @@ export default function Workouts(){
                     <div className="w-full flex justify-center">
                         <EditableWorkout addWorkoutToList={addWorkoutToList}/>
                     </div>
-                    <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                    <div className="grid auto-rows-min gap-4 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
                         {workoutsList.toReversed().map((workout, index) => {
                             return(
                                 <FinishedWorkout key={workout.id} data={workout} deleteWorkout={deleteWorkout}/>

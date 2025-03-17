@@ -79,6 +79,7 @@ export default function EditableWorkout(props){
                     element.name = elementData.name;
                     element.distance = elementData.distance;
                     element.time = elementData.time;
+                    element.subtype = elementData.subtype;
                     setContent([...content])
                 }
             })

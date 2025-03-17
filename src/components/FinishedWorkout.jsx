@@ -27,8 +27,35 @@ import {
 export default function EditableWorkout(props){
     let [workoutData, setWorkoutData] = useState(props.data);
     let date = new Date(props.data.workoutDate);
+    
     function handleWorkoutNameChange(e){
         setWorkoutData({...workoutData, name: e.target.value})
+    }
+
+    function calculateExerciseTypes(){
+        let data = [{ category: "Wydolność", amount: 0 },{ category: "Siła", amount: 0 },{ category: "Technika", amount: 0 },{ category: "Wstrzymywanie oddechu", amount: 0 },{ category: "Różne", amount: 0 }];
+        workoutData.elementsIn.map((element) =>{
+            if(element.type == 'exercise'){
+                switch (element.subtype.value){
+                    case 'wydolnosc':
+                        data[0].amount ++;
+                        break;
+                    case 'sila':
+                        data[1].amount ++;
+                        break;
+                    case 'technika':
+                        data[2].amount ++;
+                        break;
+                    case 'oddech':
+                        data[3].amount ++;
+                        break;
+                    case 'rozne':
+                        data[4].amount ++;
+                        break;
+                }
+            }
+        })
+        return data;
     }
     return(           
             <div className="workoutContainer fancy-shadow">
@@ -102,7 +129,7 @@ export default function EditableWorkout(props){
                                 }
                             </div>
                             <SmallAreaChartWorkout workoutContent={workoutData.elementsIn}/>
-                            <RadarChartExercisesCategoryWorkout exercisesTypeAmount = {[  { category: "Wydolność", amount: 1 },{ category: "Siła", amount: 2 },{ category: "Technika", amount: 4 },{ category: "Wstrzymywanie oddechu", amount: 3 },{ category: "Różne", amount: 1 }]}/>
+                            <RadarChartExercisesCategoryWorkout exercisesTypeAmount = {calculateExerciseTypes()}/>
                             <RadialProgressChartWorkout caloriesBurnt ={[{caloriesBurnt: 1000}]}  />
                         </div>
                         <DialogFooter>
