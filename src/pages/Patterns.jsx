@@ -37,7 +37,20 @@ import WorkoutPattern from "../components/WorkoutPattern"
 
 import { v4 as uuidv4 } from 'uuid'
 
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
+
+import {
+    Command,
+    CommandDialog,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+    CommandSeparator,
+    CommandShortcut,
+  } from "@/components/ui/command"
+  
 
 const exercisePatterns = [
     {name: 'Żabka'},
@@ -126,6 +139,23 @@ export default function Patterns(){
                         <CarouselNext className='cursor-pointer hidden sm:flex bg-(--dominant) border-(--dominant)' />
                         </Carousel>
                 </div>
+                <Command>
+  <CommandInput placeholder="Type a command or search..." />
+  <CommandList>
+    <CommandEmpty>No results found.</CommandEmpty>
+    <CommandGroup heading="Suggestions">
+      <CommandItem>Calendar</CommandItem>
+      <CommandItem>Search Emoji</CommandItem>
+      <CommandItem>Calculator</CommandItem>
+    </CommandGroup>
+    <CommandSeparator />
+    <CommandGroup heading="Settings">
+      <CommandItem>Profile</CommandItem>
+      <CommandItem>Billing</CommandItem>
+      <CommandItem>Settings</CommandItem>
+    </CommandGroup>
+  </CommandList>
+</Command>
                 </div>
             </SidebarInset>
             </SidebarProvider>
