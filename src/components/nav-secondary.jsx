@@ -72,6 +72,7 @@ export function NavSecondary({
                       </AccordionItem>
                     </Accordion>
                     </DialogHeader>
+                    <DialogDescription></DialogDescription>
                   </DialogContent>
                 </Dialog>
               

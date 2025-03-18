@@ -9,19 +9,21 @@ export default function ExercisePattern(props) {
         if(savedData){
                 savedData.elementsIn.push(newElement);
                 localStorage.setItem('currentWorkout', JSON.stringify(savedData));
-                toast.success(`Ćwiczenie ${props.name} zostało dodane`, {
+                toast.success(<div className='w-full h-full p-2 cursor-pointer' onClick={() => props.handleToastClick()}>Ćwiczenie {props.name} zostało dodane</div>, {
                     action: {
                         label: "X",
                         onClick: () => console.log("X clicked"),
-                    }})
+                    }
+                })
         }else{
             let newWorkout = {name: 'Trening', timeLong: 0, distance: 0, workoutDate: new Date(), elementsIn: [newElement]}
             localStorage.setItem('currentWorkout', JSON.stringify(newWorkout));
-            toast.success(`Ćwiczenie ${props.name} zostało dodane`, {
+            toast.success(<div className='w-full h-full p-2' onClick={() => props.handleToastClick()}>Ćwiczenie {props.name} zostało dodane</div>, {
                 action: {
                     label: "X",
                     onClick: () => console.log("X clicked"),
-            }})
+                }
+            })
         }
     }
     return(

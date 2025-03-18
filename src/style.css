@@ -307,13 +307,13 @@ body{
 		height: 0;
 	}
 	to {
-		height: 100px;
+		height: auto;
 	}
 }
 
 @keyframes slideUp {
 	from {
-		height: 100px;
+		height: auto;
 	}
 	to {
 		height: 0;

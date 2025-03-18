@@ -37,7 +37,7 @@ import WorkoutPattern from "../components/WorkoutPattern"
 
 import { v4 as uuidv4 } from 'uuid'
 
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 
 const exercisePatterns = [
     {name: 'Żabka'},
@@ -56,6 +56,12 @@ const workoutPatterns = [
 export default function Patterns(){
     const carouselPlugin = useRef(
         Autoplay({ delay: 4000, stopOnInteraction: true }))
+    const sheetTriggerRef = useRef();
+
+    function handleToastClick(){
+        sheetTriggerRef.current.click()
+    }
+
     return (
         <div className="statsPage">
             <SidebarProvider>
@@ -83,7 +89,7 @@ export default function Patterns(){
                 <div className="flex flex-1 flex-col gap-6 p-4 pt-0">
                     <div className="w-full flex justify-center items-center md:min-h-min">
                     <Sheet>
-                        <SheetTrigger><div className="p-4 bg-[var(--dominant)] rounded-md text-2xl font-bold border-[2px] border-(--aqua) fancy-shadow m-3 cursor-pointer">Aktualny trening</div></SheetTrigger>
+                        <SheetTrigger ref={sheetTriggerRef} ><div className="p-4 bg-[var(--dominant)] rounded-md text-2xl font-bold border-[2px] border-(--aqua) fancy-shadow m-3 cursor-pointer">Aktualny trening</div></SheetTrigger>
                         <SheetContent className="w-auto max-h-screen overflow-x-auto rounded-tl-sm rounded-bl-sm">
                             <SheetHeader className="p-2">
                             <SheetTitle>Trening</SheetTitle>
@@ -97,7 +103,7 @@ export default function Patterns(){
                     </div>
                 <div className="grid auto-rows-min gap-4 md:grid-cols-3">
                     {exercisePatterns.map((exercisePattern, index) => (
-                    <ExercisePattern key={index} name={exercisePattern.name} />
+                    <ExercisePattern key={index} name={exercisePattern.name} handleToastClick={handleToastClick} />
                     ))}
                 </div>
                 <div className="flex justify-center items-center md:min-h-min">
@@ -112,7 +118,7 @@ export default function Patterns(){
                             {workoutPatterns.map((workoutPattern, index) => {
                                 return(
                                         <CarouselItem key={index}>
-                                            <WorkoutPattern name={workoutPattern.name} content={workoutPattern.content}/>
+                                            <WorkoutPattern name={workoutPattern.name} content={workoutPattern.content} handleToastClick={handleToastClick}/>
                                         </CarouselItem>)
                             })}
                         </CarouselContent>
