@@ -28,7 +28,9 @@ export default function PatternsSearcher({
       <CommandList>
         <CommandEmpty>Nie znaleziono</CommandEmpty>
         <CommandGroup>
-          {statuses.map((status) => (
+          {statuses.map((status) => {
+            
+            return(
             <CommandItem
               key={status.value}
               value={status.value}
@@ -41,7 +43,8 @@ export default function PatternsSearcher({
             >
               {status.label}
             </CommandItem>
-          ))}
+            )
+            })}
         </CommandGroup>
       </CommandList>
     </Command>

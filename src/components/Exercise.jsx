@@ -7,7 +7,7 @@ export default function Exercise(props){
     let [exerciseInfo, setExerciseInfo] = useState(() => {
         let savedData = JSON.parse(localStorage.getItem('currentWorkout'));
         savedData = savedData ? savedData.elementsIn.find((element) => element.id === props.id) : null;
-        return savedData ? savedData : {id: props.id, name:'Ćwiczenie '+String(props.index+1), type:'exercise', distance: 0, time:'00:00', subtype: {label: 'Różne' , value:'rozne'}};
+        return savedData ? savedData : {id: props.id, name: props.name, type:'exercise', distance: 0, time:'00:00', subtype: {label: 'Różne' , value:'rozne'}};
     });
     
     useEffect(()=>{

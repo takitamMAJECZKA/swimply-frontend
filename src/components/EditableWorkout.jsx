@@ -56,6 +56,16 @@ export default function EditableWorkout(props){
     useEffect(() => {
         localStorage.setItem('currentWorkout', JSON.stringify(workoutData));
     }, [workoutData])
+    
+    useEffect(()=>{
+        handleAddToWorkoutFromPattern()
+    }, [selectedPattern])
+
+    function handleAddToWorkoutFromPattern(){
+        if(selectedPattern != null){
+            setContent(c => [...c, {id: uuidv4(), name: selectedPattern.label, type: 'exercise', distance: 0, time: '00:00'}])
+        }
+    }
 
     function onContentChange(){
         let calculateTime = 0;
@@ -74,7 +84,7 @@ export default function EditableWorkout(props){
     }
 
     function handleAddExercise(){
-        setContent(c => [...c, {type:'exercise', id: uuidv4()}])
+        setContent(c => [...c, {name: null, type:'exercise', id: uuidv4()}])
     }
     
     function handleAddBreak(){
@@ -143,7 +153,7 @@ export default function EditableWorkout(props){
                 {content.map((element, i)=>{
                     if (element.type == 'exercise'){
                         return(
-                        <Exercise key={element.id} id={element.id} index={i} updateData={updateData} deleteFunc={handleElementDelete} />
+                        <Exercise key={element.id} id={element.id} index={i} name={element.name} updateData={updateData} deleteFunc={handleElementDelete} />
                         )
                     }else{
                         return(
@@ -161,7 +171,7 @@ export default function EditableWorkout(props){
                                 <Drawer open={searcherOpen} onOpenChange={setSearcherOpen}>
                                       <DrawerTrigger asChild>
                                         <Button  className="cursor-pointer w-auto justify-start bg-(--dominant) text-(--light-aqua) hover:bg-(--light-aqua) hover:text-(--dominant)">
-                                          {selectedPattern ? <>{selectedPattern.label}</> : <>+ Wyszukaj gotowe ćwiczenie</>}
+                                          + Wyszukaj gotowe ćwiczeni
                                         </Button>
                                       </DrawerTrigger>
                                       <DrawerContent>
