@@ -17,6 +17,9 @@ import {
 
 import { Link } from "react-router-dom";
 
+
+import PatternsSearcher from "./PatternsSearcher";
+
 export default function EditableWorkout(props){
     let date = new Date();
 
@@ -142,7 +145,7 @@ export default function EditableWorkout(props){
                             <div className="addExercise cursor-pointer">Dodaj ćwiczenie</div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            <Link to="../patterns"><DropdownMenuItem className="cursor-pointer">Dodaj gotowe ćwiczenie</DropdownMenuItem></Link>
+                            <Link to="../patterns"><DropdownMenuItem className="cursor-pointer"><PatternsSearcher /></DropdownMenuItem></Link>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem className="cursor-pointer" onClick={() => {handleAddExercise()}}>Dodaj własne ćwiczenie</DropdownMenuItem>
                         </DropdownMenuContent>

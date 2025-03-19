@@ -38,18 +38,6 @@ import WorkoutPattern from "../components/WorkoutPattern"
 import { v4 as uuidv4 } from 'uuid'
 
 import { useRef } from "react"
-
-import {
-    Command,
-    CommandDialog,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-    CommandSeparator,
-    CommandShortcut,
-  } from "@/components/ui/command"
   
 
 const exercisePatterns = [
@@ -57,11 +45,11 @@ const exercisePatterns = [
     {name: 'Kraul'},
     {name: 'Motylek'},
     {name: 'Grzbiet'},
-    {name: 'Żabka ratownicza'},
+    {name: 'Żabka niekryta'},
     {name: 'Kraul ratowniczy'},]
 
 const workoutPatterns = [
-    {name: 'Każdy styl', content: [{id: uuidv4(), name: 'Żabka', time: '00:00', type:"exercise", distance: 0},{id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Kraul',type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Motylek', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Grzbiet', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Żabka ratownicza', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Kraul ratowniczy', type:"exercise", time: '00:00', distance: 0}]},
+    {name: 'Każdy styl', content: [{id: uuidv4(), name: 'Żabka', time: '00:00', type:"exercise", distance: 0},{id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Kraul',type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Motylek', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Grzbiet', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Żabka niekryta', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Kraul ratowniczy', type:"exercise", time: '00:00', distance: 0}]},
 
     {name: 'Otyliada', content: [{id: uuidv4(), name: 'Kraul', time: '60:00', type:"exercise", distance: 0}, {id: uuidv4(), name: 'Kraul',type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0},{id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}]},
 ]
@@ -139,23 +127,6 @@ export default function Patterns(){
                         <CarouselNext className='cursor-pointer hidden sm:flex bg-(--dominant) border-(--dominant)' />
                         </Carousel>
                 </div>
-                <Command>
-  <CommandInput placeholder="Type a command or search..." />
-  <CommandList>
-    <CommandEmpty>No results found.</CommandEmpty>
-    <CommandGroup heading="Suggestions">
-      <CommandItem>Calendar</CommandItem>
-      <CommandItem>Search Emoji</CommandItem>
-      <CommandItem>Calculator</CommandItem>
-    </CommandGroup>
-    <CommandSeparator />
-    <CommandGroup heading="Settings">
-      <CommandItem>Profile</CommandItem>
-      <CommandItem>Billing</CommandItem>
-      <CommandItem>Settings</CommandItem>
-    </CommandGroup>
-  </CommandList>
-</Command>
                 </div>
             </SidebarInset>
             </SidebarProvider>
