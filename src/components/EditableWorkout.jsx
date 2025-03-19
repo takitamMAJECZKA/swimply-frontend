@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Pencil, Eraser, EllipsisVertical } from 'lucide-react';
 import Exercise from "./Exercise";
 import Break from "./Break";
@@ -25,7 +25,6 @@ import {
   } from "@/components/ui/drawer"  
 
 
-  import { Button } from "./ui/button";
 import PatternsSearcher from "./PatternsSearcher";
 
 export default function EditableWorkout(props){
@@ -58,10 +57,10 @@ export default function EditableWorkout(props){
     }, [workoutData])
     
     useEffect(()=>{
-        handleAddToWorkoutFromPattern()
+        handleExercisePatternSelect()
     }, [selectedPattern])
 
-    function handleAddToWorkoutFromPattern(){
+    function handleExercisePatternSelect(){
         if(selectedPattern != null){
             setContent(c => [...c, {id: uuidv4(), name: selectedPattern.label, type: 'exercise', distance: 0, time: '00:00'}])
         }
@@ -84,7 +83,7 @@ export default function EditableWorkout(props){
     }
 
     function handleAddExercise(){
-        setContent(c => [...c, {name: null, type:'exercise', id: uuidv4()}])
+        setContent(c => [...c, {name: '', type:'exercise', id: uuidv4()}])
     }
     
     function handleAddBreak(){
@@ -160,32 +159,36 @@ export default function EditableWorkout(props){
                             <Break key={element.id} id={element.id} index={i} updateData={updateData} deleteFunc={handleElementDelete}/>
                             )
                     }
-                })}
-            </div>
-            <div className="grid grid-cols-2 items-center justif-center gap-4">
-                    <DropdownMenu>
-                        <DropdownMenuTrigger className="rounded-[10px]">
-                            <div className="addExercise cursor-pointer">Dodaj ćwiczenie</div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                                <Drawer open={searcherOpen} onOpenChange={setSearcherOpen}>
-                                      <DrawerTrigger asChild>
-                                        <Button  className="cursor-pointer w-auto justify-start bg-(--dominant) text-(--light-aqua) hover:bg-(--light-aqua) hover:text-(--dominant)">
-                                          + Wyszukaj gotowe ćwiczeni
-                                        </Button>
-                                      </DrawerTrigger>
-                                      <DrawerContent>
-                                        <div className="mt-4 border-t">
-                                            <PatternsSearcher setOpen={setSearcherOpen} setSelectedStatus={setSelectedPattern} />
-                                        </div>
-                                      </DrawerContent>
-                                    </Drawer>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem className="cursor-pointer" onClick={() => {handleAddExercise()}}>Dodaj własne ćwiczenie</DropdownMenuItem>
+                    })}
+                </div>
+                <div className="grid grid-cols-2 items-center justif-center gap-4">
+                        <DropdownMenu>
+                            <DropdownMenuTrigger className="rounded-[10px]">
+                                <div className="addExercise cursor-pointer">Dodaj ćwiczenie</div>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                    <Drawer open={searcherOpen} onOpenChange={setSearcherOpen}>
+                                          <DrawerTrigger asChild>
+                                            <DropdownMenuItem  
+                                              className="cursor-pointer w-auto justify-start bg-(--dominant) text-(--light-aqua) hover:bg-(--light-aqua) hover:text-(--dominant)"
+                                              onSelect={(e) => e.preventDefault()}
+                                            >
+                                              + Wyszukaj gotowe ćwiczenie
+                                            </DropdownMenuItem>
+                                          </DrawerTrigger>
+                                          <DrawerContent>
+                                            <div className="mt-4 border-t">
+                                                <PatternsSearcher setOpen={setSearcherOpen} setSelectedStatus={setSelectedPattern} />
+                                            </div>
+                                          </DrawerContent>
+                                        </Drawer>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem className="cursor-pointer" onClick={() => {handleAddExercise()}}>Dodaj własne ćwiczenie</DropdownMenuItem>
+                            
                         </DropdownMenuContent>
                     </DropdownMenu>
                 <button className="addBreak" onClick={() => {handleAddBreak()}}>Dodaj przerwę</button>
-                <Link to="../workouts" className="flex justify-center"><button className="finishWorkout" onClick={() => {handleFinishWorkout()}}>Zakończ</button></Link>
+                <Link to="../workouts" className="flex justify-center finishWorkout"><button onClick={() => {handleFinishWorkout()}}>Zakończ</button></Link>
             </div>
         </div>
     )

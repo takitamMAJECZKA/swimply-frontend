@@ -23,7 +23,7 @@ import EditableWorkout from "../components/EditableWorkout"
 
 export default function Workouts(){
     
-    let [workoutsList, setWorkoutsList] = useState([]);
+    const [workoutsList, setWorkoutsList] = useState([]);
 
     function addWorkoutToList(passedWorkoutData){
         passedWorkoutData.id = uuidv4();

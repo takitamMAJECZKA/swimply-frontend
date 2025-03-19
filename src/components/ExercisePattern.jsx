@@ -2,6 +2,8 @@ import {CirclePlus} from 'lucide-react'
 import { toast} from "sonner"
 import {v4 as uuidv4} from 'uuid'
 
+import {FreestyleIcon, BreaststrokeIcon, BackstrokeIcon, ButterflyIcon, BreaststrokeHeadAboveIcon, FreestyleHeadAboveIcon} from '@/assets/Icons'
+
 export default function ExercisePattern(props) {
     function handleAddToWorkout(){
         let savedData = JSON.parse(localStorage.getItem('currentWorkout'));
@@ -26,9 +28,30 @@ export default function ExercisePattern(props) {
             })
         }
     }
+
+    function retIcon() {
+        switch(props.name){
+            case 'Kraul':
+                return <FreestyleIcon/>
+            case 'Żabka':
+                return <BreaststrokeIcon/>
+            case 'Grzbiet':
+                return <BackstrokeIcon/>
+            case 'Motylek':
+                return <ButterflyIcon/>
+            case 'Żabka niekryta':
+                return <BreaststrokeHeadAboveIcon/>
+            case 'Kraul ratowniczy':
+                return <FreestyleHeadAboveIcon/>
+        }
+    }
+
     return(
         <div className="exercise relative fancy-shadow">
-            <h1 className='exerciseName p-6 text-2xl!'>{props.name}</h1>
+            <div className='w-full flex justify-around items-center p-4'>
+                {retIcon()}
+                <h1 className='exerciseName p-6 text-2xl!'>{props.name}</h1>
+            </div>
             <div className="w-full flex justify-end gap-4 absolute top-0 right-0">
                 <button className='cursor-pointer' onClick={() => {handleAddToWorkout()}}>
                     <CirclePlus className='m-1' size='42'/>

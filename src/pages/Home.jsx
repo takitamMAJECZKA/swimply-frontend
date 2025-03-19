@@ -36,14 +36,8 @@ export default function Home(){
                     <Separator orientation="vertical" className="mr-2 h-4" />
                     <Breadcrumb>
                     <BreadcrumbList>
-                        <BreadcrumbItem className="hidden md:block">
-                        <BreadcrumbLink href="/">
-                            Swimply
-                        </BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator className="hidden md:block" />
                         <BreadcrumbItem>
-                        <BreadcrumbPage>Strona główna</BreadcrumbPage>
+                        <BreadcrumbPage>Swimply</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                     </Breadcrumb>

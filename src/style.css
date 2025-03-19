@@ -292,6 +292,10 @@ body{
     border-radius: 10px;
 }
 
+.finishWorkout{
+    grid-area: 2 / 1 / 3 / 3; 
+}
+
 .AccordionContent {
 	overflow: hidden;
 }

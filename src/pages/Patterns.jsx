@@ -58,7 +58,7 @@ export default function Patterns(){
     const carouselPlugin = useRef(
         Autoplay({ delay: 4000, stopOnInteraction: true }))
     const sheetTriggerRef = useRef();
-
+    
     function handleToastClick(){
         sheetTriggerRef.current.click()
     }
@@ -102,7 +102,7 @@ export default function Patterns(){
                         </SheetContent>
                         </Sheet>
                     </div>
-                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                <div className="grid auto-rows-min gap-4 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
                     {exercisePatterns.map((exercisePattern, index) => (
                     <ExercisePattern key={index} name={exercisePattern.name} handleToastClick={handleToastClick} />
                     ))}
