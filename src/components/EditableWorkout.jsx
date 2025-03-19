@@ -18,19 +18,32 @@ import {
 import { Link } from "react-router-dom";
 
 
+import {
+    Drawer,
+    DrawerContent,
+    DrawerTrigger,
+  } from "@/components/ui/drawer"  
+
+
+  import { Button } from "./ui/button";
 import PatternsSearcher from "./PatternsSearcher";
 
 export default function EditableWorkout(props){
     let date = new Date();
 
-    let [content, setContent] = useState(() => {
+    const [content, setContent] = useState(() => {
         const savedData = localStorage.getItem('currentWorkout');
         return savedData ? JSON.parse(savedData).elementsIn : [];
     });
-    let [workoutData, setWorkoutData] = useState(() => {
+    const [workoutData, setWorkoutData] = useState(() => {
         const savedData = localStorage.getItem('currentWorkout');
         return savedData ? JSON.parse(savedData) : {name: 'Trening', timeLong: 0, distance: 0, workoutDate: date ,elementsIn: [...content]};
     });
+    
+    const [searcherOpen, setSearcherOpen] = useState(false)
+    const [selectedPattern, setSelectedPattern] = useState(
+      null
+    )
 
     function handleWorkoutNameChange(e){
         setWorkoutData({...workoutData, name: e.target.value})
@@ -145,7 +158,18 @@ export default function EditableWorkout(props){
                             <div className="addExercise cursor-pointer">Dodaj ćwiczenie</div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            <Link to="../patterns"><DropdownMenuItem className="cursor-pointer"><PatternsSearcher /></DropdownMenuItem></Link>
+                                <Drawer open={searcherOpen} onOpenChange={setSearcherOpen}>
+                                      <DrawerTrigger asChild>
+                                        <Button  className="cursor-pointer w-auto justify-start bg-(--dominant) text-(--light-aqua) hover:bg-(--light-aqua) hover:text-(--dominant)">
+                                          {selectedPattern ? <>{selectedPattern.label}</> : <>+ Wyszukaj gotowe ćwiczenie</>}
+                                        </Button>
+                                      </DrawerTrigger>
+                                      <DrawerContent>
+                                        <div className="mt-4 border-t">
+                                            <PatternsSearcher setOpen={setSearcherOpen} setSelectedStatus={setSelectedPattern} />
+                                        </div>
+                                      </DrawerContent>
+                                    </Drawer>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem className="cursor-pointer" onClick={() => {handleAddExercise()}}>Dodaj własne ćwiczenie</DropdownMenuItem>
                         </DropdownMenuContent>
