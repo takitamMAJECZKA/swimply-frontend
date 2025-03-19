@@ -3,6 +3,14 @@ import { Pencil } from 'lucide-react';
 import {convertMinsToSecs, convertSecsToMins} from '../TimeCalculate.js'
 import { AddExerciseType } from "./AddExerciseType.jsx";
 
+
+import {
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSeparator,
+    InputOTPSlot,
+  } from "@/components/ui/input-otp"
+
 export default function Exercise(props){
     let [exerciseInfo, setExerciseInfo] = useState(() => {
         let savedData = JSON.parse(localStorage.getItem('currentWorkout'));
@@ -45,6 +53,18 @@ export default function Exercise(props){
             <div className="exerciseButtons">
                 <button className="deleteButton" onClick={()=>{props.deleteFunc(exerciseInfo.id)}}>X</button>
             </div>
+            <InputOTP maxLength={4}>
+            <InputOTPGroup>
+                <InputOTPSlot index={0} />
+                <InputOTPSlot index={1} />
+            </InputOTPGroup>
+            <InputOTPSeparator />
+            <InputOTPGroup>
+                <InputOTPSlot index={2} />
+                <InputOTPSlot index={3} />
+            </InputOTPGroup>
+            </InputOTP>
+
         </div>
     )
 }
