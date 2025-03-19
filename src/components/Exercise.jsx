@@ -26,8 +26,8 @@ export default function Exercise(props){
         setExerciseInfo({...exerciseInfo , distance: e.target.value*25})
     }
 
-    function handleTimeChange(e){
-        setExerciseInfo({...exerciseInfo , time: e.target.value})
+    function handleTimeChange(value){
+        setExerciseInfo({...exerciseInfo , time: value})
     }
 
     function handleExerciseNameChange(e){
@@ -44,7 +44,21 @@ export default function Exercise(props){
             <AddExerciseType parentId={exerciseInfo.id} setExerciseSubType={handleSubTypeChange}/>
             <div className="dataInputsWrapper">
                 <label>Liczba basenów(25m): <input type="number" min={0} value={exerciseInfo.distance/25} onChange={(e)=>{handleAmountOfPoolsChange(e)}} className="dataInput exercisePoolsInput"/></label>
-                <label>Czas(mm:ss): <input type="text" value={exerciseInfo.time} placeholder="mm:ss"onChange={(e)=>{handleTimeChange(e)}} className="dataInput exerciseTimeInput"/></label>
+                <label>
+                    Czas(mm:ss): 
+                    <InputOTP maxLength={5} value={exerciseInfo.time} onChange={(value)=>{handleTimeChange(value)}}>
+                        <InputOTPGroup>
+                            <InputOTPSlot index={0} />
+                            <InputOTPSlot index={1} />
+                        </InputOTPGroup>
+                            <InputOTPSeparator></InputOTPSeparator>
+                        <InputOTPGroup>
+                            <InputOTPSlot index={3} />
+                            <InputOTPSlot index={4} />
+                        </InputOTPGroup>
+                    </InputOTP>
+                    
+                </label>
             </div>
             <div className="exerciseCalculations">
                 <div className="exerciseDistance">Dystans(m): {exerciseInfo.distance}</div>
@@ -53,18 +67,6 @@ export default function Exercise(props){
             <div className="exerciseButtons">
                 <button className="deleteButton" onClick={()=>{props.deleteFunc(exerciseInfo.id)}}>X</button>
             </div>
-            <InputOTP maxLength={4}>
-            <InputOTPGroup>
-                <InputOTPSlot index={0} />
-                <InputOTPSlot index={1} />
-            </InputOTPGroup>
-            <InputOTPSeparator />
-            <InputOTPGroup>
-                <InputOTPSlot index={2} />
-                <InputOTPSlot index={3} />
-            </InputOTPGroup>
-            </InputOTP>
-
         </div>
     )
 }
