@@ -44,7 +44,7 @@
     --destructive-foreground: oklch(0.98 0.01 240);
     --border: var(--light-dominant);
     --input: var(--aqua);
-    --ring: var(--dominant);
+    --ring: var(--aqua-dominant);
     --radius: 1rem;
     --chart-1: var(--aqua);
     --chart-2: var(--dark-aqua);

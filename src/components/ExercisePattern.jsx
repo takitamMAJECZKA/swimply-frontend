@@ -48,7 +48,7 @@ export default function ExercisePattern(props) {
 
     return(
         <div className="exercise relative fancy-shadow">
-            <div className='w-full flex justify-around items-center p-4'>
+            <div className='w-full grid grid-cols-2 sm:flex sm:justify-around items-center p-4'>
                 {retIcon()}
                 <h1 className='exerciseName p-6 text-2xl!'>{props.name}</h1>
             </div>
