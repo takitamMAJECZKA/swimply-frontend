@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Pencil, Eraser, EllipsisVertical } from 'lucide-react';
 import Exercise from "./Exercise";
 import Break from "./Break";
@@ -16,6 +16,19 @@ import {
   } from "@/components/ui/dropdown-menu"
 
 import { Link } from "react-router-dom";
+
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogClose
+  } from "@/components/ui/dialog"
+    import { Input } from "@/components/ui/input"
+    import { Label } from "@/components/ui/label"
 
 
 import {
@@ -130,12 +143,36 @@ export default function EditableWorkout(props){
     return(
         <div className="workoutContainer fancy-shadow">
             <div className="workoutHeader">
-                <div className="flex justify-between"><label className="w-full flex justify-between items-center"><input type="text" id="name" onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Nazwa treningu" value={workoutData.name}/><Pencil className="mr-2"/> </label>
+                <div className="flex justify-between"><label className="w-full flex justify-between items-center"><h1 className="font-bold text-2xl pl-5 pt-3">{workoutData.name ? workoutData.name : "Bez nazwy"}</h1></label>
                 <DropdownMenu>
                     <DropdownMenuTrigger>
                         <EllipsisVertical/>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
+                    <Dialog>
+                    <DialogTrigger asChild>
+                    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                            <label htmlFor="name"><div className="w-full cursor-pointer flex items-center justify-around" ><Pencil/>Zmień nazwę</div></label>
+                    </DropdownMenuItem>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                        <DialogTitle>Zmień nazwę</DialogTitle>
+                        <DialogDescription>
+                            Zmień nazwę treningu a następnie kliknij przycisk "Zapisz zmiany"
+                        </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="name" className="text-right">
+                            Nazwa
+                            </Label>
+                            <Input id="name" value={workoutData.name} onChange={(e) => setWorkoutData({...workoutData, name: e.target.value})} className="col-span-3" />
+                        </div>
+                        <DialogFooter>
+                            <DialogClose><div className="saveChangesBtn">Zapisz zmiany</div></DialogClose>
+                        </DialogFooter>
+                    </DialogContent>
+                    </Dialog>
                         <DropdownMenuItem>
                             <div className="w-full cursor-pointer flex items-center justify-around" onClick={()=> {setWorkoutData({workoutData, name:"Trening"}) ;setContent([])}}><Eraser/>Wyczyść</div>
                         </DropdownMenuItem>
