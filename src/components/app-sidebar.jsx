@@ -4,7 +4,6 @@ import {
   CircleHelp,
   Settings2,
   Activity,
-  ChartColumn,
   Waves
 } from "lucide-react"
 
@@ -37,11 +36,11 @@ const data = {
       items: [
         {
           title: "Dodaj",
-          url: "/workouts/#add",
+          url: "/workouts/add",
         },
         {
           title: "Historia",
-          url: "/workouts/#history",
+          url: "/workouts/history",
         },
       ],
     },
@@ -52,16 +51,12 @@ const data = {
       isActive: window.location.pathname === "/patterns" ||  window.location.pathname === "/patterns/" ? true : false,
       items: [
         {
-          title: "Nowy szablon",
-          url: "/patterns/#add",
+          title: "Ćwiczenia",
+          url: "/patterns/exercises",
         },
         {
-          title: "Pierwszy szablon",
-          url: "/patterns/#last",
-        },
-        {
-          title: "Drugi szablon",
-          url: "/patterns/#almost-last",
+          title: "Treningi",
+          url: "/patterns/workouts",
         },
       ],
     },
@@ -72,12 +67,12 @@ const data = {
       isActive: window.location.pathname === "/settings" ||  window.location.pathname === "/settings/" ? true : false,
       items: [
         {
-          title: "Ogólne",
-          url: "/settings/#general",
+          title: "Konto",
+          url: "/settings/account",
         },
         {
-          title: "Konta",
-          url: "/settings/#account",
+          title: "Twoje dane",
+          url: "/settings/yourData",
         },
       ],
     },
@@ -85,24 +80,24 @@ const data = {
   navSecondary: [
     {
       title: "Częste pytania",
-      url: "#",
+      url: "",
       icon: CircleHelp,
     },
   ],
   projects: [
     {
       name: "Ostatni trening",
-      url: "/workouts/#last",
+      url: "/workouts/last",
       icon: Activity,
     },
     {
       name: "Przedostatni trening",
-      url: "/workouts/#almost-last",
+      url: "/workouts/almost-last",
       icon: Activity,
     },
     {
       name: "I tak dalej",
-      url: "/workouts/#and-so-on",
+      url: "/workouts/and-so-on",
       icon: Activity,
     },
   ],

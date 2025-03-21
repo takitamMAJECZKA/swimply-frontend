@@ -39,6 +39,7 @@ import {
 
 
 import PatternsSearcher from "./PatternsSearcher";
+import { toast } from "sonner";
 
 export default function EditableWorkout(props){
     let date = new Date();
@@ -132,12 +133,14 @@ export default function EditableWorkout(props){
     }
 
     function handleFinishWorkout(){
-        if(workoutData.timeLong!=0 && workoutData.distance!=0){
+        if(workoutData.timeLong!='00:00:00' && workoutData.distance!=0){
             if(props.addWorkoutToList){
                 props.addWorkoutToList(workoutData)
                 setContent([])
                 setWorkoutData({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date ,elementsIn: [...content]})
             }
+        }else{
+            toast.error('Trening nie może nie mieć dystansu, lub nie zająć żadnego czasu.')
         }
     }
     return(
@@ -225,7 +228,7 @@ export default function EditableWorkout(props){
                         </DropdownMenuContent>
                     </DropdownMenu>
                 <button className="addBreak" onClick={() => {handleAddBreak()}}>Dodaj przerwę</button>
-                <Link to="../workouts" className="flex justify-center finishWorkout"><button onClick={() => {handleFinishWorkout()}}>Zakończ</button></Link>
+                <Link to="../workouts" className="flex justify-center finishWorkout"><button className="cursor-pointer" onClick={() => {handleFinishWorkout()}}>Zakończ</button></Link>
             </div>
         </div>
     )

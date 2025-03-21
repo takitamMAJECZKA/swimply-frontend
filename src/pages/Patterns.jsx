@@ -102,12 +102,12 @@ export default function Patterns(){
                         </SheetContent>
                         </Sheet>
                     </div>
-                <div className="grid auto-rows-min gap-4 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
+                <div id="exercises" className="grid auto-rows-min gap-4 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
                     {exercisePatterns.map((exercisePattern, index) => (
                     <ExercisePattern key={index} name={exercisePattern.name} handleToastClick={handleToastClick} />
                     ))}
                 </div>
-                <div className="flex justify-center items-center md:min-h-min">
+                <div id="workouts" className="flex justify-center items-center md:min-h-min">
                         <Carousel className='w-[90%] fancy-shadow rounded-md bg-(--dominant)'   
                         opts={{
                             align: "start",
