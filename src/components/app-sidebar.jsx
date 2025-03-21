@@ -32,7 +32,7 @@ const data = {
       title: "Treningi",
       url: "/workouts",
       icon: Activity,
-      isActive: window.location.pathname === "/workouts" ||  window.location.pathname === "/workouts/" ? true : false,
+      isActive: window.location.pathname === "/workouts" ||  window.location.pathname === "/workouts/*" ? true : false,
       items: [
         {
           title: "Dodaj",

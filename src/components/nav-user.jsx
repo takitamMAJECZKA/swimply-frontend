@@ -76,11 +76,7 @@ export function NavUser({
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <BadgeCheck />
-                Konto
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Powiadomienia
+                <Link to="/settings/account">Konto</Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
