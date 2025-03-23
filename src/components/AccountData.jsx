@@ -28,7 +28,13 @@ export default function AccountInfo() {
         if((weight < 20 || weight > 200) || (age < 12 || age > 99) || (height < 100 || height > 250)) {
             toast.error('Wprowadź poprawne dane')
         }else{
-            toast.success('Zapisano dane')
+            const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: 'Promise' }), 2000));
+
+            toast.promise(promise, {
+            loading: 'Proszę czekać...',
+            success: 'Dane zostały zapisane',
+            error: 'Błąd po stronie bazy danych',
+            });
         }
     }
 

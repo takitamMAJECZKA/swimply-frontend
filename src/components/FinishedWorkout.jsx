@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { X } from "lucide-react"
+import { EllipsisVertical } from "lucide-react"
 
 
 
@@ -62,7 +62,7 @@ export default function EditableWorkout(props){
                 <div className="workoutHeader">
                     <Dialog>
                     <DialogTrigger asChild>
-                    <label><input type="text" readOnly onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Nazwa treningu" value={workoutData.name}/> <X className="cursor-pointer"/> </label>
+                    <label><input type="text" readOnly onChange={(e) => {handleWorkoutNameChange(e)}} className="workoutName dataInput" placeholder="Nazwa treningu" value={workoutData.name}/> <EllipsisVertical className="cursor-pointer"/> </label>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
@@ -84,7 +84,7 @@ export default function EditableWorkout(props){
                     </DialogContent>
                     </Dialog>
                     <Dialog>
-                    <DialogTrigger asChild>
+                    <DialogTrigger asChildb className="cursor-pointer">
                     <div className="workoutInfo">
                         <div className="workoutDate">{date.getDate()} {date.toLocaleDateString('pl-PL', {month:'long'})} {date.getFullYear()}</div>
                         <div className="workoutDistance">{workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}</div>

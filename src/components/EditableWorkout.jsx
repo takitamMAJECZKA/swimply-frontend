@@ -50,7 +50,7 @@ export default function EditableWorkout(props){
     });
     const [workoutData, setWorkoutData] = useState(() => {
         const savedData = localStorage.getItem('currentWorkout');
-        return savedData ? JSON.parse(savedData) : {name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, mainType:{category: "Różne", amount: 0}, elementsIn: [...content]};
+        return savedData ? JSON.parse(savedData) : {name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, mainType:['Różne'], elementsIn: [...content]};
     });
     
     const [searcherOpen, setSearcherOpen] = useState(false)
@@ -141,6 +141,7 @@ export default function EditableWorkout(props){
                     element.distance = elementData.distance;
                     element.time = elementData.time;
                     element.subtype = elementData.subtype;
+                    element.equipment = elementData.equipment;
                     setContent([...content])
                 }
             })
@@ -160,7 +161,7 @@ export default function EditableWorkout(props){
             if(props.addWorkoutToList){
                 props.addWorkoutToList(workoutData)
                 setContent([])
-                setWorkoutData({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date ,elementsIn: [...content]})
+                setWorkoutData({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, mainType:['Różne'], elementsIn: [...content]})
             }
         }else{
             toast.error('Trening nie może nie mieć dystansu, lub nie zająć żadnego czasu.')
@@ -205,18 +206,11 @@ export default function EditableWorkout(props){
                     </DropdownMenuContent>
                 </DropdownMenu>
                 </div>
-                <div className="p-1 pl-4 h-auto flex justify-around">
-                    {workoutData.mainType.map((element, index)=>{
-                        if(index < 3){
+                <div className="p-1 pl-4 h-auto flex flex-wrap gap-3 justify-around">
+                    {workoutData.mainType && workoutData.mainType.map((element, index)=>{
                             return (
-                            <Badge key={index} className="bg-(--light-dominant) pl-4 pr-4">{element=="Wstrzymywanie oddechu" ? "Wstrzymywanie..." : element}</Badge>
+                            <Badge key={index} className="bg-(--light-dominant) pl-4 pr-4">{element}</Badge>
                             )
-                        }
-                        else if (index == 3){
-                            return (
-                                <Badge key={index} className="bg-(--light-dominant) pl-4 pr-4">...</Badge>
-                                )
-                        }
                     })}
                 </div> 
                 <div className="workoutInfo">
@@ -264,7 +258,7 @@ export default function EditableWorkout(props){
                         </DropdownMenuContent>
                     </DropdownMenu>
                 <button className="addBreak" onClick={() => {handleAddBreak()}}>Dodaj przerwę</button>
-                <Link to="../workouts" className="flex justify-center finishWorkout"><button className="cursor-pointer" onClick={() => {handleFinishWorkout()}}>Zakończ</button></Link>
+                <Link to="../workouts" className="flex justify-center finishWorkout" onClick={() => {handleFinishWorkout()}}><button className="cursor-pointer">Zakończ</button></Link>
             </div>
         </div>
     )
