@@ -30,6 +30,17 @@ import {
     import SmallAreaChartWorkout from "../components/charts/SmallAreaChartWorkout"
     import { convertSecsToMins, convertMinsToSecs } from "@/TimeCalculate";
 
+    const equipmentOptions = [
+        { id: 'kickboard', name: 'Deska pływacka', group: 'hands' },
+        { id: 'handpaddles', name: 'Płetwy na ręce', group: 'hands' },
+        { id: 'fins', name: 'Płetwy', group: 'feet' },
+        { id: 'monofin', name: 'Monopłetwa', group: 'feet' },
+        { id: 'pullbuoy', name: 'Pull buoy (ósemka)', group: 'feet' },
+        { id: 'snorkel', name: 'Snorkel (rurka pływacka)', group: 'head' },
+        { id: 'noodle', name: 'Makaron pływacki', group: 'other' },
+      ];
+
+
 
 export default function EditableWorkout(props){
     let [workoutData, setWorkoutData] = useState(props.data);
@@ -145,10 +156,15 @@ export default function EditableWorkout(props){
                                                         <div className="w-full flex items-center justify-center">
                                                             <Badge variant='outline' className='p-1.5 pl-6 pr-6 text-sm font-bold'>{element.subtype.label}</Badge>
                                                         </div>
-                                                        <div className="w-full flex items-center justify-around flex-wrap">    
-                                                        {element.equipment.map((equ)=>(
-                                                            <Badge variant='secondary'>{equ}</Badge>
-                                                        ))}
+                                                        <div className="w-full flex items-center justify-around flex-wrap gap-1.5">    
+                                                        {element.equipment.map(id => {
+                                                            const equipment = equipmentOptions.find(e => e.id === id);
+                                                            return (
+                                                            <Badge key={id} variant="secondary" className="gap-1">
+                                                                {equipment.name}
+                                                            </Badge>
+                                                            );
+                                                        })}
                                                         </div>
                                                     </PopoverContent>
                                                 </Popover>

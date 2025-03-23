@@ -25,7 +25,7 @@ const EquipmentSelector = (props) => {
     { id: 'fins', name: 'Płetwy', group: 'feet' },
     { id: 'monofin', name: 'Monopłetwa', group: 'feet' },
     { id: 'pullbuoy', name: 'Pull buoy (ósemka)', group: 'feet' },
-    { id: 'snorkel', name: 'Snorkel (rurka pływania)', group: 'head' },
+    { id: 'snorkel', name: 'Snorkel (rurka pływacka)', group: 'head' },
     { id: 'noodle', name: 'Makaron pływacki', group: 'other' },
   ];
 
