@@ -17,6 +17,13 @@ import {
     import { Input } from "@/components/ui/input"
     import { Label } from "@/components/ui/label"
 
+    import {
+        Popover,
+        PopoverContent,
+        PopoverTrigger,
+    } from "@/components/ui/popover"
+      
+    import { Badge } from "./ui/badge";
 
     import RadarChartExercisesCategoryWorkout from "../components/charts/RadarChartExercisesCategoryWorkout"
     import RadialProgressChartWorkout from "../components/charts/RadialProgressChartWorkout"
@@ -110,11 +117,41 @@ export default function EditableWorkout(props){
                                 workoutData.elementsIn.map((element) => {
                                     if(element.type == 'exercise'){
                                         return(
-                                            <div key={element.id} className="grid grid-cols-2 md:flex md:items-center gap-4 p-3 rounded-md bg-[var(--dominant)]">
+                                            <div key={element.id} className="grid grid-cols-3 md:flex md:items-center gap-4 p-3 rounded-md bg-[var(--dominant)]">
                                                 <span>{element.name}</span>
                                                 <span>{element.time} (minut:sekund)</span>
+                                                <Popover>
+                                                    <PopoverTrigger className="cursor-pointer flex md:hidden justify-end items-center">
+                                                        <EllipsisVertical />
+                                                    </PopoverTrigger>
+                                                    <PopoverContent className='flex items-center justify-center gap-2 flex-col'>
+                                                        <div className="w-full flex items-center justify-center">
+                                                            <Badge variant='outline' className='p-1.5 pl-6 pr-6 text-sm font-bold'>{element.subtype.label}</Badge>
+                                                        </div>
+                                                        <div className="w-full flex items-center justify-around flex-wrap">    
+                                                        {element.equipment.map((equ)=>(
+                                                            <Badge variant='secondary'>{equ}</Badge>
+                                                        ))}
+                                                        </div>
+                                                    </PopoverContent>
+                                                </Popover>
                                                 <span>{element.distance} metrów</span>
                                                 <span>{convertSecsToMins(convertMinsToSecs(element.time)/(element.distance/100))} - tempo na 100m</span>
+                                                <Popover>
+                                                    <PopoverTrigger className="cursor-pointer row-span-2 hidden md:block">
+                                                        <EllipsisVertical />
+                                                    </PopoverTrigger>
+                                                    <PopoverContent className='flex items-center justify-center gap-2 flex-col'>
+                                                        <div className="w-full flex items-center justify-center">
+                                                            <Badge variant='outline' className='p-1.5 pl-6 pr-6 text-sm font-bold'>{element.subtype.label}</Badge>
+                                                        </div>
+                                                        <div className="w-full flex items-center justify-around flex-wrap">    
+                                                        {element.equipment.map((equ)=>(
+                                                            <Badge variant='secondary'>{equ}</Badge>
+                                                        ))}
+                                                        </div>
+                                                    </PopoverContent>
+                                                </Popover>
                                             </div>
                                         )
                                     }else{
@@ -133,7 +170,7 @@ export default function EditableWorkout(props){
                             <RadialProgressChartWorkout caloriesBurnt ={[{caloriesBurnt: 1000}]}  />
                         </div>
                         <DialogFooter>
-                        <DialogClose><div className="saveChangesBtn">Wyjdz</div></DialogClose>
+                        <DialogClose><div className="saveChangesBtn">Wyjdź</div></DialogClose>
                         </DialogFooter>
             </DialogContent>
             </Dialog>
