@@ -36,7 +36,7 @@ import {
     DrawerContent,
     DrawerTrigger,
   } from "@/components/ui/drawer"  
-
+import { Badge } from "./ui/badge";
 
 import PatternsSearcher from "./PatternsSearcher";
 import { toast } from "sonner";
@@ -50,7 +50,7 @@ export default function EditableWorkout(props){
     });
     const [workoutData, setWorkoutData] = useState(() => {
         const savedData = localStorage.getItem('currentWorkout');
-        return savedData ? JSON.parse(savedData) : {name: 'Trening', timeLong: 0, distance: 0, workoutDate: date ,elementsIn: [...content]};
+        return savedData ? JSON.parse(savedData) : {name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, mainType:{category: "Różne", amount: 0}, elementsIn: [...content]};
     });
     
     const [searcherOpen, setSearcherOpen] = useState(false)
@@ -93,7 +93,30 @@ export default function EditableWorkout(props){
                 calculateDistance += element.distance;
             }
         })
-        setWorkoutData({...workoutData, timeLong: convertSecsToHours(calculateTime), distance: calculateDistance, elementsIn: [...content]})
+        let data = [];
+        content.map((element) => {
+            if(element.type == 'exercise'){
+                switch (element.subtype.value){
+                    case 'wydolnosc':
+                        data.push(element.subtype.label)
+                        break;
+                    case 'sila':
+                        data.push(element.subtype.label)
+                        break;
+                    case 'technika':
+                        data.push(element.subtype.label)
+                        break;
+                    case 'oddech':
+                        data.push(element.subtype.label)
+                        break;
+                    case 'rozne':
+                        data.push(element.subtype.label)
+                        break;
+                }
+            }
+        })
+        data = [... new Set(data)]
+        setWorkoutData({...workoutData, timeLong: convertSecsToHours(calculateTime), distance: calculateDistance, elementsIn: [...content], mainType: [...data]})
     }
 
     function handleAddExercise(){
@@ -146,7 +169,7 @@ export default function EditableWorkout(props){
     return(
         <div className="workoutContainer fancy-shadow">
             <div className="workoutHeader">
-                <div className="flex justify-between"><label className="w-full flex justify-between items-center"><h1 className="font-bold text-2xl pl-5 pt-3">{workoutData.name ? workoutData.name : "Bez nazwy"}</h1></label>
+                <div className="flex justify-between"><h1 className="font-bold text-2xl pl-5 pt-3">{workoutData.name ? workoutData.name : "Bez nazwy"}</h1>
                 <DropdownMenu>
                     <DropdownMenuTrigger>
                         <EllipsisVertical/>
@@ -169,7 +192,7 @@ export default function EditableWorkout(props){
                             <Label htmlFor="name" className="text-right">
                             Nazwa
                             </Label>
-                            <Input id="name" value={workoutData.name} onChange={(e) => setWorkoutData({...workoutData, name: e.target.value})} className="col-span-3" />
+                            <Input id="name" value={workoutData.name} onChange={(e) => handleWorkoutNameChange(e)} className="col-span-3" />
                         </div>
                         <DialogFooter>
                             <DialogClose><div className="saveChangesBtn">Zapisz zmiany</div></DialogClose>
@@ -182,6 +205,20 @@ export default function EditableWorkout(props){
                     </DropdownMenuContent>
                 </DropdownMenu>
                 </div>
+                <div className="p-1 pl-4 h-auto flex justify-around">
+                    {workoutData.mainType.map((element, index)=>{
+                        if(index < 3){
+                            return (
+                            <Badge key={index} className="bg-(--light-dominant) pl-4 pr-4">{element=="Wstrzymywanie oddechu" ? "Wstrzymywanie..." : element}</Badge>
+                            )
+                        }
+                        else if (index == 3){
+                            return (
+                                <Badge key={index} className="bg-(--light-dominant) pl-4 pr-4">...</Badge>
+                                )
+                        }
+                    })}
+                </div> 
                 <div className="workoutInfo">
                     <div className="workoutDate">{date.getDate()} {date.toLocaleDateString('pl-PL', {month:'long'})} {date.getFullYear()}</div>
                     <div className="workoutDistance">{workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}</div>
@@ -223,8 +260,7 @@ export default function EditableWorkout(props){
                                           </DrawerContent>
                                         </Drawer>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem className="cursor-pointer" onClick={() => {handleAddExercise()}}>Dodaj własne ćwiczenie</DropdownMenuItem>
-                            
+                                <DropdownMenuItem className="cursor-pointer" onClick={() => {handleAddExercise()}}>Dodaj własne ćwiczenie</DropdownMenuItem>          
                         </DropdownMenuContent>
                     </DropdownMenu>
                 <button className="addBreak" onClick={() => {handleAddBreak()}}>Dodaj przerwę</button>

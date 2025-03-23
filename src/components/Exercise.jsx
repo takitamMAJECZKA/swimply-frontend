@@ -45,7 +45,7 @@ export default function Exercise(props){
 
     return(
         <div className="exercise">
-            <label><input type="text" onChange={(e) => {handleExerciseNameChange(e)}} className="exerciseName dataInput" placeholder="Exercise name" value={exerciseInfo.name}/><Pencil className="cursor-pointer"/></label>
+            <label><input type="text" onChange={(e) => {handleExerciseNameChange(e)}} className="exerciseName dataInput" placeholder="Nazwa ćwiczenia" value={exerciseInfo.name}/><Pencil className="cursor-pointer"/></label>
             <AddExerciseType parentId={exerciseInfo.id} setExerciseSubType={handleSubTypeChange}/>
             <div className="dataInputsWrapper">
                 <label>Liczba basenów(25m): <input type="number" min={0} value={exerciseInfo.distance/25} onChange={(e)=>{handleAmountOfPoolsChange(e)}} className="dataInput exercisePoolsInput"/></label>
