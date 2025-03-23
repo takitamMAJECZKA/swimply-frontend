@@ -10,7 +10,7 @@ export default function AccountInfo() {
     const [age, setAge] = useState(18)
     const [height, setHeight] = useState(175)
     const [isMale, setIsMale] = useState(true)
-
+    const [caloriesGoal, setCaloriesGoal] = useState(1200);
 
     function handleWeightChange(e) {
         setWeight(e.target.value)
@@ -42,13 +42,22 @@ export default function AccountInfo() {
         setIsMale(is)
     }
 
+
+    function handleCaloriesGoalChange(e) {
+        setCaloriesGoal(e.target.value)
+    }
+
     return (
         <div className="grid grid-cols-1 mt-4">
             <div className="p-4 rounded-xl fancy-shadow bg-(--dominant) grid grid-cols-1 gap-4">
                 <h2 className="text-lg font-semibold text-(--light-aqua)">Dane o użytkowniku</h2>
                 <div className="flex items-center justify-between">
                     <label htmlFor="weight"><h3>Waga</h3></label>
-                    <label><input id="weight" type="number" min='20' max='200' onChange={(e) => handleWeightChange(e)} value={weight} className="border-[2px] border-(--light-aqua) rounded-[6px] mr-2 w-[200px]" />KG</label>
+                    <label><input id="weight" type="number" min='20' max='200' onChange={(e) => handleWeightChange(e)} value={weight} className="border-[2px] border-(--light-aqua) rounded-[6px] mr-2 w-[200px]" />kg</label>
+                </div>
+                <div className="flex items-center justify-between">
+                    <label htmlFor="caloriesGoal"><h3>Cel kalorii</h3></label>
+                    <label><input id="caloriesGoal" type="number" min='0' onChange={(e) => handleCaloriesGoalChange(e)} value={caloriesGoal} className="border-[2px] border-(--light-aqua) rounded-[6px] mr-2 w-[200px]" />kcal</label>
                 </div>
                 <div className="flex items-center justify-between">
                     <label htmlFor="age"><h3>Wiek</h3></label>
