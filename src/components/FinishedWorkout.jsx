@@ -75,6 +75,24 @@ export default function EditableWorkout(props){
         })
         return data;
     }
+    function calculateEquipmentTypes(){
+        let data = [{ id: 'kickboard', category: 'Deska pływacka', amount: 0},
+            { id: 'fins', category: 'Płetwy', amount: 0},
+            { id: 'handpaddles', category: 'Płetwy na ręce', amount: 0},
+            { id: 'monofin', category: 'Monopłetwa', amount: 0},
+            { id: 'snorkel', category: 'Snorkel (rurka pływacka)', amount: 0},
+            { id: 'pullbuoy', category: 'Pull buoy (ósemka)', amount: 0},
+            { id: 'noodle', category: 'Makaron pływacki', amount: 0}]
+        workoutData.elementsIn.map((element) =>{
+            if(element.type == 'exercise'){
+                element.equipment.map(id=>{
+                    const equipment = data.find(e => e.id === id);
+                    equipment.amount++;
+                })
+            }
+        })
+        return data;
+    }
     return(           
             <div className="workoutContainer fancy-shadow">
                 <div className="workoutHeader">
@@ -182,7 +200,7 @@ export default function EditableWorkout(props){
                                 }
                             </div>
                             <SmallAreaChartWorkout workoutContent={workoutData.elementsIn}/>
-                            <RadarChartExercisesCategoryWorkout exercisesTypeAmount = {calculateExerciseTypes()}/>
+                            <RadarChartExercisesCategoryWorkout exercisesTypeAmount = {calculateExerciseTypes()} equipmentTypeAmount={calculateEquipmentTypes()}/>
                             <RadialProgressChartWorkout caloriesBurnt ={[{caloriesBurnt: 1000}]}  />
                         </div>
                         <DialogFooter>

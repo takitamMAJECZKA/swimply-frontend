@@ -16,6 +16,10 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+
+import { useState, useEffect } from "react"
+
 
 const chartConfig = {
   amount: {
@@ -25,14 +29,43 @@ const chartConfig = {
 }
 
 export default function RadarChartExercisesCategoryWorkout(props) {
-  const chartData = [...props.exercisesTypeAmount];
+  let [chartData, setChartData] = useState()
+
+  const [variant, setVariant] = useState('type');
+
+  useEffect(()=>{
+    switch (variant) {
+      case 'type':
+        setChartData([...props.exercisesTypeAmount])
+        break;
+      case 'equipment':
+        setChartData([...props.equipmentTypeAmount])
+    }
+  }, [variant])
+
   return (
     <Card className='fancy-shadow'>
-      <CardHeader className="items-center pb-4">
+      <CardHeader className="items-start pb-4">
         <CardTitle>Charakter ćwiczeń</CardTitle>
         <CardDescription>
           Pokazuje co głównie wzmocniłeś w wykonanych ćwiczeniach
         </CardDescription>
+        <Select value={variant} onValueChange={setVariant}>
+          <SelectTrigger
+            className="w-auto cursor-pointer rounded-lg sm:ml-auto"
+            aria-label="Select a value"
+          >
+            <SelectValue placeholder="Typy ćwiczeń" />
+          </SelectTrigger>
+          <SelectContent className="rounded-xl">
+            <SelectItem value="type" className="rounded-lg cursor-pointer" selected="selected">
+              Typy ćwiczeń
+            </SelectItem>
+            <SelectItem value="equipment" className="rounded-lg cursor-pointer">
+              Sprzęt do ćwiczeń
+            </SelectItem>
+          </SelectContent>
+        </Select>
       </CardHeader>
       <CardContent className="pb-0">
         <ChartContainer
