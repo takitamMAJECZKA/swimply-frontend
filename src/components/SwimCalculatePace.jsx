@@ -47,7 +47,7 @@ const SwimPaceCalculator = () => {
       <Card className="w-full max-w-md">
         <CardHeader>
           <div className="flex items-center">
-            <Waves className="w-6 h-6 mr-3 text-primary" />
+            <Waves className="w-6 h-6 mr-3 text-(--aqua)" />
             <CardTitle>Kalkulator przewidywanego tempa</CardTitle>
           </div>
           <CardDescription>Oblicz swoje maksymalne tempo na danym dystansie</CardDescription>
@@ -56,7 +56,7 @@ const SwimPaceCalculator = () => {
         <CardContent className="space-y-4">
           <div>
             <Label className="flex items-center mb-2">
-              <Clock className="w-4 h-4 mr-2 text-primary" />
+              <Clock className="w-4 h-4 mr-2 text-(--aqua)" />
               Najlepszy czas (mm:ss)
             </Label>
             <Input 
@@ -69,7 +69,7 @@ const SwimPaceCalculator = () => {
 
           <div>
             <Label className="flex items-center mb-2">
-              <Ruler className="w-4 h-4 mr-2 text-primary" />
+              <Ruler className="w-4 h-4 mr-2 text-(--aqua)" />
               Najlepszy dystans (metry)
             </Label>
             <Input 
@@ -82,7 +82,7 @@ const SwimPaceCalculator = () => {
 
           <div>
             <Label className="flex items-center mb-2">
-              <Ruler className="w-4 h-4 mr-2 text-primary" />
+              <Ruler className="w-4 h-4 mr-2 text-(--aqua)" />
               Na jaki dystans chcesz obliczyć tempo
             </Label>
             <Input 
@@ -95,7 +95,7 @@ const SwimPaceCalculator = () => {
 
           <div>
             <Label className="flex items-center mb-2">
-              <ChevronDown className="w-4 h-4 mr-2 text-primary" />
+              <ChevronDown className="w-4 h-4 mr-2 text-(--aqua)" />
               Na jakim poziomie pływasz
             </Label>
             <Select 
