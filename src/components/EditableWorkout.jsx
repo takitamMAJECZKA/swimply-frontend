@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Pencil, Eraser, EllipsisVertical } from 'lucide-react';
+import { Ruler, Pencil, Eraser, EllipsisVertical } from 'lucide-react';
 import Exercise from "./Exercise";
 import Break from "./Break";
 import {convertMinsToSecs, convertSecsToHours} from '../TimeCalculate.js'
@@ -30,6 +30,13 @@ import {
     import { Input } from "@/components/ui/input"
     import { Label } from "@/components/ui/label"
 
+    import {
+      Select,
+      SelectContent,
+      SelectItem,
+      SelectTrigger,
+      SelectValue,
+    } from "@/components/ui/select"
 
 import {
     Drawer,
@@ -50,7 +57,7 @@ export default function EditableWorkout(props){
     });
     const [workoutData, setWorkoutData] = useState(() => {
         const savedData = localStorage.getItem('currentWorkout');
-        return savedData ? JSON.parse(savedData) : {name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, mainType:['Różne'], elementsIn: [...content]};
+        return savedData ? JSON.parse(savedData) : {name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, poolLength: 25,  mainType:['Różne'], elementsIn: [...content]};
     });
     
     const [searcherOpen, setSearcherOpen] = useState(false)
@@ -161,7 +168,7 @@ export default function EditableWorkout(props){
             if(props.addWorkoutToList){
                 props.addWorkoutToList(workoutData)
                 setContent([])
-                setWorkoutData({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, mainType:['Różne'], elementsIn: [...content]})
+                setWorkoutData({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, poolLength: 25, mainType:['Różne'], elementsIn: [...content]})
             }
         }else{
             toast.error('Trening nie może nie mieć dystansu, lub nie zająć żadnego czasu.')
@@ -179,7 +186,7 @@ export default function EditableWorkout(props){
                     <Dialog>
                     <DialogTrigger asChild>
                     <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                            <label htmlFor="name"><div className="w-full cursor-pointer flex items-center justify-around" ><Pencil/>Zmień nazwę</div></label>
+                            <label htmlFor="name"><div className="w-full cursor-pointer flex items-center justify-around" ><Pencil className="mr-3"/>Zmień nazwę</div></label>
                     </DropdownMenuItem>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px]">
@@ -200,8 +207,41 @@ export default function EditableWorkout(props){
                         </DialogFooter>
                     </DialogContent>
                     </Dialog>
+                        <Dialog>
+                    <DialogTrigger asChild>
+                    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                        <div className="w-full cursor-pointer flex items-center justify-around" onClick={()=>{}}><Ruler className="mr-3"/>Długość basenu</div>
+                    </DropdownMenuItem>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                        <DialogTitle>Zmień dlugość basenu</DialogTitle>
+                        <DialogDescription>
+                            Wybierz czy trening odbywał sie na 25-metrowym czy 50-metrowym basenie lub na otwartej wodzie
+                        </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Select value={workoutData.poolLength} onValueChange={(value)=>{setWorkoutData({...workoutData, poolLength: value})}}>
+                                <SelectTrigger
+                                className="w-auto cursor-pointer rounded-lg sm:ml-auto"
+                                >
+                                    Wybierz długość basenu
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent className="rounded-xl">
+                                    <SelectItem value="25" className="rounded-lg cursor-pointer">25m</SelectItem>
+                                    <SelectItem value="50" className="rounded-lg cursor-pointer">50m</SelectItem>
+                                    <SelectItem value="1" className="rounded-lg cursor-pointer">Woda otwarta</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <DialogFooter>
+                            <DialogClose><div className="saveChangesBtn">Zamknij</div></DialogClose>
+                        </DialogFooter>
+                    </DialogContent>
+                    </Dialog>
                         <DropdownMenuItem>
-                            <div className="w-full cursor-pointer flex items-center justify-around" onClick={()=> {setWorkoutData({workoutData, name:"Trening"}) ;setContent([])}}><Eraser/>Wyczyść</div>
+                            <div className="w-full cursor-pointer flex items-center justify-start" onClick={()=> {setWorkoutData({...workoutData, name:"Trening"}) ;setContent([])}}><Eraser className="mr-3"/>Wyczyść</div>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
@@ -223,7 +263,7 @@ export default function EditableWorkout(props){
                 {content.map((element, i)=>{
                     if (element.type == 'exercise'){
                         return(
-                        <Exercise key={element.id} id={element.id} index={i} name={element.name} updateData={updateData} deleteFunc={handleElementDelete} />
+                        <Exercise key={element.id} id={element.id} index={i} name={element.name} updateData={updateData} deleteFunc={handleElementDelete} poolLength={workoutData.poolLength} />
                         )
                     }else{
                         return(

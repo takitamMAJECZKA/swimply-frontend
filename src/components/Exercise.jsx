@@ -25,7 +25,8 @@ export default function Exercise(props){
     }, [exerciseInfo])
     
     function handleAmountOfPoolsChange(e){
-        setExerciseInfo({...exerciseInfo , distance: e.target.value*25})
+        e.target.value = e.target.value.replace(/\D+$/, '');
+        setExerciseInfo({...exerciseInfo , distance: e.target.value * props.poolLength})
     }
 
     function handleTimeChange(value){
@@ -54,7 +55,9 @@ export default function Exercise(props){
             <label><input type="text" onChange={(e) => {handleExerciseNameChange(e)}} className="exerciseName dataInput" placeholder="Nazwa ćwiczenia" value={exerciseInfo.name}/><Pencil className="cursor-pointer"/></label>
             <AddExerciseType parentId={exerciseInfo.id} setExerciseSubType={handleSubTypeChange}/>
             <div className="dataInputsWrapper">
-                <label>Liczba basenów(25m): <input type="number" min={0} value={exerciseInfo.distance/25} onChange={(e)=>{handleAmountOfPoolsChange(e)}} className="dataInput exercisePoolsInput"/></label>
+                {props.poolLength == 25 && <label>Liczba basenów(25m): <input type="text" value={exerciseInfo.distance/25} onChange={(e)=>{handleAmountOfPoolsChange(e)}} className="dataInput exercisePoolsInput"/></label>}
+                {props.poolLength == 50 && <label>Liczba basenów(50m): <input type="text" value={exerciseInfo.distance/50} onChange={(e)=>{handleAmountOfPoolsChange(e)}} className="dataInput exercisePoolsInput"/></label>}
+                {props.poolLength == 1 && <label>Liczba metrów: <input type="text"value={exerciseInfo.distance} onChange={(e)=>{handleAmountOfPoolsChange(e)}} className="dataInput exercisePoolsInput"/></label>}
                 <label className="flex justify-center items-center">
                     <div className="mr-3">Czas(mm:ss): </div>
                     <InputOTP maxLength={4} value={exerciseInfo.time.replace(':', "")} onFocus={() => handleTimeChange(null)}  onChange={(value)=>{handleTimeChange(value)}}>
