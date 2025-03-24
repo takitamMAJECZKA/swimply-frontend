@@ -74,10 +74,12 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
+            <Link to="/settings/account">
               <DropdownMenuItem>
                 <BadgeCheck />
-                <Link to="/settings/account">Konto</Link>
+                Konto
               </DropdownMenuItem>
+            </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <Link to="/login">

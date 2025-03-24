@@ -55,7 +55,7 @@ export default function Exercise(props){
             <label><input type="text" onChange={(e) => {handleExerciseNameChange(e)}} className="exerciseName dataInput" placeholder="Nazwa ćwiczenia" value={exerciseInfo.name}/><Pencil className="cursor-pointer"/></label>
             <AddExerciseType parentId={exerciseInfo.id} setExerciseSubType={handleSubTypeChange}/>
             <div className="dataInputsWrapper">
-                {props.poolLength == 25 && <label>Liczba basenów(25m): <input type="text" value={exerciseInfo.distance/25} onChange={(e)=>{handleAmountOfPoolsChange(e)}} className="dataInput exercisePoolsInput"/></label>}
+                {props.poolLength == 25 || props.poolLength == undefined || props.poolLength == null && <label>Liczba basenów(25m): <input type="text" value={exerciseInfo.distance/25} onChange={(e)=>{handleAmountOfPoolsChange(e)}} className="dataInput exercisePoolsInput"/></label>}
                 {props.poolLength == 50 && <label>Liczba basenów(50m): <input type="text" value={exerciseInfo.distance/50} onChange={(e)=>{handleAmountOfPoolsChange(e)}} className="dataInput exercisePoolsInput"/></label>}
                 {props.poolLength == 1 && <label>Liczba metrów: <input type="text"value={exerciseInfo.distance} onChange={(e)=>{handleAmountOfPoolsChange(e)}} className="dataInput exercisePoolsInput"/></label>}
                 <label className="flex justify-center items-center">
