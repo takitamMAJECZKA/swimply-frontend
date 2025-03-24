@@ -65,10 +65,6 @@ export default function EditableWorkout(props){
       null
     )
 
-    function handleWorkoutNameChange(e){
-        setWorkoutData({...workoutData, name: e.target.value})
-    }
-
     useEffect(() => {
         onContentChange()
     }, [content])
@@ -80,6 +76,10 @@ export default function EditableWorkout(props){
     useEffect(()=>{
         handleExercisePatternSelect()
     }, [selectedPattern])
+
+    function handleWorkoutNameChange(e){
+        setWorkoutData({...workoutData, name: e.target.value})
+    }
 
     function handleExercisePatternSelect(){
         if(selectedPattern != null){
