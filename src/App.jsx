@@ -3,7 +3,7 @@ import Login from './pages/Login'
 import Workouts from './pages/Workouts'
 import Patterns from './pages/Patterns'
 import Settings from './pages/Settings'
-
+import PaceCalculator from './pages/PaceCalculator'
 
 import ScrollToSection from "./hooks/scroll-to-section";
 
@@ -27,6 +27,7 @@ function App() {
           <Route path="/patterns/*" element={<Patterns />}/>
           <Route path="/settings" element={<Settings />}/>
           <Route path="/settings/*" element={<Settings />}/>
+          <Route path="/tools/paceCalculator*" element={<PaceCalculator />}/>
           <Route path="*" element={<Home />}/>
         </Routes>
     </BrowserRouter>

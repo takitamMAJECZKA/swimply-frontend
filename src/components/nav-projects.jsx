@@ -17,6 +17,8 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 
+import {EqualApproximately} from 'lucide-react'
+
 
 import { Link } from "react-router-dom";
 
@@ -27,7 +29,7 @@ export function NavProjects({
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Ostatnie treningi</SidebarGroupLabel>
+      <SidebarGroupLabel>Narzędzia</SidebarGroupLabel>
       <SidebarMenu>
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
@@ -41,7 +43,7 @@ export function NavProjects({
               <DropdownMenuTrigger asChild>
                 <SidebarMenuAction showOnHover>
                   <MoreHorizontal />
-                  <span className="sr-only">More</span>
+                  <span className="sr-only">Więcej</span>
                 </SidebarMenuAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -49,17 +51,17 @@ export function NavProjects({
                 side={isMobile ? "bottom" : "right"}
                 align={isMobile ? "end" : "start"}>
                 <DropdownMenuItem>
-                  <Folder className="text-muted-foreground" />
-                  <span>Zobacz trening</span>
+                  <EqualApproximately className="text-muted-foreground" />
+                  <span>Oblicz</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Share className="text-muted-foreground" />
-                  <span>Udostępnij trening</span>
+                  <span>Udostępnij</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <Trash2 className="text-muted-foreground" />
-                  <span>Usuń trening</span>
+                  <span>Nie pokazuj</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

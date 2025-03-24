@@ -4,7 +4,8 @@ import {
   CircleHelp,
   Settings2,
   Activity,
-  Waves
+  Waves,
+  Calculator
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -86,19 +87,9 @@ const data = {
   ],
   projects: [
     {
-      name: "Ostatni trening",
-      url: "/workouts/last",
-      icon: Activity,
-    },
-    {
-      name: "Przedostatni trening",
-      url: "/workouts/almost-last",
-      icon: Activity,
-    },
-    {
-      name: "I tak dalej",
-      url: "/workouts/and-so-on",
-      icon: Activity,
+      name: "Oblicz tempo",
+      url: "/tools/paceCalculator",
+      icon: Calculator,
     },
   ],
 }
