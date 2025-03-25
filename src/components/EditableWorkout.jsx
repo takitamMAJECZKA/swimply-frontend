@@ -225,7 +225,7 @@ export default function EditableWorkout(props){
                                 <SelectTrigger
                                 className="w-auto cursor-pointer rounded-lg sm:ml-auto"
                                 >
-                                    Wybierz długość basenu
+                                    Wybierz długość basenu: 
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent className="rounded-xl">

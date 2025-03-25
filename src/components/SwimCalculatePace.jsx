@@ -4,12 +4,15 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { Waves, Clock, Ruler, ChevronDown } from "lucide-react";
+import { Waves, Clock, Ruler, ChevronDown, EllipsisVertical } from "lucide-react";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
+import { DropdownMenuItem, DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
 
 const fatigueLevels = {
-  beginner: 0.1,   // Slower endurance swimmers
-  intermediate: 0.08, // Balanced endurance
-  advanced: 0.06  // Faster sprinters
+  beginner: 0.14,   // Slower endurance swimmers
+  intermediate: 0.11, // Balanced endurance
+  advanced: 0.08  // Faster sprinters
 };
 
 const SwimPaceCalculator = () => {
@@ -18,6 +21,7 @@ const SwimPaceCalculator = () => {
   const [newDistance, setNewDistance] = useState(""); // Distance to predict for
   const [fatigueFactor, setFatigueFactor] = useState(fatigueLevels.intermediate); // Default fatigue factor
   const [predictedPace, setPredictedPace] = useState(null);
+  const [poolLength, setPoolLength] = useState(25);
 
   const parseTimeToSeconds = (timeStr) => {
     const [minutes, seconds] = timeStr.split(":").map(Number);
@@ -43,12 +47,54 @@ const SwimPaceCalculator = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background p-4">
+    <div className="flex items-center justify-center h-full bg-background p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <div className="flex items-center">
-            <Waves className="w-6 h-6 mr-3 text-(--aqua)" />
-            <CardTitle>Kalkulator przewidywanego tempa</CardTitle>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <Waves className="w-6 h-6 mr-3 text-(--aqua)" />
+              <CardTitle>Kalkulator przewidywanego tempa</CardTitle>
+            </div>
+          <DropdownMenu>
+          <DropdownMenuTrigger>
+              <EllipsisVertical className="w-6 h-6 text-(--aqua)" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+          <Dialog>
+                    <DialogTrigger asChild>
+                    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                        <div className="w-full cursor-pointer flex items-center justify-around" onClick={()=>{}}><Ruler className="mr-3"/>Długość basenu</div>
+                    </DropdownMenuItem>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                        <DialogTitle>Zmień dlugość basenu</DialogTitle>
+                        <DialogDescription>
+                            Wybierz czy trening odbywał sie na 25-metrowym czy 50-metrowym basenie lub na otwartej wodzie
+                        </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Select value={poolLength} onValueChange={setPoolLength}>
+                                <SelectTrigger
+                                className="w-auto cursor-pointer rounded-lg sm:ml-auto"
+                                >
+                                    Wybierz długość basenu: 
+                                    <SelectValue>{poolLength != 1 ? poolLength : "Woda otwarta"}</SelectValue>
+                                </SelectTrigger>
+                                <SelectContent className="rounded-xl">
+                                    <SelectItem value="25" className="rounded-lg cursor-pointer">25m</SelectItem>
+                                    <SelectItem value="50" className="rounded-lg cursor-pointer">50m</SelectItem>
+                                    <SelectItem value="1" className="rounded-lg cursor-pointer">Woda otwarta</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <DialogFooter>
+                            <DialogClose><div className="saveChangesBtn">Zamknij</div></DialogClose>
+                        </DialogFooter>
+                    </DialogContent>
+                    </Dialog>
+          </DropdownMenuContent>
+          </DropdownMenu>
           </div>
           <CardDescription>Oblicz swoje maksymalne tempo na danym dystansie</CardDescription>
         </CardHeader>
@@ -70,26 +116,31 @@ const SwimPaceCalculator = () => {
           <div>
             <Label className="flex items-center mb-2">
               <Ruler className="w-4 h-4 mr-2 text-(--aqua)" />
-              Najlepszy dystans (metry)
+              Dystans na którym uzyskałeś ten czas
+              {poolLength === 25 && "(liczba basenów 25m)"}
+              {poolLength === 50 && "(liczba basenów 50m)"}
+              {poolLength === 1 && "(liczba metrów)"}
             </Label>
             <Input 
               type="number" 
               placeholder="np. 100" 
-              value={bestDistance} 
-              onChange={(e) => setBestDistance(e.target.value)}
+              value={bestDistance/poolLength == 0 ? "" : bestDistance/poolLength} 
+              onChange={(e) => setBestDistance(e.target.value*poolLength)}
             />
           </div>
 
           <div>
             <Label className="flex items-center mb-2">
               <Ruler className="w-4 h-4 mr-2 text-(--aqua)" />
-              Na jaki dystans chcesz obliczyć tempo
+              Dystans do przewidzenia {poolLength === 25 && "(liczba basenów 25m)"}
+              {poolLength === 50 && "(liczba basenów 50m)"}
+              {poolLength === 1 && "(liczba metrów)"}
             </Label>
             <Input 
               type="number" 
               placeholder="np. 400" 
-              value={newDistance} 
-              onChange={(e) => setNewDistance(e.target.value)}
+              value={newDistance/poolLength == 0 ? "" : newDistance/poolLength} 
+              onChange={(e) => setNewDistance(e.target.value*poolLength)}
             />
           </div>
 
@@ -106,9 +157,9 @@ const SwimPaceCalculator = () => {
                 <SelectValue placeholder="Wybierz poziom" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem className='cursor-pointer hover:bg-(--aqua)! focus:bg-(--aqua)!' value="beginner">Poczatkujacy (0.1)</SelectItem>
-                <SelectItem className='cursor-pointer hover:bg-(--aqua)! focus:bg-(--aqua)!' value="intermediate">Średnio zaawansowany (0.08)</SelectItem>
-                <SelectItem className='cursor-pointer hover:bg-(--aqua)! focus:bg-(--aqua)!' value="advanced">Zaawansowany (0.06)</SelectItem>
+                <SelectItem className='cursor-pointer hover:bg-(--aqua)! focus:bg-(--aqua)!' value="beginner">Poczatkujacy (0.14)</SelectItem>
+                <SelectItem className='cursor-pointer hover:bg-(--aqua)! focus:bg-(--aqua)!' value="intermediate">Średnio zaawansowany (0.11)</SelectItem>
+                <SelectItem className='cursor-pointer hover:bg-(--aqua)! focus:bg-(--aqua)!' value="advanced">Zaawansowany (0.08)</SelectItem>
               </SelectContent>
             </Select>
           </div>
