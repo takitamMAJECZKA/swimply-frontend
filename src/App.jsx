@@ -1,5 +1,6 @@
 import Home from './pages/Home'
 import Login from './pages/Login'
+import Register from './pages/Register'
 import Workouts from './pages/Workouts'
 import Patterns from './pages/Patterns'
 import Settings from './pages/Settings'
@@ -21,6 +22,8 @@ function App() {
           <Route path="/home/*" element={<Home />}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/login/*" element={<Login />}/>
+          <Route path="/register" element={<Register />}/>
+          <Route path="/register/*" element={<Register />}/>
           <Route path="/workouts" element={<Workouts />}/>
           <Route path="/workouts/*" element={<Workouts />}/>
           <Route path="/patterns" element={<Patterns />}/>
