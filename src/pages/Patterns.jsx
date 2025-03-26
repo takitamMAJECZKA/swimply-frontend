@@ -49,9 +49,29 @@ const exercisePatterns = [
     {name: 'Kraul ratowniczy'},]
 
 const workoutPatterns = [
-    {name: 'Każdy styl', content: [{id: uuidv4(), name: 'Żabka', time: '00:00', type:"exercise", distance: 0},{id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Kraul',type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Motylek', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Grzbiet', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Żabka niekryta', type:"exercise", time: '00:00', distance: 0}, {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Kraul ratowniczy', type:"exercise", time: '00:00', distance: 0}]},
+    {name: 'Każdy styl', content: [{id: uuidv4(), name: 'Żabka', time: '00:00', type:"exercise", distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), type:"break", time:'02:00'},
+        {id: uuidv4(), name: 'Kraul',type:"exercise", time: '00:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), type:"break", time:'02:00'},
+        {id: uuidv4(), name: 'Motylek', type:"exercise", time: '00:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), type:"break", time:'02:00'},
+        {id: uuidv4(), name: 'Grzbiet', type:"exercise",time: '00:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), type:"break", time:'02:00'},
+        {id: uuidv4(), name: 'Żabka niekryta', type:"exercise", time: '00:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), type:"break", time:'02:00'}, {id: uuidv4(), name: 'Kraul ratowniczy', type:"exercise", time: '00:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []}]},
 
-    {name: 'Otyliada', content: [{id: uuidv4(), name: 'Kraul', time: '60:00', type:"exercise", distance: 0}, {id: uuidv4(), name: 'Kraul',type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0},{id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}, {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0}]},
+    {name: 'Otyliada', content: [{id: uuidv4(), name: 'Kraul', time: '60:00', type:"exercise", distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), name: 'Kraul',type:"exercise", time: '60:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []},
+        {id: uuidv4(), name: 'Kraul', type:"exercise", time: '60:00', distance: 0, subtype: {label: 'Różne' , value:'rozne'}, equipment: []}]},
 ]
 
 export default function Patterns(){

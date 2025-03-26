@@ -1,6 +1,5 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts"
 
 import {
@@ -60,7 +59,7 @@ export default function RadarChartWorkoutsCategory() {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-        W tym miesiącu<TrendingUp className="h-4 w-4" />
+        W tym miesiącu
         </div>
       </CardFooter>
     </Card>

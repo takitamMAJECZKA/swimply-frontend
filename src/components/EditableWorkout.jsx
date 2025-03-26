@@ -240,8 +240,8 @@ export default function EditableWorkout(props){
                         </DialogFooter>
                     </DialogContent>
                     </Dialog>
-                        <DropdownMenuItem>
-                            <div className="w-full cursor-pointer flex items-center justify-start" onClick={()=> {setWorkoutData({...workoutData, name:"Trening"}) ;setContent([])}}><Eraser className="mr-3"/>Wyczyść</div>
+                        <DropdownMenuItem onClick={()=> {setWorkoutData({...workoutData, name:"Trening"}) ;setContent([])}}>
+                            <div className="w-full cursor-pointer flex items-center justify-start"><Eraser className="mr-3"/>Wyczyść</div>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

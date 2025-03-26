@@ -3,7 +3,7 @@ import { toast} from "sonner"
 
 export default function ExercisePattern(props) {
     function handleAddToWorkout(){
-                localStorage.setItem('currentWorkout', JSON.stringify({name: props.name, timeLong: 0, distance: 0, workoutDate: new Date() ,elementsIn: [...props.content]}));
+                localStorage.setItem('currentWorkout', JSON.stringify({name: props.name, timeLong: 0, distance: 0, workoutDate: new Date(),poolLength: 25, mainType:['Różne'], elementsIn: [...props.content]}));
                 toast.success(<div className='w-full h-full p-2 cursor-pointer' onClick={()=>props.handleToastClick()}>Trening {props.name.toLowerCase()} został ustawione jako szablon</div>, {
                     action: {
                         label: "X",

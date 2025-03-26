@@ -67,7 +67,7 @@ export function NavSecondary({
                       <AccordionItem value="ktora" className='bg-(--dominant) rounded-md p-2'>
                         <AccordionTrigger>Ktora jest godzina?</AccordionTrigger>
                         <AccordionContent className="AccordionContent">
-                          Jak chcesz sprawdzic godzine to tu <a className="bg-gray-600 text-black rounded-sm" href="http://zegarek123.netlify.app">zegarek123</a>
+                          Jak chcesz sprawdzic godzine to tu <a className="bg-gray-600 text-black rounded-sm pl-2 pr-2 font-bold" href="http://zegarek.tech">zegarek.tech</a>
                         </AccordionContent>
                       </AccordionItem>
                     </Accordion>

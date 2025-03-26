@@ -7,7 +7,7 @@ import {FreestyleIcon, BreaststrokeIcon, BackstrokeIcon, ButterflyIcon, Breastst
 export default function ExercisePattern(props) {
     function handleAddToWorkout(){
         let savedData = JSON.parse(localStorage.getItem('currentWorkout'));
-        let newElement = {id: uuidv4(), name: props.name, type: 'exercise', distance: 0, time: '00:00'};
+        let newElement = {id: uuidv4(), name: props.name, type: 'exercise', distance: 0, time: '00:00', subtype: {label: 'Różne' , value:'rozne'}, equipment: []};
         if(savedData){
                 savedData.elementsIn.push(newElement);
                 localStorage.setItem('currentWorkout', JSON.stringify(savedData));
