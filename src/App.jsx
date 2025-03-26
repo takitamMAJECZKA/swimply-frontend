@@ -27,7 +27,7 @@ function App() {
           <Route path="/patterns/*" element={<Patterns />}/>
           <Route path="/settings" element={<Settings />}/>
           <Route path="/settings/*" element={<Settings />}/>
-          <Route path="/tools/paceCalculator*" element={<PaceCalculator />}/>
+          <Route path="/tools/paceCalculator/*" element={<PaceCalculator />}/>
           <Route path="*" element={<Home />}/>
         </Routes>
     </BrowserRouter>

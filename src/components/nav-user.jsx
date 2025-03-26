@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/sidebar"
 
 import { Link } from "react-router-dom"
+import { DropdownMenuItemIndicator } from "@radix-ui/react-dropdown-menu"
 
 
 export function NavUser({
@@ -73,17 +74,15 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
             <Link to="/settings/account">
-              <DropdownMenuItem>
+              <DropdownMenuItem onSelect={(e)=>e.preventDefault()}>
                 <BadgeCheck />
                 Konto
               </DropdownMenuItem>
             </Link>
-            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <Link to="/login">
-              <DropdownMenuItem>
+              <DropdownMenuItem onSelect={(e)=>e.preventDefault()}>
                 <LogOut />
                 Wyloguj
               </DropdownMenuItem>
