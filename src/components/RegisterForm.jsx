@@ -12,7 +12,7 @@ export default function LoginForm(){
         let password = passwordRef.current.value
         let email = emailRef.current.value
         errorRef.current.style.display = 'none'
-        fetch('http://localhost:3001/register',{
+        fetch('http://localhost:3001/signup',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ export default function LoginForm(){
                 errorRef.current.style.display = 'block'
             }else{
                 localStorage.setItem('token', data.token)
-                window.location.href = '/dashboard'
+                window.location.href = '/home'
             }
         })
     }
@@ -41,7 +41,7 @@ export default function LoginForm(){
                 <label className="mb-2 sm:mb-10">Hasło: <input type="password" id="password" ref={passwordRef}/></label>
                 <label className="mb-2 sm:mb-10">E-mail: <input type="email" id="email" ref={emailRef}/></label>
                 <p id="registerError" ref={errorRef}>Konto z tą nazwą użytkownika lub e-mailem już istnieje.</p>
-                <p>Masz już konto? <Link to='/login'><span id="changeToLogin">Zaloguj się.</span></Link></p>
+                <p>Masz już konto? <Link to='/signin'><span id="changeToLogin">Zaloguj się.</span></Link></p>
                 <button id="registerBtn" onClick={()=>register()}>Zarejestruj</button>
             </form>
         </div>

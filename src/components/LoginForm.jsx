@@ -8,10 +8,10 @@ export default function LoginForm(){
     const passwordRef = useRef()
 
     function login(){
-        let username = document.getElementById('username').value
-        let password = document.getElementById('password').value
+        let username = usernameRef.current.value
+        let password = passwordRef.current.value
         loginError.style.display = 'none'
-        fetch('http://localhost:3001/login',{
+        fetch('http://localhost:3001/signin',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,10 +23,10 @@ export default function LoginForm(){
         }).then(res=>res.json())
         .then(data=>{
             if(data.error){
-                errorRef.style.display = 'block'
+                errorRef.current.style.display = 'block'
             }else{
                 localStorage.setItem('token', data.token)
-                window.location.href = '/dashboard'
+                window.location.href = '/home'
             }
         })
     }
@@ -38,7 +38,7 @@ export default function LoginForm(){
                 <label>Nazwa użytkownika: <input type="text" id="username" ref={usernameRef} autoFocus/></label>
                 <label>Hasło: <input type="password" ref={passwordRef} id="password"/></label>
                 <p id="loginError" className="hidden" ref={errorRef}>Nie prawidłowe hasło lub nazwa użytkownika.</p>
-                <p>Nie masz jeszcze konta? <Link to="/register"><span id="changeToRegister">Zarejestruj się.</span></Link></p>
+                <p>Nie masz jeszcze konta? <Link to="/signup"><span id="changeToRegister">Zarejestruj się.</span></Link></p>
                 <button id="loginBtn" onClick={()=>login()}>Zaloguj</button>
             </form>
         </div>

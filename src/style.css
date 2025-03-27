@@ -113,7 +113,7 @@ body{
 }
 
 #loginError, #registerError{
-    display: block;
+    display: none;
     font-size: 80%;
     margin: 0;
     margin-top: 20px;

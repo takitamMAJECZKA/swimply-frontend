@@ -81,7 +81,7 @@ export function NavUser({
               </DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
-            <Link to="/login">
+            <Link to="/signin">
               <DropdownMenuItem onSelect={(e)=>e.preventDefault()}>
                 <LogOut />
                 Wyloguj
