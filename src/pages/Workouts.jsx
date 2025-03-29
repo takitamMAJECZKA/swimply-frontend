@@ -15,15 +15,36 @@ import {
 } from "@/components/ui/sidebar"
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 import FinishedWorkout from "../components/FinishedWorkout"
 import EditableWorkout from "../components/EditableWorkout"
 
 export default function Workouts(){
-    
     const [workoutsList, setWorkoutsList] = useState([]);
+
+
+
+    useEffect(() =>{
+        async function getAccessToken(){
+            fetch('http://62.171.167.17:6969/refresh-token',{
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('refresh_token')}`
+                },
+            }).then(res=>res.json())
+            .then(data=>{
+                if(data.error){
+                    window.location.href = '/signin'
+                }else{
+                    document.cookie = `name:access_token; access_token:${data.access_token}; path=/`
+                }
+            })
+        }
+        getAccessToken()
+    },[])
+
     function addWorkoutToList(passedWorkoutData){
         passedWorkoutData.id = uuidv4();
         setWorkoutsList([...workoutsList, passedWorkoutData])

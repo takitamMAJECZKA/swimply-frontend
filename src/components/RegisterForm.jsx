@@ -12,7 +12,7 @@ export default function LoginForm(){
         let password = passwordRef.current.value
         let email = emailRef.current.value
         errorRef.current.style.display = 'none'
-        fetch('http://localhost:3001/signup',{
+        fetch('http://62.171.167.17:6969/signup',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -27,7 +27,6 @@ export default function LoginForm(){
             if(data.error){
                 errorRef.current.style.display = 'block'
             }else{
-                localStorage.setItem('token', data.token)
                 window.location.href = '/home'
             }
         })
