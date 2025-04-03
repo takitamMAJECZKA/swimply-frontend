@@ -163,15 +163,32 @@ export default function EditableWorkout(props){
         }
     }
 
-    function handleFinishWorkout(){
+    async function handleFinishWorkout(){
+        // if(workoutData.timeLong!='00:00:00' && workoutData.distance!=0){
+        //     if(props.addWorkoutToList){
+        //         props.addWorkoutToList(workoutData)
+        //         setContent([])
+        //         setWorkoutData({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, poolLength: 25, mainType:['Różne'], elementsIn: [...content]})
+        //     }
+        // }else{
+        //     toast.error('Trening nie może nie mieć dystansu, lub nie zająć żadnego czasu.')
+        // }
         if(workoutData.timeLong!='00:00:00' && workoutData.distance!=0){
-            if(props.addWorkoutToList){
-                props.addWorkoutToList(workoutData)
-                setContent([])
-                setWorkoutData({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, poolLength: 25, mainType:['Różne'], elementsIn: [...content]})
-            }
-        }else{
-            toast.error('Trening nie może nie mieć dystansu, lub nie zająć żadnego czasu.')
+            fetch('http://62.171.167.17:8080/api/v2/workouts/new',{
+                method: 'POST',
+                headers:{
+                    'Authorization': `Bearer ${document.cookie.match(/(?:^|;\s*)access_token=([^;]*)/)?.[1]}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(workoutData)
+            }).then(res=>res.json())
+            .then(data=>{
+                if(data.error){
+                    toast.error(data.error)
+                }else{
+                    props.addWorkoutToList(workoutData, data.id)
+                }
+            })
         }
     }
     return(

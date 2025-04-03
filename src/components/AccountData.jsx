@@ -7,35 +7,11 @@ import {Venus} from 'lucide-react'
 
 export default function AccountInfo() {
     const [weight, setWeight] = useState(68)
-    const [age, setAge] = useState(18)
-    const [height, setHeight] = useState(175)
     const [isMale, setIsMale] = useState(true)
     const [caloriesGoal, setCaloriesGoal] = useState(1200);
 
     function handleWeightChange(e) {
         setWeight(e.target.value)
-    }
-
-    function handleAgeChange(e) {
-        setAge(e.target.value)
-    }
-
-    function handleHeightChange(e) {
-        setHeight(e.target.value)
-    }
-
-    function handleSave() {
-        if((weight < 20 || weight > 200) || (age < 12 || age > 99) || (height < 100 || height > 250)) {
-            toast.error('Wprowadź poprawne dane')
-        }else{
-            const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: 'Promise' }), 2000));
-
-            toast.promise(promise, {
-            loading: 'Proszę czekać...',
-            success: 'Dane zostały zapisane',
-            error: 'Błąd po stronie bazy danych',
-            });
-        }
     }
 
     function handleChangeGender(is) {
@@ -45,6 +21,41 @@ export default function AccountInfo() {
 
     function handleCaloriesGoalChange(e) {
         setCaloriesGoal(e.target.value)
+    }
+
+    async function handleSave() {
+        if((weight < 20 || weight > 200) || (weight === '')){
+            toast.error('Wprowadź poprawne dane')
+        }else{
+            const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: 'Promise' }), 2000));
+            const data = {
+                weight: weight,
+                isMale: isMale,
+                caloriesGoal: caloriesGoal
+            }
+
+            const request = new Request('http://62.171.167.17:8080/api/v2/account/info',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+
+            try {
+                const response = await fetch(request);
+                const json = await response.json()
+                
+                toast.promise(response, {
+                    loading: 'Proszę czekać...',
+                    success: 'Dane zostały zapisane',
+                    error: 'Błąd po stronie bazy danych',
+                });
+            }catch (error) {
+                toast.error('Błąd: ' + error.message)
+                return
+            }
+        }
     }
 
     return (
@@ -58,14 +69,6 @@ export default function AccountInfo() {
                 <div className="flex items-center justify-between">
                     <label htmlFor="caloriesGoal"><h3>Cel kalorii</h3></label>
                     <label><input id="caloriesGoal" type="number" min='0' onChange={(e) => handleCaloriesGoalChange(e)} value={caloriesGoal} className="border-[2px] border-(--light-aqua) rounded-[6px] mr-2 w-[200px]" />kcal</label>
-                </div>
-                <div className="flex items-center justify-between">
-                    <label htmlFor="age"><h3>Wiek</h3></label>
-                    <label><input id="age" type="number" min='12' max='99' onChange={(e) => handleAgeChange(e)} value={age} className="border-[2px] border-(--light-aqua) rounded-[6px] mr-2 w-[200px]" />lat</label>
-                </div>
-                <div className="flex items-center justify-between">
-                    <label htmlFor="height"><h3>Wzrost</h3></label>
-                    <label><input id="height" type="number" min='100' max='250' onChange={(e) => handleHeightChange(e)} value={height} className="border-[2px] border-(--light-aqua) rounded-[6px] mr-2 w-[200px]" />cm</label>
                 </div>
                 <div>
                     <div className="flex items-center justify-between">

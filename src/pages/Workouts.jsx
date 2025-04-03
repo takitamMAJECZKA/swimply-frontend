@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import FinishedWorkout from "../components/FinishedWorkout"
 import EditableWorkout from "../components/EditableWorkout"
+import { toast } from "sonner";
 
 export default function Workouts(){
     const [workoutsList, setWorkoutsList] = useState([]);
@@ -28,7 +29,7 @@ export default function Workouts(){
 
     useEffect(() =>{
         async function getAccessToken(){
-            fetch('http://62.171.167.17:6969/refresh-token',{
+            fetch('http://62.171.167.17:8080/refresh-token',{
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('refresh_token')}`
@@ -36,17 +37,54 @@ export default function Workouts(){
             }).then(res=>res.json())
             .then(data=>{
                 if(data.error){
-                    window.location.href = '/signin'
+                    if(data.code == 428){
+                        localStorage.removeItem('refresh_token')
+                        window.location.href = '/signin'
+                    }else{
+                        toast.error(data.error)
+                    }
                 }else{
-                    document.cookie = `name:access_token; access_token:${data.access_token}; path=/`
+                    document.cookie = `access_token:${data.access_token}; path=/`
                 }
             })
         }
-        getAccessToken()
+        console.log(document.cookie.match(/(?:^|;\s*)access_token=([^;]*)/)?.[1]);
+        async function getWorkoutsList(){
+            fetch('http://62.171.167.17:8080/api/v2/workouts',{
+                method: 'GET',
+                headers:{
+                    'Authorization': `Bearer ${document.cookie.match(/(?:^|;\s*)access_token=([^;]*)/)?.[1]}`,
+                    'Content-Type': 'application/json'
+                }
+            }).then(res=>res.json())
+            .then(data=>{
+                    if(data.error){
+                        toast.error(data.error)
+                    }else{
+                        console.log(JSON.stringify(data))
+                        let list = [];
+                        data.map((filaElem) => {
+                            let workoutData = {
+                                id: filaElem.workout.id,
+                                name: filaElem.workout.name,
+                                workoutDate: filaElem.workout.workoutDate,
+                                timeLong: filaElem.workout.timeLong,
+                                distance: filaElem.workout.distance,
+                                poolLength: filaElem.workout.poolLength,
+                                mainType: filaElem.workout.mainType,
+                                elementsIn: filaElem.workout.elementsIn,
+                            }
+                            list.push(workoutData)
+                        })
+                        setWorkoutsList([...list])
+                    }
+            })
+        }
+        getWorkoutsList()
     },[])
 
-    function addWorkoutToList(passedWorkoutData){
-        passedWorkoutData.id = uuidv4();
+    function addWorkoutToList(passedWorkoutData, id){
+        passedWorkoutData.id = id? id : uuidv4();
         setWorkoutsList([...workoutsList, passedWorkoutData])
     }
 
@@ -85,7 +123,7 @@ export default function Workouts(){
                         <EditableWorkout addWorkoutToList={addWorkoutToList}/>
                     </div>
                     <div id="history" className="grid auto-rows-min gap-4 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
-                        {workoutsList.toReversed().map((workout) => {
+                        {workoutsList?.toReversed().map((workout) => {
                             return(
                                 <FinishedWorkout key={workout.id} data={workout} deleteWorkout={deleteWorkout}/>
                             )
