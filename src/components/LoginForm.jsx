@@ -25,8 +25,8 @@ export default function LoginForm(){
             if(data.error){
                 errorRef.current.style.display = 'block'
             }else{
-                localStorage.setItem('refresh_token', data.refresh_token)
-                document.cookie = `access_token=${data.access_token}; path=/`
+                document.cookie = `refresh_token=${data.refresh_token}; path=/`
+                localStorage.setItem('access_token', data.access_token)
                 window.location.href = '/home'
             }
         })

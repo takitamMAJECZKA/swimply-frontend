@@ -15,72 +15,85 @@ import {
 } from "@/components/ui/sidebar"
 
 
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 import FinishedWorkout from "../components/FinishedWorkout"
 import EditableWorkout from "../components/EditableWorkout"
 import { toast } from "sonner";
 
+
+import { DataContext } from "../components/DataProvider";
+
+
 export default function Workouts(){
     const [workoutsList, setWorkoutsList] = useState([]);
 
-
+    const {data, loading } = useContext(DataContext);
 
     useEffect(() =>{
-        async function getAccessToken(){
-            fetch('http://62.171.167.17:8080/refresh-token',{
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('refresh_token')}`
-                },
-            }).then(res=>res.json())
-            .then(data=>{
-                if(data.error){
-                    if(data.code == 428){
-                        localStorage.removeItem('refresh_token')
-                        window.location.href = '/signin'
-                    }else{
-                        toast.error(data.error)
-                    }
-                }else{
-                    document.cookie = `access_token:${data.access_token}; path=/`
-                }
-            })
+        // const getAccessToken = async () => {
+        //     fetch('http://62.171.167.17:8080/refresh-token',{
+        //         method: 'POST',
+        //         headers: {
+        //             'Authorization': `Bearer ${document.cookie.match(/(?:^|;\s*)refresh_token=([^;]*)/)?.[1]}`
+        //         },
+        //     }).then((res)=>{
+        //     if(res.status === 428){
+        //         localStorage.removeItem('access_token')
+        //         document.cookie = `refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+        //         window.location.href = '/signin'
+        //     }else{
+        //        res.json()
+        //     }
+        //     })
+        //     .then(data=>{
+        //         if(data.error){
+        //             toast.error(data.error)
+        //         }else{
+        //             localStorage.setItem('access_token', data.access_token)
+        //         }
+        //     })
+        // }
+        // console.log(localStorage.getItem('access_token'));
+        // async function getWorkoutsList(){
+        //     fetch('http://62.171.167.17:8080/api/v2/workouts',{
+        //         method: 'GET',
+        //         headers:{
+        //             'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        //             'Content-Type': 'application/json'
+        //         }
+        //     }).then(res=>res.json())
+        //     .then(data=>{
+        //             if(data.error){
+        //                 toast.error(data.error)
+        //             }else{
+        //                 console.log(JSON.stringify(data))
+        //                 let list = [];
+        //                 data.map((filaElem) => {
+        //                     let workoutData = {
+        //                         id: filaElem.workout.id,
+        //                         name: filaElem.workout.name,
+        //                         workoutDate: filaElem.workout.workoutDate,
+        //                         timeLong: filaElem.workout.timeLong,
+        //                         distance: filaElem.workout.distance,
+        //                         poolLength: filaElem.workout.poolLength,
+        //                         mainType: filaElem.workout.mainType,
+        //                         elementsIn: filaElem.workout.elementsIn,
+        //                     }
+        //                     list.push(workoutData)
+        //                 })
+        //                 setWorkoutsList([...list])
+        //             }
+        //     })
+        // }
+        // getWorkoutsList()
+        if(data){
+            setWorkoutsList(data)
+        }else{
+            setWorkoutsList([])
+            console.log('Brak danych')
         }
-        console.log(document.cookie.match(/(?:^|;\s*)access_token=([^;]*)/)?.[1]);
-        async function getWorkoutsList(){
-            fetch('http://62.171.167.17:8080/api/v2/workouts',{
-                method: 'GET',
-                headers:{
-                    'Authorization': `Bearer ${document.cookie.match(/(?:^|;\s*)access_token=([^;]*)/)?.[1]}`,
-                    'Content-Type': 'application/json'
-                }
-            }).then(res=>res.json())
-            .then(data=>{
-                    if(data.error){
-                        toast.error(data.error)
-                    }else{
-                        console.log(JSON.stringify(data))
-                        let list = [];
-                        data.map((filaElem) => {
-                            let workoutData = {
-                                id: filaElem.workout.id,
-                                name: filaElem.workout.name,
-                                workoutDate: filaElem.workout.workoutDate,
-                                timeLong: filaElem.workout.timeLong,
-                                distance: filaElem.workout.distance,
-                                poolLength: filaElem.workout.poolLength,
-                                mainType: filaElem.workout.mainType,
-                                elementsIn: filaElem.workout.elementsIn,
-                            }
-                            list.push(workoutData)
-                        })
-                        setWorkoutsList([...list])
-                    }
-            })
-        }
-        getWorkoutsList()
     },[])
 
     function addWorkoutToList(passedWorkoutData, id){
@@ -94,6 +107,15 @@ export default function Workouts(){
         })
         setWorkoutsList(newWorkoutsList)
     }
+
+    if (loading) {
+        return (
+            <div className="flex h-screen items-center justify-center">
+                <div className="loader">Loading... </div>
+            </div>
+        )
+    }
+
     return (
         <div className="workoutsPage">
             <SidebarProvider>

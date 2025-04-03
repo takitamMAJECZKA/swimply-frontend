@@ -81,7 +81,10 @@ export function NavUser({
               </DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
-            <Link to="/signin">
+            <Link onClick={()=>{
+              localStorage.removeItem('access_token')
+              document.cookie = `refresh_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;`
+            }} to="/signin">
               <DropdownMenuItem onSelect={(e)=>e.preventDefault()}>
                 <LogOut />
                 Wyloguj

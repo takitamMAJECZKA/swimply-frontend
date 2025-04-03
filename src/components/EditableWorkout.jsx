@@ -177,7 +177,7 @@ export default function EditableWorkout(props){
             fetch('http://62.171.167.17:8080/api/v2/workouts/new',{
                 method: 'POST',
                 headers:{
-                    'Authorization': `Bearer ${document.cookie.match(/(?:^|;\s*)access_token=([^;]*)/)?.[1]}`,
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(workoutData)
