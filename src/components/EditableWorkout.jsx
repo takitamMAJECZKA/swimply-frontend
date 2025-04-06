@@ -57,7 +57,7 @@ export default function EditableWorkout(props){
     });
     const [workoutData, setWorkoutData] = useState(() => {
         const savedData = localStorage.getItem('currentWorkout');
-        return savedData ? JSON.parse(savedData) : {name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, poolLength: 25,  mainType:['Różne'], elementsIn: [...content]};
+        return savedData ? JSON.parse(savedData) : {id: uuidv4(),name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, poolLength: 25,  mainType:['Różne'], elementsIn: [...content]};
     });
     
     const [searcherOpen, setSearcherOpen] = useState(false)
@@ -164,15 +164,6 @@ export default function EditableWorkout(props){
     }
 
     async function handleFinishWorkout(){
-        // if(workoutData.timeLong!='00:00:00' && workoutData.distance!=0){
-        //     if(props.addWorkoutToList){
-        //         props.addWorkoutToList(workoutData)
-        //         setContent([])
-        //         setWorkoutData({name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, poolLength: 25, mainType:['Różne'], elementsIn: [...content]})
-        //     }
-        // }else{
-        //     toast.error('Trening nie może nie mieć dystansu, lub nie zająć żadnego czasu.')
-        // }
         if(workoutData.timeLong!='00:00:00' && workoutData.distance!=0){
             fetch('http://62.171.167.17:8080/api/v2/workouts/new',{
                 method: 'POST',
@@ -186,9 +177,13 @@ export default function EditableWorkout(props){
                 if(data.error){
                     toast.error(data.error)
                 }else{
-                    props.addWorkoutToList(workoutData, data.id)
+                    props.addWorkoutToList(workoutData)
+                    setContent([])
+                    setWorkoutData({id: uuidv4(), name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, poolLength: 25, mainType:['Różne'], elementsIn: [...content], caloriesBurnt: Math.random() * (1000 - 500) + 500})
                 }
             })
+        }else{
+            toast.error('Trening nie może nie mieć dystansu, lub nie zająć żadnego czasu.')
         }
     }
     return(

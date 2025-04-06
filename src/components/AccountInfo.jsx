@@ -15,7 +15,7 @@ export default function AccountInfo() {
                             <AvatarFallback className='text-(--dominant)'>Ma</AvatarFallback>
                         </Avatar>
                         <div className="ml-4">
-                            <h3 className="text-sm font-semibold text-(--light-aqua)">Maciej Majka</h3>
+                            <h3 className="text-sm font-semibold text-(--light-aqua)">Macius</h3>
                             <p className="text-xs text-(--aqua)"></p>
                         </div>
                     </div>
@@ -29,12 +29,6 @@ export default function AccountInfo() {
                         <p className="text-sm text-(--aqua)">Hasło</p>
                         <p className="text-sm font-semibold text-(--light-aqua)">********</p>
                     </div>
-                <div className="mt-4">
-                    <div className="flex items-center justify-between">
-                        <p className="text-sm text-(--aqua)">Adres email</p>
-                        <p className="text-sm font-semibold text-(--light-aqua)">macius@example.com</p>
-                    </div>
-                </div>
             </div>
         </div>
     )

@@ -1,6 +1,5 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts"
 
 import {
@@ -16,7 +15,11 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-const chartData = [{ caloriesBurnt: 1260, caloriesLeft: 240, caloriesGoal: 1500 }]
+
+import { DataContext } from "../DataProvider";
+import { useContext, useEffect, useState } from "react"
+
+// const chartData = [{ caloriesBurnt: 1260, caloriesLeft: 240, caloriesGoal: 1500 }]
 
 const chartConfig = {
   caloriesBurnt: {
@@ -30,7 +33,21 @@ const chartConfig = {
 }
 
 export default function RadialProgressChart() {
-  const totalVisitors = chartData[0].caloriesGoal
+  const { workoutsData, workoutsLoading , accountData, accountLoading } = useContext(DataContext);
+  const [totalCalories, setTotalCalories] = useState(0)
+  const [chartData, setChartData] = useState([{ caloriesBurnt: 0, caloriesLeft: 1000, caloriesGoal: /*accountData.caloriesGoal*/ 1000 }])
+  useEffect(() => {
+    if(workoutsData){
+      let caloriesBurnt = 0
+      workoutsData.map((workout) => {
+        caloriesBurnt += workout.caloriesBurnt
+      })
+      setChartData([{caloriesBurnt: caloriesBurnt, caloriesLeft: accountData.caloriesGoal - caloriesBurnt, caloriesGoal: accountData.caloriesGoal}])
+    }else{
+      setChartData([{ caloriesBurnt: 0, caloriesLeft: /*accountData.caloriesGoal*/ 1000, caloriesGoal: /*accountData.caloriesGoal*/ 1000 }])
+    }
+    setTotalCalories(chartData[0].caloriesGoal)
+  }, [ workoutsData, accountData])
 
   return (
     <Card className="flex flex-col fancy-shadow">
@@ -64,7 +81,7 @@ export default function RadialProgressChart() {
                           y={(viewBox.cy || 0) - 16}
                           className="fill-foreground text-2xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {totalCalories.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}

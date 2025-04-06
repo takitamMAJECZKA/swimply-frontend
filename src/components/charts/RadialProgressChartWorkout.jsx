@@ -16,6 +16,9 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
+import { DataContext } from "../DataProvider";
+import { useContext, useEffect, useState } from "react"
+
 const chartConfig = {
   caloriesBurnt: {
     label: "Spalone kalorie",
@@ -24,8 +27,22 @@ const chartConfig = {
 }
 
 export default function RadialProgressChartWorkout(props) {
-  const chartData = [...props.caloriesBurnt];
-  const totalCalories = chartData[0].caloriesBurnt
+    const { workoutsData, workoutsLoading , accountData, accountLoading } = useContext(DataContext);
+    const [totalCalories, setTotalCalories] = useState(0)
+    const [chartData, setChartData] = useState([{ caloriesBurnt: 0}])
+    useEffect(() => {
+      if(workoutsData){
+        const thisWorkout = workoutsData.find((workout) => {
+          return workout.id === props.workoutId
+        })
+        setChartData([{ caloriesBurnt: thisWorkout.caloriesBurnt}])
+      
+      }else{
+        setChartData([{ caloriesBurnt: 0}])
+      }
+      setTotalCalories(chartData[0].caloriesGoal)
+    }, [ workoutsData, accountData])
+
 
   return (
     <Card className="flex flex-col fancy-shadow">

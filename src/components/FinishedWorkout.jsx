@@ -201,7 +201,7 @@ export default function EditableWorkout(props){
                             </div>
                             <SmallAreaChartWorkout workoutContent={workoutData.elementsIn}/>
                             <RadarChartExercisesCategoryWorkout exercisesTypeAmount = {calculateExerciseTypes()} equipmentTypeAmount={calculateEquipmentTypes()}/>
-                            <RadialProgressChartWorkout caloriesBurnt ={[{caloriesBurnt: 1000}]}  />
+                            <RadialProgressChartWorkout workoutId={workoutData.id} />
                         </div>
                         <DialogFooter>
                         <DialogClose><div className="saveChangesBtn">Wyjdź</div></DialogClose>

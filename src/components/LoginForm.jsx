@@ -1,7 +1,7 @@
 import { useState, useRef } from "react"
 import { Link } from "react-router-dom"
 import { Separator } from "./ui/separator"
-
+import { toast } from "sonner"
 export default function LoginForm(){
     const errorRef = useRef()
     const usernameRef = useRef()
@@ -11,25 +11,33 @@ export default function LoginForm(){
         let username = usernameRef.current.value
         let password = passwordRef.current.value
         loginError.style.display = 'none'
-        fetch('http://62.171.167.17:8080/sign-in',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password,
+        try{
+            fetch('http://62.171.167.17:8080/sign-in',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                })
+            }).then((res)=>{
+                if(!res.ok){
+                    throw new Error('Wrong username or password')
+                }else{
+                    return res.json()
+                }
             })
-        }).then(res=>res.json())
-        .then(data=>{
-            if(data.error){
-                errorRef.current.style.display = 'block'
-            }else{
-                document.cookie = `refresh_token=${data.refresh_token}; path=/`
-                localStorage.setItem('access_token', data.access_token)
-                window.location.href = '/home'
-            }
-        })
+            .then(data=>{
+                    document.cookie = `refresh_token=${data.refresh_token}; path=/`
+                    localStorage.setItem('access_token', data.access_token)
+                    window.location.href = '/home'
+            })
+        }catch(e){
+            console.error(e)
+            toast.error('Błąd podczas logowania.')
+            errorRef.current.style.display = 'block'
+        }
     }
     
     return(

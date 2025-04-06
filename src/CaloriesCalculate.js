@@ -1,13 +1,30 @@
-export function getCalories(paceInSeconds, weightKg, paceInSeconds, durationHours) {
-    // Updated pace-MET range
-    const slowestPace = 180, slowestMET = 3;  // 3:00 per 100m ~ 3 METs
-    const fastestPace = 60, fastestMET = 12;  // 1:00 per 100m ~ 12 METs
+export function getCalories(paceInSeconds, weightKg, durationHours, strokeType = null) {
+    const strokes = {
+        freestyle: { slowestMET: 5.8, fastestMET: 10 },
+        breaststroke: { slowestMET: 5.3, fastestMET: 9.8 },
+        butterfly: { slowestMET: 8.3, fastestMET: 13.8 },
+        backstroke: { slowestMET: 4.8, fastestMET: 9.5 },
+        average: { slowestMET: 6, fastestMET: 10.8 }
+    };
 
-    // Ensure pace stays within bounds
-    if (paceInSeconds >= slowestPace) return slowestMET;
-    if (paceInSeconds <= fastestPace) return fastestMET;
+    const slowestPace = 180, fastestPace = 60; // seconds per 100m
+    const stroke = strokes[strokeType?.toLowerCase()] || strokes.average;
 
-    // Adjusted formula for a smoother transition (logarithmic scaling)
-    let MET = slowestMET + (fastestMET - slowestMET) * Math.pow((slowestPace - paceInSeconds) / (slowestPace - fastestPace), 1.2);
+    let MET;
+    if (paceInSeconds <= fastestPace) {
+        MET = stroke.fastestMET;
+    } else {
+        const normalizedPace = Math.min(paceInSeconds, slowestPace);
+        let baseMET = stroke.slowestMET + (stroke.fastestMET - stroke.slowestMET) * Math.pow((slowestPace - normalizedPace) / (slowestPace - fastestPace), 1.2);
+
+        // Decrease MET further if pace slower than slowestPace
+        if (paceInSeconds > slowestPace) {
+            const extraSlowFactor = 0.01; // tweak this number if needed
+            baseMET -= (paceInSeconds - slowestPace) * extraSlowFactor;
+        }
+
+        MET = Math.max(baseMET, 1); // never let it drop below 1 MET
+    }
+
     return MET * weightKg * durationHours;
 }

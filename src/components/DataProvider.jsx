@@ -5,8 +5,10 @@ import { toast } from "sonner";
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [workoutsData, setWorkoutsData] = useState(null);
+    const [accountData, setAccountData] = useState(null);
+    const [workoutsLoading, setWorkoutsLoading] = useState(true);
+    const [accountLoading, setAccountLoading] = useState(true);
 
     useEffect(() => {
         const getAccessToken = async () => {
@@ -23,6 +25,7 @@ export const DataProvider = ({ children }) => {
             if (res.status === 428) {
                 localStorage.removeItem('access_token');
                 document.cookie = `refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+                toast.error("Sesja wygasła. Zaloguj się ponownie.");
                 window.location.href = '/signin';
                 return;
             }
@@ -40,7 +43,7 @@ export const DataProvider = ({ children }) => {
             if (!accessToken) return; // 🔥 Don't fetch data if user is not logged in
     
             try {
-                const response = await fetch('http://62.171.167.17:8080/api/v2/workouts', {
+                const response = await fetch('http://62.171.167.17:8080/api/v2/workouts?action=get', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
@@ -56,7 +59,7 @@ export const DataProvider = ({ children }) => {
                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
     
                 const result = await response.json();
-                setData(result.map((filaElem) => ({
+                setWorkoutsData(result.map((filaElem) => ({
                     id: filaElem.workout.id,
                     name: filaElem.workout.name,
                     workoutDate: filaElem.workout.workoutDate,
@@ -71,16 +74,51 @@ export const DataProvider = ({ children }) => {
                 toast.error("Nie udało się pobrać danych z serwera.");
                 console.error("Error fetching data:", error);
             } finally {
-                setLoading(false);
+                setWorkoutsLoading(false);
             }
         };
+
+        const getAccountData = async () => {
+            const accessToken = localStorage.getItem('access_token');
+            if (!accessToken) return;
+            try {
+                const response = await fetch('http://62.171.167.17:8080/api/v2/account/info', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.status === 428) {
+                    await getAccessToken();
+                    return getAccountData();
+                }
     
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    
+                const result = await response.json();
+                setAccountData({
+                    weight: result.weight,
+                    isMale: result.isMale,
+                    caloriesGoal: result.caloriesGoal,
+                });
+    
+            } catch (error) {
+                toast.error("Nie udało się pobrać danych z serwera.");
+                console.error("Error fetching data:", error);
+            } finally {
+                setAccountLoading(false);
+            }
+        }
+
+
         getWorkoutsList();
     }, []);
     
 
     return (
-        <DataContext.Provider value={{ data, loading }}>
+        <DataContext.Provider value={{ workoutsData, workoutsLoading, accountData, accountLoading }}>
             {children}
         </DataContext.Provider>
     );

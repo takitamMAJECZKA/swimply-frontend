@@ -18,7 +18,7 @@ export default function ExercisePattern(props) {
                     }
                 })
         }else{
-            let newWorkout = {name: 'Trening', timeLong: 0, distance: 0, workoutDate: new Date(), elementsIn: [newElement]}
+            let newWorkout = {id: uuidv4(), name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, poolLength: 25, mainType:['Różne'], elementsIn: [newElement]}
             localStorage.setItem('currentWorkout', JSON.stringify(newWorkout));
             toast.success(<div className='w-full h-full p-2' onClick={() => props.handleToastClick()}>Ćwiczenie {props.name} zostało dodane</div>, {
                 action: {

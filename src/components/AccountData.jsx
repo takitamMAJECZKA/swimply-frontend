@@ -27,7 +27,6 @@ export default function AccountInfo() {
         if((weight < 20 || weight > 200) || (weight === '')){
             toast.error('Wprowadź poprawne dane')
         }else{
-            const promise = () => new Promise((resolve) => setTimeout(() => resolve({ name: 'Promise' }), 2000));
             const data = {
                 weight: weight,
                 isMale: isMale,
@@ -37,6 +36,7 @@ export default function AccountInfo() {
             const request = new Request('http://62.171.167.17:8080/api/v2/account/info',{
                 method: 'POST',
                 headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
@@ -44,7 +44,11 @@ export default function AccountInfo() {
 
             try {
                 const response = await fetch(request);
-                const json = await response.json()
+                // const json = await response.json()
+                if (response.status == 428) {
+                    await getAccessToken();
+                    return handleSave()
+                }
                 
                 toast.promise(response, {
                     loading: 'Proszę czekać...',
@@ -57,6 +61,33 @@ export default function AccountInfo() {
             }
         }
     }
+
+    const getAccessToken = async () => {
+        const refreshToken = document.cookie.match(/(?:^|;\s*)refresh_token=([^;]*)/)?.[1];
+        if (!refreshToken) return;
+
+        const res = await fetch('http://62.171.167.17:8080/refresh-token', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${refreshToken}`
+            },
+        });
+
+        if (res.status === 428) {
+            localStorage.removeItem('access_token');
+            document.cookie = `refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+            toast.error("Sesja wygasła. Zaloguj się ponownie.");
+            window.location.href = '/signin';
+            return;
+        }
+
+        const data = await res.json();
+        if (data.error) {
+            toast.error(data.error);
+        } else {
+            localStorage.setItem('access_token', data.access_token);
+        }
+    };
 
     return (
         <div className="grid grid-cols-1 mt-4">

@@ -30,35 +30,38 @@ export default function LoginForm(){
     function register(){
         let username = usernameRef.current.value
         let password = passwordRef.current.value
-        fetch('http://62.171.167.17:8080/signup',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password,
-                weight: weight,
-                isMale: isMale,
-                caloriesGoal: caloriesGoal
+        try{
+            fetch('http://62.171.167.17:8080/signup',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                    weight: weight,
+                    isMale: isMale,
+                    caloriesGoal: caloriesGoal
+                })
+            }).then((res)=>{
+                if(!res.ok){
+                    throw new Error('Account with this username or email already exists.')
+                }else{
+                    return res.json()
+                }
             })
-        }).then((res)=>{
-            if(!res.ok){
-                errorRef.current.style.display = 'block'
-                toast.error('Konto z tą nazwą użytkownika lub e-mailem już istnieje.')
-            }
-            else{
-                res.json()
-                errorRef.current.style.display = 'none'
-                toast.success('Konto zostało utworzone.')
-            }})
-        .then(data=>{
-            if(data.error){
-                toast.error('Błąd podczas rejestracji.')
-            }else{
-                window.location.href = '/signin'
-            }
-        })
+            .then(data=>{
+                if(data.error){
+                    toast.error('Błąd podczas rejestracji.')
+                }else{
+                    window.location.href = '/signin'
+                }
+            })
+        }catch(e){
+            console.error(e)
+            toast.error('Błąd podczas rejestracji.')
+            errorRef.current.style.display = 'block'
+        }
     }
 
     return(
