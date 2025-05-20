@@ -1,4 +1,4 @@
-export function getCalories(paceInSeconds, weightKg, durationHours, strokeType = null) {
+export default function getCalories(paceInSeconds, weightKg, durationHours, strokeType = null, equipment = []) {
     const strokes = {
         freestyle: { slowestMET: 5.8, fastestMET: 10 },
         breaststroke: { slowestMET: 5.3, fastestMET: 9.8 },
@@ -11,20 +11,40 @@ export function getCalories(paceInSeconds, weightKg, durationHours, strokeType =
     const stroke = strokes[strokeType?.toLowerCase()] || strokes.average;
 
     let MET;
-    if (paceInSeconds <= fastestPace) {
+    if (paceInSeconds === fastestPace) {
         MET = stroke.fastestMET;
-    } else {
+    } else if (paceInSeconds > fastestPace) {
         const normalizedPace = Math.min(paceInSeconds, slowestPace);
         let baseMET = stroke.slowestMET + (stroke.fastestMET - stroke.slowestMET) * Math.pow((slowestPace - normalizedPace) / (slowestPace - fastestPace), 1.2);
 
-        // Decrease MET further if pace slower than slowestPace
         if (paceInSeconds > slowestPace) {
-            const extraSlowFactor = 0.01; // tweak this number if needed
+            const extraSlowFactor = 0.01;
             baseMET -= (paceInSeconds - slowestPace) * extraSlowFactor;
         }
 
-        MET = Math.max(baseMET, 1); // never let it drop below 1 MET
+        MET = Math.max(baseMET, 1);
+    } else {
+        // Faster than fastestPace → increase MET
+        const extraFastFactor = 0.02; // adjust how strong the boost is
+        MET = stroke.fastestMET + (fastestPace - paceInSeconds) * extraFastFactor;
     }
 
+    // Adjust for equipment
+    const equipmentPenalty = {
+        kickboard: 0.95,
+        handpaddles: 0.92,
+        fins: 0.9,
+        monofin: 0.88,
+        pullbuoy: 0.93,
+        snorkel: 0.97,
+        noodle: 0.94
+    };
+
+    equipment.forEach(item => {
+        const penalty = equipmentPenalty[item.toLowerCase()];
+        if (penalty) {
+            MET *= penalty;
+        }
+    });
     return MET * weightKg * durationHours;
 }

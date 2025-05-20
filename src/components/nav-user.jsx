@@ -29,14 +29,20 @@ import {
 } from "@/components/ui/sidebar"
 
 import { Link } from "react-router-dom"
-import { DropdownMenuItemIndicator } from "@radix-ui/react-dropdown-menu"
 
+import { useContext } from "react"
+import { DataContext } from "@/components/DataProvider"
 
 export function NavUser({
   user
 }) {
   const { isMobile } = useSidebar()
-
+  const { workoutsData, workoutsLoading, accountData, accountLoading } = useContext(DataContext)
+  if(workoutsLoading || accountLoading) {
+    return (
+      <div className="w-full h-10 rounded-lg animate-pulse bg-(--aqua)"></div>
+    )
+  }
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -46,11 +52,11 @@ export function NavUser({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg text-(--dominant)">{user.name.substring(0,2)}</AvatarFallback>
+                <AvatarImage src={user.avatar} alt={accountData.username} />
+                <AvatarFallback className="rounded-lg text-(--dominant)">{accountData.username.substring(0,2)[0].toUpperCase()+accountData.username.substring(0,2)[1]}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
+                <span className="truncate font-medium">{accountData.username}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -63,12 +69,11 @@ export function NavUser({
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg text-(--dominant)">{user.name.substring(0,2)}</AvatarFallback>
+                  <AvatarImage src={user.avatar} alt={accountData.username} />
+                  <AvatarFallback className="rounded-lg text-(--dominant)">{accountData.username.substring(0,2)[0].toUpperCase()+accountData.username.substring(0,2)[1]}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-medium">{accountData.username}</span>
                 </div>
               </div>
             </DropdownMenuLabel>

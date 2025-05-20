@@ -48,8 +48,15 @@ import { Badge } from "./ui/badge";
 import PatternsSearcher from "./PatternsSearcher";
 import { toast } from "sonner";
 
-export default function EditableWorkout(props){
+import { getAccessToken } from "../getAccessToken.js";
+
+import { useContext } from "react";
+import { DataContext } from "../components/DataProvider";
+
+export default function EditableWorkout(){
     let date = new Date();
+
+    const { workoutsData, workoutsLoading, accountData, accountLoading, refreshData } = useContext(DataContext);
 
     const [content, setContent] = useState(() => {
         const savedData = localStorage.getItem('currentWorkout');
@@ -57,7 +64,7 @@ export default function EditableWorkout(props){
     });
     const [workoutData, setWorkoutData] = useState(() => {
         const savedData = localStorage.getItem('currentWorkout');
-        return savedData ? JSON.parse(savedData) : {id: uuidv4(),name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, poolLength: 25,  mainType:['Różne'], elementsIn: [...content]};
+        return savedData ? JSON.parse(savedData) : {id: uuidv4(),name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, poolLength: 25,  mainType:['Różne'], elementsIn: [...content], caloriesBurnt: 0};
     });
     
     const [searcherOpen, setSearcherOpen] = useState(false)
@@ -149,6 +156,8 @@ export default function EditableWorkout(props){
                     element.time = elementData.time;
                     element.subtype = elementData.subtype;
                     element.equipment = elementData.equipment;
+                    element.caloriesBurnt = elementData.caloriesBurnt;
+                    element.strokeType = elementData.strokeType;
                     setContent([...content])
                 }
             })
@@ -164,28 +173,46 @@ export default function EditableWorkout(props){
     }
 
     async function handleFinishWorkout(){
+        let caloriesBurnt = 0;
+        content.map((element) => {
+            if(element.type == 'exercise'){
+                caloriesBurnt += element.caloriesBurnt
+            }
+        });
         if(workoutData.timeLong!='00:00:00' && workoutData.distance!=0){
-            fetch('http://62.171.167.17:8080/api/v2/workouts/new',{
+            fetch('http://62.171.167.17:8080/api/v2/workout',{
                 method: 'POST',
                 headers:{
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(workoutData)
-            }).then(res=>res.json())
+                body: JSON.stringify(
+                    {...workoutData,
+                    caloriesBurnt: caloriesBurnt,
+                    }
+                )
+            }).then(async (res)=>{
+                if(res.status == 428){
+                    await getAccessToken();
+                    return handleFinishWorkout()
+                }
+                return res.json()
+            })
             .then(data=>{
                 if(data.error){
                     toast.error(data.error)
                 }else{
-                    props.addWorkoutToList(workoutData)
                     setContent([])
-                    setWorkoutData({id: uuidv4(), name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, poolLength: 25, mainType:['Różne'], elementsIn: [...content], caloriesBurnt: Math.random() * (1000 - 500) + 500})
+                    setWorkoutData({id: uuidv4(), name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, poolLength: 25, mainType:['Różne'], elementsIn: [...content], caloriesBurnt: 0});
+                    toast.success('Trening zapisany!')
+                    refreshData()
                 }
             })
         }else{
             toast.error('Trening nie może nie mieć dystansu, lub nie zająć żadnego czasu.')
         }
     }
+
     return(
         <div className="workoutContainer fancy-shadow">
             <div className="workoutHeader">
@@ -205,7 +232,7 @@ export default function EditableWorkout(props){
                         <DialogHeader>
                         <DialogTitle>Zmień nazwę</DialogTitle>
                         <DialogDescription>
-                            Zmień nazwę treningu a następnie kliknij przycisk "Zapisz zmiany"
+                            Zmień nazwę treningu.
                         </DialogDescription>
                         </DialogHeader>
                         <div className="grid grid-cols-4 items-center gap-4">
@@ -215,7 +242,7 @@ export default function EditableWorkout(props){
                             <Input id="name" value={workoutData.name} onChange={(e) => handleWorkoutNameChange(e)} className="col-span-3" />
                         </div>
                         <DialogFooter>
-                            <DialogClose><div className="saveChangesBtn">Zapisz zmiany</div></DialogClose>
+                            <DialogClose><div className="saveChangesBtn">Zamknij</div></DialogClose>
                         </DialogFooter>
                     </DialogContent>
                     </Dialog>
@@ -310,7 +337,7 @@ export default function EditableWorkout(props){
                         </DropdownMenuContent>
                     </DropdownMenu>
                 <button className="addBreak" onClick={() => {handleAddBreak()}}>Dodaj przerwę</button>
-                <Link to="../workouts" className="flex justify-center finishWorkout" onClick={() => {handleFinishWorkout()}}><button className="cursor-pointer">Zakończ</button></Link>
+                <button  onClick={() => {handleFinishWorkout()}} className="cursor-pointer finishWorkout">Zakończ</button>
             </div>
         </div>
     )

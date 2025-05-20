@@ -1,14 +1,20 @@
 
 
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { toast } from 'sonner'
 import {Mars} from 'lucide-react'
 import {Venus} from 'lucide-react'
 
-export default function AccountInfo() {
-    const [weight, setWeight] = useState(68)
-    const [isMale, setIsMale] = useState(true)
-    const [caloriesGoal, setCaloriesGoal] = useState(1200);
+
+import { DataContext } from './DataProvider'
+import { getAccessToken } from '../getAccessToken.js'
+
+export default function AccountData() {
+    const {workoutsData, workoutsLoading, accountData, accountLoading, refreshData } = useContext(DataContext)
+
+    const [weight, setWeight] = useState(accountData.weight)
+    const [isMale, setIsMale] = useState(accountData.isMale)
+    const [caloriesGoal, setCaloriesGoal] = useState(accountData.caloriesGoal);
 
     function handleWeightChange(e) {
         setWeight(e.target.value)
@@ -34,7 +40,7 @@ export default function AccountInfo() {
             }
 
             const request = new Request('http://62.171.167.17:8080/api/v2/account/info',{
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                     'Content-Type': 'application/json'
@@ -45,6 +51,7 @@ export default function AccountInfo() {
             try {
                 const response = await fetch(request);
                 // const json = await response.json()
+                console.log(response)
                 if (response.status == 428) {
                     await getAccessToken();
                     return handleSave()
@@ -55,39 +62,13 @@ export default function AccountInfo() {
                     success: 'Dane zostały zapisane',
                     error: 'Błąd po stronie bazy danych',
                 });
+                refreshData()
             }catch (error) {
                 toast.error('Błąd: ' + error.message)
                 return
             }
         }
     }
-
-    const getAccessToken = async () => {
-        const refreshToken = document.cookie.match(/(?:^|;\s*)refresh_token=([^;]*)/)?.[1];
-        if (!refreshToken) return;
-
-        const res = await fetch('http://62.171.167.17:8080/refresh-token', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${refreshToken}`
-            },
-        });
-
-        if (res.status === 428) {
-            localStorage.removeItem('access_token');
-            document.cookie = `refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-            toast.error("Sesja wygasła. Zaloguj się ponownie.");
-            window.location.href = '/signin';
-            return;
-        }
-
-        const data = await res.json();
-        if (data.error) {
-            toast.error(data.error);
-        } else {
-            localStorage.setItem('access_token', data.access_token);
-        }
-    };
 
     return (
         <div className="grid grid-cols-1 mt-4">

@@ -23,6 +23,8 @@ export default function LoginForm(){
                 })
             }).then((res)=>{
                 if(!res.ok){
+                    toast.error('Błąd podczas logowania.')
+                    errorRef.current.style.display = 'block'
                     throw new Error('Wrong username or password')
                 }else{
                     return res.json()
@@ -35,8 +37,6 @@ export default function LoginForm(){
             })
         }catch(e){
             console.error(e)
-            toast.error('Błąd podczas logowania.')
-            errorRef.current.style.display = 'block'
         }
     }
     

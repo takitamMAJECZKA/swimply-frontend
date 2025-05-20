@@ -61,7 +61,7 @@ export function NavSecondary({
                       <AccordionItem value="ktoto" className='bg-(--dominant) rounded-md p-2 mb-2'>
                         <AccordionTrigger>Kto to napisal?</AccordionTrigger>
                         <AccordionContent className="AccordionContent">
-                         Oczywiscie napisal to macius z mala pomoca kleksa wiktora
+                          Oczywiscie napisal to macius, to czego nie widzicie napisal wiktor, lukasz zrobil projekt designu i logo a mati dal pomysl i zrobil sociale
                         </AccordionContent>
                       </AccordionItem>
                       <AccordionItem value="ktora" className='bg-(--dominant) rounded-md p-2'>

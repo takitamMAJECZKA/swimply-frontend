@@ -21,7 +21,8 @@ const SwimPaceCalculator = () => {
   const [newDistance, setNewDistance] = useState(""); // Distance to predict for
   const [fatigueFactor, setFatigueFactor] = useState(fatigueLevels.intermediate); // Default fatigue factor
   const [predictedPace, setPredictedPace] = useState(null);
-  const [poolLength, setPoolLength] = useState(25);
+  const [predictedTotalTime, setPredictedTotalTime] = useState(null);
+  const [poolLength, setPoolLength] = useState(1);
 
   const parseTimeToSeconds = (timeStr) => {
     const [minutes, seconds] = timeStr.split(":").map(Number);
@@ -33,6 +34,18 @@ const SwimPaceCalculator = () => {
     const seconds = Math.round(secondsPer100m % 60);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}/100m`;
   };
+  
+  const formatTime = (totalSeconds) => {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = Math.round(totalSeconds % 60);
+    
+    if (hours > 0) {
+      return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    } else {
+      return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    }
+  };
 
   const calculatePace = () => {
     if (!bestTime || !bestDistance || !newDistance) return;
@@ -42,8 +55,12 @@ const SwimPaceCalculator = () => {
 
     const predictedPacePerMeter = knownPace * Math.pow(newDistance / bestDistance, fatigueFactor);
     const predictedPacePer100m = predictedPacePerMeter * 100;
+    
+    // Calculate total time for the whole distance
+    const totalTimeSeconds = predictedPacePerMeter * newDistance;
 
     setPredictedPace(formatPace(predictedPacePer100m));
+    setPredictedTotalTime(formatTime(totalTimeSeconds));
   };
 
   return (
@@ -178,6 +195,13 @@ const SwimPaceCalculator = () => {
             <div className="w-full p-3 bg-secondary/10 rounded-lg text-center">
               <p className="text-sm text-muted-foreground mb-1">Przewidywane tempo</p>
               <p className="text-xl font-semibold text-foreground">{predictedPace}</p>
+              
+              <div className="mt-3 pt-3 border-t border-border">
+                <p className="text-sm text-muted-foreground mb-1">
+                  Przewidywany czas całkowity na dystansie {newDistance} m
+                </p>
+                <p className="text-xl font-semibold text-foreground">{predictedTotalTime}</p>
+              </div>
             </div>
           )}
         </CardFooter>

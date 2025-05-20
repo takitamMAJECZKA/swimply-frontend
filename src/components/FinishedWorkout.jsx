@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState,useContext } from "react";
 
 import { EllipsisVertical } from "lucide-react"
 
@@ -30,6 +30,12 @@ import {
     import SmallAreaChartWorkout from "../components/charts/SmallAreaChartWorkout"
     import { convertSecsToMins, convertMinsToSecs } from "@/TimeCalculate";
 
+
+    import { getAccessToken } from "@/getAccessToken.js"
+    import { toast } from "sonner"
+
+    import { DataContext } from "./DataProvider";
+
     const equipmentOptions = [
         { id: 'kickboard', name: 'Deska pływacka', group: 'hands' },
         { id: 'handpaddles', name: 'Płetwy na ręce', group: 'hands' },
@@ -43,11 +49,35 @@ import {
 
 
 export default function EditableWorkout(props){
-    let [workoutData, setWorkoutData] = useState(props.data);
-    let date = new Date(props.data.workoutDate);
-    
+    const [workoutData, setWorkoutData] = useState(props.data);
+    const date = new Date(props.data.workoutDate);
+
+    const { workoutsData, workoutsLoading, accountData, accountLoading, refreshData } = useContext(DataContext);
+
     function handleWorkoutNameChange(e){
         setWorkoutData({...workoutData, name: e.target.value})
+    }
+
+    async function submitWorkoutChange(){
+        fetch(`http://62.171.167.17:8080/api/v2/workout`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            body: JSON.stringify(workoutData),
+        }).then((res) => {
+            if (res.status === 428) {
+                getAccessToken();
+                return handleWorkoutNameChange(e);
+            }
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            toast.success('Zapisano zmiany w treningu!')
+            return res.json();
+        })
+        refreshData()
     }
 
     function calculateExerciseTypes(){
@@ -115,12 +145,12 @@ export default function EditableWorkout(props){
                         </div>
                         <DialogFooter className="flex justify-between!">
                             <DialogClose><div className="saveChangesBtn" onClick={() => {props.deleteWorkout(workoutData.id)}}>Usuń trening</div></DialogClose>
-                            <DialogClose><div className="saveChangesBtn">Zapisz zmiany</div></DialogClose>
+                            <DialogClose><div className="saveChangesBtn" onClick={() => submitWorkoutChange()} >Zapisz zmiany</div></DialogClose>
                         </DialogFooter>
                     </DialogContent>
                     </Dialog>
                     <Dialog>
-                    <DialogTrigger asChildb className="cursor-pointer">
+                    <DialogTrigger asChild className="cursor-pointer">
                     <div className="workoutInfo">
                         <div className="workoutDate">{date.getDate()} {date.toLocaleDateString('pl-PL', {month:'long'})} {date.getFullYear()}</div>
                         <div className="workoutDistance">{workoutData.distance > 1000 ? `${workoutData.distance/1000} km` : `${workoutData.distance} m`}</div>
@@ -154,8 +184,9 @@ export default function EditableWorkout(props){
                                                         <EllipsisVertical />
                                                     </PopoverTrigger>
                                                     <PopoverContent className='flex items-center justify-center gap-2 flex-col'>
-                                                        <div className="w-full flex items-center justify-center">
+                                                        <div className="w-full flex flex-col items-center justify-center gap-1.5">
                                                             <Badge variant='outline' className='p-1.5 pl-6 pr-6 text-sm font-bold'>{element.subtype.label}</Badge>
+                                                            <Badge variant='outline' className='p-1.5 pl-6 pr-6 text-sm font-bold'>Kalorie: {element.caloriesBurnt}</Badge>
                                                         </div>
                                                         <div className="w-full flex items-center justify-around flex-wrap">    
                                                         {element.equipment.map((equ)=>(

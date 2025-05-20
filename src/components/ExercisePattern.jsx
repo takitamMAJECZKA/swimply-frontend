@@ -7,7 +7,7 @@ import {FreestyleIcon, BreaststrokeIcon, BackstrokeIcon, ButterflyIcon, Breastst
 export default function ExercisePattern(props) {
     function handleAddToWorkout(){
         let savedData = JSON.parse(localStorage.getItem('currentWorkout'));
-        let newElement = {id: uuidv4(), name: props.name, type: 'exercise', distance: 0, time: '00:00', subtype: {label: 'Różne' , value:'rozne'}, equipment: []};
+        let newElement = {id: uuidv4(), name: props.name, type: 'exercise', distance: 0, time: '00:00', subtype: {label: 'Różne' , value:'rozne'}, equipment: [], caloriesBurnt: 0, strokeType: null};
         if(savedData){
                 savedData.elementsIn.push(newElement);
                 localStorage.setItem('currentWorkout', JSON.stringify(savedData));
@@ -18,7 +18,7 @@ export default function ExercisePattern(props) {
                     }
                 })
         }else{
-            let newWorkout = {id: uuidv4(), name: 'Trening', timeLong: 0, distance: 0, workoutDate: date, poolLength: 25, mainType:['Różne'], elementsIn: [newElement]}
+            let newWorkout = {id: uuidv4(), name: 'Trening', timeLong: 0, distance: 0, workoutDate: new Date(), poolLength: 25, mainType:['Różne'], elementsIn: [newElement], caloriesBurnt: 0};
             localStorage.setItem('currentWorkout', JSON.stringify(newWorkout));
             toast.success(<div className='w-full h-full p-2' onClick={() => props.handleToastClick()}>Ćwiczenie {props.name} zostało dodane</div>, {
                 action: {

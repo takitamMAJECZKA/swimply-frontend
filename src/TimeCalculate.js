@@ -1,35 +1,66 @@
-
-export function convertMinsToSecs(mmss){
-    if(mmss != undefined){
-        let mins = mmss.substring(0,2);
-        let secs = mmss.substring(3,5);
-
-        return (parseInt(mins)*60 + parseInt(secs));
-    }
+/**
+ * Converts a time string in MM:SS format to seconds
+ * @param {string} mmss - Time string in MM:SS format (e.g., "01:30" or "1:30")
+ * @returns {number} - Total seconds
+ */
+export function convertMinsToSecs(mmss) {
+  if (!mmss) return 0;
+  
+  const parts = mmss.split(':');
+  if (parts.length !== 2) return 0;
+  
+  const mins = parseInt(parts[0], 10) || 0;
+  const secs = parseInt(parts[1], 10) || 0;
+  
+  return mins * 60 + secs;
 }
 
-export function convertHoursToSecs(hhmmss){
-    if(hhmmss != undefined){
-        const [hours, minutes, seconds] = hhmmss.split(':');
-        return (hours * 3600 + minutes*60 + seconds)
-    }
+/**
+ * Converts a time string in HH:MM:SS format to seconds
+ * @param {string} hhmmss - Time string in HH:MM:SS format (e.g., "01:30:45")
+ * @returns {number} - Total seconds
+ */
+export function convertHoursToSecs(hhmmss) {
+  if (!hhmmss) return 0;
+  
+  const parts = hhmmss.split(':');
+  if (parts.length !== 3) return 0;
+  
+  const hours = parseInt(parts[0], 10) || 0;
+  const mins = parseInt(parts[1], 10) || 0;
+  const secs = parseInt(parts[2], 10) || 0;
+  
+  return hours * 3600 + mins * 60 + secs;
 }
 
-
-export function convertSecsToMins(s){
-    let mins = parseInt(s/60)
-    let secs = s%60
-
-    return (mins<10 ? '0' + parseInt(mins) : parseInt(mins)) + ':' + (secs<10 ? '0' + parseInt(secs) : parseInt(secs))
+/**
+ * Converts seconds to a time string in MM:SS format
+ * @param {number} s - Seconds
+ * @returns {string} - Time string in MM:SS format
+ */
+export function convertSecsToMins(s) {
+  if (!s && s !== 0) return '00:00';
+  
+  const totalSecs = parseInt(s, 10);
+  const mins = Math.floor(totalSecs / 60);
+  const secs = Math.floor(totalSecs % 60);
+  
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
-export function convertSecsToHours(s){
-    let hours = Math.floor(s / 3600);
-    let minutes = Math.floor((s - (hours * 3600)) / 60);
-    let seconds = s - (hours * 3600) - (minutes * 60);
-    let timeString = hours.toString().padStart(2, '0') + ':' + 
-          minutes.toString().padStart(2, '0') + ':' + 
-          seconds.toString().padStart(2, '0');
-    return (timeString)
+/**
+ * Converts seconds to a time string in HH:MM:SS format
+ * @param {number} s - Seconds
+ * @returns {string} - Time string in HH:MM:SS format
+ */
+export function convertSecsToHours(s) {
+  if (!s && s !== 0) return '00:00:00';
+  
+  const totalSecs = parseInt(s, 10);
+  const hours = Math.floor(totalSecs / 3600);
+  const mins = Math.floor((totalSecs % 3600) / 60);
+  const secs = Math.floor(totalSecs % 60);
+  
+  return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 

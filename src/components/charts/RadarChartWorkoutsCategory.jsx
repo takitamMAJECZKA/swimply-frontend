@@ -16,13 +16,8 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-const chartData = [
-  { category: "Wydolność", amount: 3 },
-  { category: "Siła", amount: 8 },
-  { category: "Technika", amount: 2 },
-  { category: "Wstrzymywanie oddechu", amount: 3 },
-  { category: "Różne", amount: 4 },
-]
+import { useContext, useEffect, useState } from "react"
+import { DataContext } from "../DataProvider"
 
 const chartConfig = {
   amount: {
@@ -32,12 +27,45 @@ const chartConfig = {
 }
 
 export default function RadarChartWorkoutsCategory() {
+  const { workoutsData, workoutsLoading, accountData, accountLoading } = useContext(DataContext)
+  const [chartData, setChartData] = useState([
+    { category: "Wydolność", amount: 0 },
+    { category: "Siła", amount: 0 },
+    { category: "Technika", amount: 0 },
+    { category: "Wstrzymywanie oddechu", amount: 0 },
+    { category: "Różne", amount: 0 },
+  ])
+  useEffect(() => {
+    let data = [{ category: "Wydolność", amount: 0 },{ category: "Siła", amount: 0 },{ category: "Technika", amount: 0 },{ category: "Wstrzymywanie oddechu", amount: 0 },{ category: "Różne", amount: 0 }];
+    workoutsData.map((workout) =>{
+        if(new Date(workout.workoutDate) >= new Date(new Date().getFullYear(), new Date().getMonth(), 1)){
+            switch (workout.mainType[0]) {
+                case 'Wydolność':
+                    data[0].amount ++;
+                    break;
+                case 'Siła':
+                    data[1].amount ++;
+                    break;
+                case 'Technika':
+                    data[2].amount ++;
+                    break;
+                case 'Wstrzymywanie oddechu':
+                    data[3].amount ++;
+                    break;
+                case 'Różne':
+                    data[4].amount ++;
+                    break;
+            }
+        }
+    })
+    setChartData(data)
+  }, [])
   return (
     <Card className='fancy-shadow'>
       <CardHeader className="items-center pb-4">
         <CardTitle>Treningi</CardTitle>
         <CardDescription>
-          Pokazuje co targetowales na ostatnich treningach
+          Pokazuje co targetowales na treningach w tym miesiącu
         </CardDescription>
       </CardHeader>
       <CardContent className="pb-0">

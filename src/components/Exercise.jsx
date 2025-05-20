@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { Pencil } from 'lucide-react';
 import {convertMinsToSecs, convertSecsToMins} from '../TimeCalculate.js'
 import { AddExerciseType } from "./AddExerciseType.jsx";
@@ -13,31 +13,50 @@ import {
     InputOTPSlot,
   } from "@/components/ui/input-otp"
 
+import getCalories from "@/CaloriesCalculate.js";
+import { DataContext } from "../components/DataProvider";
+
+
 export default function Exercise(props){
     const [exerciseInfo, setExerciseInfo] = useState(() => {
         let savedData = JSON.parse(localStorage.getItem('currentWorkout'));
         savedData = savedData ? savedData.elementsIn.find((element) => element.id === props.id) : null;
-        return savedData ? savedData : {id: props.id, name: props.name, type:'exercise', distance: 0, time:'00:00', subtype: {label: 'Różne' , value:'rozne'}, equipment: []};
+        return savedData ? savedData : {id: props.id, name: props.name, type:'exercise', distance: 0, time:'00:00', subtype: {label: 'Różne' , value:'rozne'}, equipment: [], caloriesBurnt: 0, strokeType: null};
     });
+
+    const { workoutsData, workoutsLoading, accountData, accountLoading } = useContext(DataContext);
+    
     
     useEffect(()=>{
         props.updateData(exerciseInfo)
     }, [exerciseInfo])
     
     function handleAmountOfPoolsChange(e){
-        e.target.value = e.target.value.replace(/\D+$/, '');
-        setExerciseInfo({...exerciseInfo , distance: e.target.value * props.poolLength})
+        const value = e.target.value.replace(/\D+$/, '');
+        setExerciseInfo(e => ({...e , distance: value * props.poolLength}))
+        handleCaloriesCount();
     }
 
     function handleTimeChange(value){
         if(value!=null){
             const formatted = value.slice(0, 2) + ":" + value.slice(2);
-            setExerciseInfo({...exerciseInfo , time: formatted})
+            setExerciseInfo(e => ({...e , time: formatted}))
+            handleCaloriesCount();
         }else{
-            setExerciseInfo({...exerciseInfo , time: ''})
+            setExerciseInfo(e => ({...e , time: ''}))
         }
     }
 
+    function handleCaloriesCount(){
+        const paceInSeconds = convertMinsToSecs(exerciseInfo.time)/(exerciseInfo.distance/100)
+        const calculatedCalories = Math.round(getCalories(paceInSeconds, accountData.weight, convertMinsToSecs(exerciseInfo.time)/3600, exerciseInfo.strokeType, exerciseInfo.equipment))
+        if(paceInSeconds != NaN){
+            setExerciseInfo(e => ({...e,
+                caloriesBurnt: calculatedCalories
+            }))
+        }
+    }
+    
     function handleExerciseNameChange(e){
         setExerciseInfo({...exerciseInfo , name: e.target.value})
     }
@@ -45,9 +64,10 @@ export default function Exercise(props){
     function handleSubTypeChange(value){
         setExerciseInfo({...exerciseInfo , subtype: value})
     }
-
+    
     function handleEquipmentChange(equipment){
-        setExerciseInfo({...exerciseInfo, equipment: equipment})
+        setExerciseInfo(e => ({...e, equipment: equipment}))
+        handleCaloriesCount();
     }
 
     return(

@@ -27,22 +27,26 @@ const chartConfig = {
 }
 
 export default function RadialProgressChartWorkout(props) {
-    const { workoutsData, workoutsLoading , accountData, accountLoading } = useContext(DataContext);
-    const [totalCalories, setTotalCalories] = useState(0)
-    const [chartData, setChartData] = useState([{ caloriesBurnt: 0}])
+    const { workoutsData, workoutsLoading, accountData, accountLoading } = useContext(DataContext);
+    const [totalCalories, setTotalCalories] = useState(0);
+    const [chartData, setChartData] = useState([{ caloriesBurnt: 0}]);
+    
     useEffect(() => {
-      if(workoutsData){
+      if (workoutsData && props.workoutId) {
         const thisWorkout = workoutsData.find((workout) => {
-          return workout.id === props.workoutId
-        })
-        setChartData([{ caloriesBurnt: thisWorkout.caloriesBurnt}])
-      
-      }else{
-        setChartData([{ caloriesBurnt: 0}])
+          return props.workoutId == workout.id;
+        });
+        
+        if (thisWorkout && thisWorkout.caloriesBurnt) {
+          const calories = thisWorkout.caloriesBurnt;
+          setChartData([{ caloriesBurnt: calories }]);
+          setTotalCalories(calories);
+        } else {
+          setChartData([{ caloriesBurnt: 0 }]);
+          setTotalCalories(0);
+        }
       }
-      setTotalCalories(chartData[0].caloriesGoal)
-    }, [ workoutsData, accountData])
-
+    }, [workoutsData, props.workoutId]);
 
   return (
     <Card className="flex flex-col fancy-shadow">

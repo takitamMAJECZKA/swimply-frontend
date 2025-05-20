@@ -34,7 +34,6 @@ const chartConfig = {
 
 export default function RadialProgressChart() {
   const { workoutsData, workoutsLoading , accountData, accountLoading } = useContext(DataContext);
-  const [totalCalories, setTotalCalories] = useState(0)
   const [chartData, setChartData] = useState([{ caloriesBurnt: 0, caloriesLeft: 1000, caloriesGoal: /*accountData.caloriesGoal*/ 1000 }])
   useEffect(() => {
     if(workoutsData){
@@ -46,7 +45,6 @@ export default function RadialProgressChart() {
     }else{
       setChartData([{ caloriesBurnt: 0, caloriesLeft: /*accountData.caloriesGoal*/ 1000, caloriesGoal: /*accountData.caloriesGoal*/ 1000 }])
     }
-    setTotalCalories(chartData[0].caloriesGoal)
   }, [ workoutsData, accountData])
 
   return (
@@ -81,14 +79,14 @@ export default function RadialProgressChart() {
                           y={(viewBox.cy || 0) - 16}
                           className="fill-foreground text-2xl font-bold"
                         >
-                          {totalCalories.toLocaleString()}
+                          {chartData[0].caloriesBurnt.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 4}
                           className="fill-muted-foreground"
                         >
-                          Cel kalorii
+                          /{chartData[0].caloriesGoal.toLocaleString()} kcal
                         </tspan>
                       </text>
                     )
@@ -97,17 +95,17 @@ export default function RadialProgressChart() {
               />
             </PolarRadiusAxis>
             <RadialBar
-              dataKey="caloriesBurnt"
-              stackId="a"
-              cornerRadius={5}
-              fill="var(--color-caloriesBurnt)"
-              className="stroke-transparent stroke-2"
-            />
-            <RadialBar
               dataKey="caloriesLeft"
               fill="var(--color-caloriesLeft)"
               stackId="a"
               cornerRadius={5}
+              className="stroke-transparent stroke-2"
+            />
+            <RadialBar
+              dataKey="caloriesBurnt"
+              stackId="a"
+              cornerRadius={5}
+              fill="var(--color-caloriesBurnt)"
               className="stroke-transparent stroke-2"
             />
           </RadialBarChart>
@@ -115,7 +113,7 @@ export default function RadialProgressChart() {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none text-center">
-        Możesz ustawić cel spalania kalorii co trening lub poprostu zobaczyć ile ich spaliłeś
+        Możesz ustawić cel spalania kalorii co trening w ustawieniach konta
         </div>
       </CardFooter>
     </Card>

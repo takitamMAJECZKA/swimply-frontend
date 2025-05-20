@@ -45,7 +45,9 @@ export default function LoginForm(){
                 })
             }).then((res)=>{
                 if(!res.ok){
-                    throw new Error('Account with this username or email already exists.')
+                    toast.error('Błąd podczas rejestracji.')
+                    errorRef.current.style.display = 'block'
+                    throw new Error('Database error')
                 }else{
                     return res.json()
                 }
@@ -59,8 +61,6 @@ export default function LoginForm(){
             })
         }catch(e){
             console.error(e)
-            toast.error('Błąd podczas rejestracji.')
-            errorRef.current.style.display = 'block'
         }
     }
 
