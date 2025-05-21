@@ -31,7 +31,7 @@ export default function LoginForm(){
         let username = usernameRef.current.value
         let password = passwordRef.current.value
         try{
-            fetch('http://62.171.167.17:8080/signup',{
+            fetch('https://swimply.pl/signup',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -2,7 +2,7 @@ export async function getAccessToken(){
     const refreshToken = document.cookie.match(/(?:^|;\s*)refresh_token=([^;]*)/)?.[1];
     if (!refreshToken) return;
 
-    const res = await fetch('http://62.171.167.17:8080/refresh-token', {
+    const res = await fetch('https://swimply.pl/refresh-token', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${refreshToken}`

@@ -41,7 +41,7 @@ export default function Workouts(){
             return workout.id !== workoutId
         })
         setWorkoutsList(newWorkoutsList)
-        fetch(`http://62.171.167.17:8080/api/v2/workout`, {
+        fetch(`https://swimply.pl/api/v2/workout`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

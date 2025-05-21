@@ -180,7 +180,7 @@ export default function EditableWorkout(){
             }
         });
         if(workoutData.timeLong!='00:00:00' && workoutData.distance!=0){
-            fetch('http://62.171.167.17:8080/api/v2/workout',{
+            fetch('https://swimply.pl/api/v2/workout',{
                 method: 'POST',
                 headers:{
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`,

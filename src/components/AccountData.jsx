@@ -39,7 +39,7 @@ export default function AccountData() {
                 caloriesGoal: caloriesGoal
             }
 
-            const request = new Request('http://62.171.167.17:8080/api/v2/account/info',{
+            const request = new Request('https://swimply.pl/api/v2/account/info',{
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`,

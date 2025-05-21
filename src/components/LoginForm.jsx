@@ -12,7 +12,7 @@ export default function LoginForm(){
         let password = passwordRef.current.value
         loginError.style.display = 'none'
         try{
-            fetch('http://62.171.167.17:8080/sign-in',{
+            fetch('https://swimply.pl/sign-in',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

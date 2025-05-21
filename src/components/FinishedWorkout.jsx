@@ -59,7 +59,7 @@ export default function EditableWorkout(props){
     }
 
     async function submitWorkoutChange(){
-        fetch(`http://62.171.167.17:8080/api/v2/workout`, {
+        fetch(`https://swimply.pl/api/v2/workout`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

@@ -29,7 +29,7 @@ export const DataProvider = ({ children }) => {
         if (!accessToken) return; // 🔥 Don't fetch data if user is not logged in
 
         try {
-            const response = await fetch('http://62.171.167.17:8080/api/v2/workout', {
+            const response = await fetch('https://swimply.pl/api/v2/workout', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -45,6 +45,7 @@ export const DataProvider = ({ children }) => {
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
             const result = await response.json();
+            console.log(result);
             setWorkoutsData(result.map((filaElem) => ({
                 id: filaElem.workout.id,
                 name: filaElem.workout.name,
@@ -69,7 +70,7 @@ export const DataProvider = ({ children }) => {
         const accessToken = localStorage.getItem('access_token');
         if (!accessToken) return;
         try {
-            const response = await fetch('http://62.171.167.17:8080/api/v2/account/info', {
+            const response = await fetch('https://swimply.pl/api/v2/account/info', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
