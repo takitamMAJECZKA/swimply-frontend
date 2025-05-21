@@ -4,9 +4,10 @@ import {
   CircleHelp,
   Settings2,
   Activity,
-  Waves,
   Calculator
 } from "lucide-react"
+
+import swimplyLogo from "/swimplyLogoCircle.png"
 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
@@ -105,19 +106,10 @@ export function AppSidebar({
               <a href="/">
                 <div
                   className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <svg className="rounded-lg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="0" y="0" width="400" height="400" fill="#005792"/>
-                    <g transform="translate(200, 200)">
-                      <path d="M-150,0 C-100,-30 -50,30 0,0 C50,-30 100,30 150,0" 
-                            fill="none" stroke="#ffffff" strokeWidth="24" strokeLinecap="round"/>
-                            
-                      <path d="M-150,70 C-100,40 -50,100 0,70 C50,40 100,100 150,70" 
-                            fill="none" stroke="#ffffff" strokeWidth="24" strokeLinecap="round" opacity="0.7"/>
-                            
-                      <path d="M-150,-70 C-100,-100 -50,-40 0,-70 C50,-100 100,-40 150,-70" 
-                            fill="none" stroke="#ffffff" strokeWidth="24" strokeLinecap="round" opacity="0.7"/>
-                    </g>
-                  </svg>
+                  <img
+                    src={swimplyLogo}
+                    alt="Swimply"
+                    className="h-8 w-8 rounded-full"></img>
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">Swimply</span>

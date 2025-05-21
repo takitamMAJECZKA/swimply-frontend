@@ -163,7 +163,7 @@ body{
 }
 
 #addNewWorkoutBtn:hover#addNewWorkoutBtn{
-    transform: translateY(-20px)  skew(-20deg, -5deg) rotate(3turn);
+    transform: scale(1.1) rotate(10deg); 
 }
 
 .workoutContainer{

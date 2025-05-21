@@ -45,18 +45,21 @@ export const DataProvider = ({ children }) => {
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
             const result = await response.json();
-            console.log(result);
-            setWorkoutsData(result.map((filaElem) => ({
-                id: filaElem.workout.id,
-                name: filaElem.workout.name,
-                workoutDate: filaElem.workout.workoutDate,
-                timeLong: filaElem.workout.timeLong,
-                distance: filaElem.workout.distance,
-                poolLength: filaElem.workout.poolLength,
-                mainType: filaElem.workout.mainType,
-                elementsIn: filaElem.workout.elementsIn,
-                caloriesBurnt: filaElem.workout.caloriesBurnt,
-            })));
+            if(result){
+                setWorkoutsData(result.map((filaElem) => ({
+                    id: filaElem.workout.id,
+                    name: filaElem.workout.name,
+                    workoutDate: filaElem.workout.workoutDate,
+                    timeLong: filaElem.workout.timeLong,
+                    distance: filaElem.workout.distance,
+                    poolLength: filaElem.workout.poolLength,
+                    mainType: filaElem.workout.mainType,
+                    elementsIn: filaElem.workout.elementsIn,
+                    caloriesBurnt: filaElem.workout.caloriesBurnt,
+                })));
+            }else{
+                setWorkoutsData([]);
+            }
 
         } catch (error) {
             toast.error("Nie udało się pobrać danych z serwera.");

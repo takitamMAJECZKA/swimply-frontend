@@ -5,6 +5,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Waves, Clock, Ruler, ChevronDown, EllipsisVertical } from "lucide-react";
+import SwimplyLogo from "/swimplyLogoCircle.png";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { DropdownMenuItem, DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
@@ -69,7 +70,8 @@ const SwimPaceCalculator = () => {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <Waves className="w-6 h-6 mr-3 text-(--aqua)" />
+              {/* <Waves className="w-6 h-6 mr-3 text-(--aqua)" /> */}
+              <img src={SwimplyLogo} alt="Swimply" className="h-8 w-8 rounded-full mr-3" />
               <CardTitle>Kalkulator przewidywanego tempa</CardTitle>
             </div>
           <DropdownMenu>
