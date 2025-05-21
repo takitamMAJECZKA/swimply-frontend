@@ -46,7 +46,7 @@ export default function LoginForm(){
             }).then((res)=>{
                 if(!res.ok){
                     toast.error('Błąd podczas rejestracji.')
-                    if(res.status === 400){
+                    if(res.status === 403){
                         errorRef.current.style.display = 'block'
                     }
                     throw new Error('Database error')
