@@ -1,6 +1,12 @@
-export async function getAccessToken(){
+export async function getAccessToken() {
     const refreshToken = document.cookie.match(/(?:^|;\s*)refresh_token=([^;]*)/)?.[1];
-    if (!refreshToken) return;
+    const currentPath = window.location.pathname;
+    if (currentPath === "/signin" || currentPath === "/signup") return;
+
+    if (!refreshToken) {
+        window.location.replace('/signin');
+        return;
+    }
 
     const res = await fetch('https://swimply.pl/refresh-token', {
         method: 'POST',
@@ -13,7 +19,9 @@ export async function getAccessToken(){
         localStorage.removeItem('access_token');
         document.cookie = `refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
         toast.error("Sesja wygasła. Zaloguj się ponownie.");
-        window.location.href = '/signin';
+        if (currentPath !== "/signin" && currentPath !== "/signup") {
+            window.location.replace('/signin');
+        }
         return;
     }
 

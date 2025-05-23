@@ -21,6 +21,7 @@ import {EqualApproximately} from 'lucide-react'
 
 
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 export function NavProjects({
   projects
@@ -68,7 +69,7 @@ export function NavProjects({
           </SidebarMenuItem>
         ))}
         <SidebarMenuItem>
-          <SidebarMenuButton>
+          <SidebarMenuButton className="cursor-pointer" onClick={() => {toast.error('Zespół swimply wciąż pracuje nad innymi narzędziami...')}}>
             <MoreHorizontal />
             <span>Więcej</span>
           </SidebarMenuButton>

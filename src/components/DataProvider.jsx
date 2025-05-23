@@ -25,8 +25,9 @@ export const DataProvider = ({ children }) => {
     }
 
     const getWorkoutsList = async () => {
+        const currentPath = window.location.pathname;
+        if (currentPath === "/signin" || currentPath === "/signup") return;
         const accessToken = localStorage.getItem('access_token');
-        if (!accessToken) return; // 🔥 Don't fetch data if user is not logged in
 
         try {
             const response = await fetch('https://swimply.pl/api/v2/workout', {
@@ -37,7 +38,7 @@ export const DataProvider = ({ children }) => {
                 }
             });
 
-            if (response.status === 401 || response.status === 428) {
+            if (!response.ok) {
                 await getAccessToken();
                 return getWorkoutsList();
             }
@@ -70,6 +71,8 @@ export const DataProvider = ({ children }) => {
     };
 
     const getAccountData = async () => {
+        const currentPath = window.location.pathname;
+        if (currentPath === "/signin" || currentPath === "/signup") return;
         const accessToken = localStorage.getItem('access_token');
         if (!accessToken) return;
         try {

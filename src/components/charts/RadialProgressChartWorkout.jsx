@@ -107,7 +107,7 @@ export default function RadialProgressChartWorkout(props) {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none text-center">
-         Jak bedzie wiecej to wtedy bedzie to podzielone wedlug stylu a teraz sa wszystkie kalorie at once
+         Spalone kalorie bazując na Twojej wadze, wykorzystanym sprzęcie i intensywności treningu (staraj się używać proponowanych ćwiczeń gdyż one liczą kalorie jeszcze dokładniej).
         </div>
       </CardFooter>
     </Card>

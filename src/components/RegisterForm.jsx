@@ -30,6 +30,17 @@ export default function LoginForm(){
     function register(){
         let username = usernameRef.current.value
         let password = passwordRef.current.value
+
+        if (!password || password.length < 8) {
+            toast.error('Hasło musi mieć co najmniej 8 znaków.')
+            return
+        }
+        
+        if(!username || username.length < 3) {
+            toast.error('Nazwa użytkownika musi mieć co najmniej 3 znaki.')
+            return
+        }
+
         try{
             fetch('https://swimply.pl/signup',{
                 method: 'POST',
@@ -46,7 +57,7 @@ export default function LoginForm(){
             }).then((res)=>{
                 if(!res.ok){
                     toast.error('Błąd podczas rejestracji.')
-                    if(res.status === 403){
+                    if(res.status === 400){
                         errorRef.current.style.display = 'block'
                     }
                     throw new Error('Database error')
