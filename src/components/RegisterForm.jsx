@@ -16,7 +16,7 @@ export default function LoginForm(){
     const [caloriesGoal, setCaloriesGoal] = useState(1200);
 
     function handleWeightChange(e) {
-        setWeight(e.target.value)
+        setWeight(parseInt(e.target.value))
     }
 
     function handleChangeGender(is) {
@@ -24,7 +24,7 @@ export default function LoginForm(){
     }
 
     function handleCaloriesGoalChange(e) {
-        setCaloriesGoal(e.target.value)
+        setCaloriesGoal(parseInt(e.target.value))
     }
 
     function register(){

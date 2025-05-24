@@ -51,16 +51,16 @@ export function NavProjects({
                 className="w-48"
                 side={isMobile ? "bottom" : "right"}
                 align={isMobile ? "end" : "start"}>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => {window.location.replace(item.url)}}>
                   <EqualApproximately className="text-muted-foreground" />
                   <span>Oblicz</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => {toast.error('Zespół swimply wciąż pracuje nad tą funkcją...')}}>
                   <Share className="text-muted-foreground" />
                   <span>Udostępnij</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => {toast.error('Zespół swimply wciąż pracuje nad tą funkcją...')}}>
                   <Trash2 className="text-muted-foreground" />
                   <span>Nie pokazuj</span>
                 </DropdownMenuItem>

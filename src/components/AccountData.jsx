@@ -17,7 +17,7 @@ export default function AccountData() {
     const [caloriesGoal, setCaloriesGoal] = useState(accountData.caloriesGoal);
 
     function handleWeightChange(e) {
-        setWeight(e.target.value)
+        setWeight(parseInt(e.target.value))
     }
 
     function handleChangeGender(is) {
@@ -26,50 +26,47 @@ export default function AccountData() {
 
 
     function handleCaloriesGoalChange(e) {
-        setCaloriesGoal(e.target.value)
+        setCaloriesGoal(parseInt(e.target.value))
     }
 
     async function handleSave() {
-        // if((weight < 20 || weight > 200) || (weight === '')){
-        //     toast.error('Wprowadź poprawne dane')
-        // }else{
-        //     const data = {
-        //         weight: weight,
-        //         isMale: isMale,
-        //         caloriesGoal: caloriesGoal
-        //     }
+        if((weight < 20 || weight > 200) || (weight === '')){
+            toast.error('Wprowadź poprawne dane')
+        }else{
+            const data = {
+                weight: weight,
+                isMale: isMale,
+                caloriesGoal: caloriesGoal
+            }
 
-        //     const request = new Request('https://swimply.pl/api/v2/account/info',{
-        //         method: 'PUT',
-        //         headers: {
-        //             'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify(data)
-        //     })
+            const request = new Request('https://swimply.pl/api/v2/account/info',{
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
 
-        //     try {
-        //         const response = await fetch(request);
-        //         // const json = await response.json()
-        //         console.log(response)
-        //         if (response.status == 428) {
-        //             await getAccessToken();
-        //             return handleSave()
-        //         }
+            try {
+                const response = await fetch(request);
+                // const json = await response.json()
+                if (response.status == 428) {
+                    await getAccessToken();
+                    return handleSave()
+                }
                 
-        //         toast.promise(response, {
-        //             loading: 'Proszę czekać...',
-        //             success: 'Dane zostały zapisane',
-        //             error: 'Błąd po stronie bazy danych',
-        //         });
-        //         refreshData()
-        //     }catch (error) {
-        //         toast.error('Błąd: ' + error.message)
-        //         return
-        //     }
-        // }
-        toast.error('Funkcja w budowie( ͡° ͜ʖ ͡°) kiedys sie zrobi');
-        return;
+                toast.promise(response, {
+                    loading: 'Proszę czekać...',
+                    success: 'Dane zostały zapisane',
+                    error: 'Błąd po stronie bazy danych',
+                });
+                refreshData()
+            }catch (error) {
+                toast.error('Błąd: ' + error.message)
+                return
+            }
+        }
     }
 
     return (
