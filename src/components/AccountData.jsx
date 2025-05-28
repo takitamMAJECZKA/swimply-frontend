@@ -30,7 +30,7 @@ export default function AccountData() {
     }
 
     async function handleSave() {
-        if((weight < 20 || weight > 200) || (weight === '')){
+        if((weight < 20 || weight > 200) || (weight === '') || (caloriesGoal <= 0) || (caloriesGoal == '')) {
             toast.error('Wprowadź poprawne dane')
         }else{
             const data = {

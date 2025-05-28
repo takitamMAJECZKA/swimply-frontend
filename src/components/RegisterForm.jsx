@@ -40,6 +40,16 @@ export default function LoginForm(){
             toast.error('Nazwa użytkownika musi mieć co najmniej 3 znaki.')
             return
         }
+        
+        if(!weight || weight < 20 || weight > 200) {
+            toast.error('Albo jestes zbyt chudy albo zbyt ulany, nie bedziesz korzystał ze swimply unlucky.')
+            return
+        }
+
+        if(!caloriesGoal || caloriesGoal <= 0) {
+            toast.error('Cel kalorii musi być większy niż 0.')
+            return
+        }
 
         try{
             fetch('https://swimply.pl/signup',{
