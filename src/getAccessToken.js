@@ -15,13 +15,11 @@ export async function getAccessToken() {
         },
     });
 
-    if (res.status === 428 || res.status === 401) {
+    if (res.status === 428 || res.status === 401 || res.status === 400) {
         localStorage.removeItem('access_token');
         document.cookie = `refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
         toast.error("Sesja wygasła. Zaloguj się ponownie.");
-        if (currentPath !== "/signin" && currentPath !== "/signup") {
-            window.location.replace('/signin');
-        }
+        window.location.replace('/signin');
         return;
     }
 
@@ -30,5 +28,6 @@ export async function getAccessToken() {
         toast.error(data.error);
     } else {
         localStorage.setItem('access_token', data.access_token);
+        location.reload();
     }
 };
